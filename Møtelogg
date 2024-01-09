@@ -15,3 +15,35 @@ oppgaven. Vi gikk igjennom målsettningen, interessenter og roller. Vi snakket o
 funksjonelle, og ikke funksjonelle krav. Vi drøftet også litt om fremgangsmåten til Oblig 1.
 Dette møtet hadde en variget på 2 timer. Alle gruppemedelemmene deltok.
 
+----------Møte Mandag 08.01.24----------
+Vi har allerede en prototype som vi har levert i arb. krav 2. Men vi
+alle gruppemedlemmene lager egen prototype som vi viser frem til Visma.
+For å få litt innspill fra alle.
+Christopher har sendt mail til Richard for å planlegge et møte.
+
+Arbeidsfordeling i oppgaven:
+Halvor       -  Blir med på klinetsiden først, men jobber også backend. (Admin dasbord)
+Kjetil       -  Backend (database)
+Ådne         -  Klient (Innlogging)
+Sindre       -  Backend (database)
+Christopher  -  Blir med på klinetsiden først, men jobber også backend. (dashbord)
+
+Hva skal vi gjøre fremover?
+
+Møte med Visma.
+Sette opp database, koble den opp på klienten.
+Få opp klientsiden på en webtjener.
+Få laget utseende i HTML, CSS og react.
+HTTP spørringer.
+
+
+Arb.krav 3
+Sindre og Kjetil skriver om backend.
+Resten skriver om frontend.
+UML for backend og frontend.
+
+
+Fra forelesning:
+Innen slutten av januar vil Bjørn ha en link til applikasjonen
+hvor han kan gjøre CURD operasjoner.
+GUI ting er viktig!
