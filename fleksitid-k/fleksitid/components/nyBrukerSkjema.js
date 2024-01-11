@@ -19,18 +19,18 @@ const Item = styled(Paper)(({ theme }) => ({
 export default function CSSGrid() {
   return (
     <Box sx={{ width: 0.5 }} alignItems={'center'} style={{ margin: 'auto' }}>
-      <Box display="grid" gridTemplateColumns="repeat(1fr, 1fr)" gap={2}>
+      <Box display="grid" gridTemplateColumns="repeat(1fr, 1fr)" gap={2} alignItems={'center'} style={{ margin: 'auto' }}>
         <Box gridColumn="span 1">
           <Item>
             <FormPropsTextFields />
           </Item>
         </Box>
         <Box gridColumn="span 1">
-          <Item>
-            <IconLabelButtons />
-          </Item>
+  <Item>
+    <IconLabelButtons />
+  </Item>
+</Box>  
         </Box>
       </Box>
-    </Box>
   );
 }
