@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google'
 
-import ResponsiveAppBar from '../../components/adminResponsivNavBar';
+import ResponsiveAppBar from '@/components/adminResponsivNavBar';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
