@@ -1,95 +1,60 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
+import React, { useState } from "react";
+
+import Innlogging from "../components/innlogging-components";
+
+// Dummy brukere 
+const testBrukere = [
+    {id: 1, navn: 'Roy Roger', pin: '1234'},
+    {id: 2, navn: 'Bob', pin: '5555'},
+    {id: 3, navn: 'Hans', pin: '9876'}
+];
+
+const InnloggingSide = () => {
+    // Start verdi 
+    const [valgtBrukerId, setValgtBrukerId] = useState(testBrukere[0].id);
+    const [pin, setPin] = useState('');
+    const [loginStatus, setLoginStatus] = useState('');
+
+    const håndterBrukerEndring = (event) => {
+        setValgtBrukerId(event.target.value);
+    }
+
+    const håndterPinKodeEndring = (event) => {
+        setPin(event.target.value);
+    };
+
+    const validerLogin = () => {
+        const bruker = testBrukere.find(bruker => bruker.id === parseInt(valgtBrukerId));
+        if (bruker && bruker.pin === pin) {
+            setLoginStatus('Logget inn. Velkommen ' + bruker.navn + " !");
+            // TODO: Viderefør brukeren til en autentisert sesjon
+        } else {
+            setLoginStatus('Innlogin feilet. Feil navn eller pin kode!');
+        }
+    };
+
+    const håndterInnlogin = (event) => {
+        event.preventDefault();
+        validerLogin();
+    };
+
+    return (
         <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
+            <h2>Logg inn</h2>
+            console.log(testBrukere);
+            <Innlogging
+            brukere={testBrukere}
+            valgtBrukerId={valgtBrukerId}
+            håndterBrukerEndring={håndterBrukerEndring} 
+            pin={pin}
+            håndterPinnEndring={håndterPinKodeEndring}
+            håndterInnlogin={håndterInnlogin}
             />
-          </a>
+            {loginStatus && <p>{loginStatus}</p>}
         </div>
-      </div>
+    );
+};
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default InnloggingSide;
