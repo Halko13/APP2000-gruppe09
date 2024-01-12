@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-import Innlogging from "../components/innlogging-components";
+import Innlogging from "@/components/loginng";
 
 // Dummy brukere 
 const testBrukere = [
