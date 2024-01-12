@@ -149,11 +149,12 @@ function ResponsiveAppBar() {
                 onClick={() => handleButtonClick(index)}
                 sx={{
                   my: 2,
-                  color: 'white',
+                  color: selectedButton === index ? '#000000' : 'white', // Black text when selected
                   display: 'block',
                   backgroundColor: selectedButton === index ? '#CCCCCC' : '#800080', // Light grey when selected
                   '&:hover': {
-                    backgroundColor: '#0000FF', // Blue hover color
+                    backgroundColor: '#CCCCCC', // Blue hover color
+                    color: '#000000', // Black text on hover
                   },
                 }}
               >
