@@ -2,6 +2,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+// Define the constant variable for password length
+const PASSWORD_LENGTH = 4; // You can adjust this value
 
 export default function FormTextFields({ formData, onChange }) {
   const [passwordError, setPasswordError] = React.useState(false);
@@ -97,14 +99,16 @@ export default function FormTextFields({ formData, onChange }) {
           onChange={handleChange}
         />
         <TextField
-          required
-          id="password"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-          onChange={handlePasswordChange}
-        />
+        required
+        id="password"
+        label="Password"
+        type="password"
+        autoComplete="current-password"
+        variant="filled"
+        error={passwordError}
+        helperText={passwordError ? `Password must be ${PASSWORD_LENGTH} digits` : ''}
+        onChange={handlePasswordChange}
+      />
         <TextField
           required
           id="gjentaPassword"
