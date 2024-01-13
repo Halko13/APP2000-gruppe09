@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Typography } from '@mui/material';
 import Innlogging from "@/components/loginng";
+import NummerPad from "@/components/NummerPad";
 
 // Dummy brukere 
 const testBrukere = [
@@ -40,6 +41,19 @@ const InnloggingSide = () => {
         validerLogin();
     };
 
+    // Nummer pad innloggin
+    const håndterNummerKlikk = (nummer) => {
+        setPin(pin + nummer); // Legger til sifferet til PIN-koden
+    };
+
+    const håndterSlett = () => {
+        setPin(pin.slice(0, -1)); // Sletter siste siffer
+    };
+
+    const håndterEnter = () => {
+        validerLogin(); // Utfører innlogging
+    };
+
     return (
         <div>
             <Typography variant="h2" gutterBottom>Logg inn</Typography>
@@ -51,9 +65,20 @@ const InnloggingSide = () => {
             håndterPinnEndring={håndterPinKodeEndring}
             håndterInnlogin={håndterInnlogin}
             />
-            {loginStatus && <Typography>{loginStatus}</Typography>}
+            {loginStatus && <Typography style={{ marginTop: '15px' }}>{loginStatus}</Typography>}
+            
+            <Typography variant="h4" gutterBottom style={{ marginTop: '70px' }}>
+            For skjerminnlogging
+            </Typography>
+            <NumPad onNumClick={håndterNummerKlikk} onDelete={håndterSlett} onEnter={håndterEnter}/>
         </div>
     );
 };
 
 export default InnloggingSide;
+
+            /*
+            <Button variant="contained" onClick={håndterInnlogin} fullWidth style={{ marginTop: '20px' }}>
+            Logg inn
+            </Button>
+            */
