@@ -16,9 +16,6 @@ export default function FormTextFields({ formData, onChange }) {
       formData.gjentaPassword &&
       formData.password === formData.gjentaPassword;
 
-    console.log('formData:', formData);
-    console.log('isFormValid:', isValid);
-
     return isValid;
   }, [formData]);
 
@@ -42,6 +39,17 @@ export default function FormTextFields({ formData, onChange }) {
     // Set or remove the password error based on whether the passwords match
     setPasswordError(value !== formData.password);
   };
+
+  React.useEffect(() => {
+    // Reset the form fields when the formData changes
+    document.getElementById('AnsattNr').value = formData.AnsattNr;
+    document.getElementById('Fornavn').value = formData.Fornavn;
+    document.getElementById('Etternavn').value = formData.Etternavn;
+    document.getElementById('Stilling').value = formData.Stilling;
+    document.getElementById('antallJobbtimer').value = formData.antallJobbtimer;
+    document.getElementById('password').value = formData.password;
+    document.getElementById('gjentaPassword').value = formData.gjentaPassword;
+  }, [formData]);
 
   return (
     <Box
