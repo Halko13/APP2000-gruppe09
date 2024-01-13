@@ -1,31 +1,47 @@
 "use client";
 
 import React from "react";
+import { FormControl, InputLabel, Select, MenuItem, TextField, Button } from '@mui/material';
+
 
 const Innlogging = ({brukere, valgtBrukerId, håndterBrukerEndring, 
   pin, håndterPinnEndring, håndterInnlogin }) => {
 
     return (
     <form onSubmit={håndterInnlogin}>
-      <label htmlFor="velge-bruker">Velg bruker:</label>
-      <select id="velge-bruker" onChange={håndterBrukerEndring} value={valgtBrukerId}>
-      {brukere.map((bruker) => (
-  <option key={bruker.id} value={bruker.id}>{bruker.navn}</option>
+    <FormControl>
+      <InputLabel id="velge-bruker-label">Velg bruker</InputLabel>
+      <Select
+      labelId="velge-bruker-label"
+      id="velge bruker"
+      value={valgtBrukerId}
+      label="Velg bruker"
+      onChange={håndterBrukerEndring}
+      >
+        {brukere.map((bruker) => (
+          <MenuItem key={bruker.id} value={bruker.id} >{bruker.navn}</MenuItem>
+        ))}
+      </Select>
+    </FormControl>
 
-))}
-      </select>
-      <label htmlFor="pin">PIN:</label>
-      <input
-      type="password"
-      id="pin"
-      name="pin"
-      placeholder="PIN-kode"
-      onChange={håndterPinnEndring}
-      value={pin}
+
+      <TextField
+        fullWidth
+        id="pin"
+        type="password"
+        label="PIN-kode"
+        placeholder="PIN-kode"
+        margin="normal"
+        value={pin}
+        onChange={håndterPinEndring}
       />
-      <button type="submit">Log inn</button>
-    </form>
-    );
+
+
+<Button variant="contained" type="sumbit" fullWidth>
+  Logg inn 
+</Button>
+ </form>
+  );
 };
 
 export default Innlogging;

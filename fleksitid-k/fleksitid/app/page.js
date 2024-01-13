@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import { Typography } from '@mui/material';
 import Innlogging from "@/components/loginng";
 
 // Dummy brukere 
@@ -42,8 +42,7 @@ const InnloggingSide = () => {
 
     return (
         <div>
-            <h2>Logg inn</h2>
-            console.log(testBrukere);
+            <Typography variant="h2" gutterBottom>Logg inn</Typography>
             <Innlogging
             brukere={testBrukere}
             valgtBrukerId={valgtBrukerId}
@@ -52,7 +51,7 @@ const InnloggingSide = () => {
             håndterPinnEndring={håndterPinKodeEndring}
             håndterInnlogin={håndterInnlogin}
             />
-            {loginStatus && <p>{loginStatus}</p>}
+            {loginStatus && <Typography>{loginStatus}</Typography>}
         </div>
     );
 };
