@@ -3,8 +3,13 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
+// Define the constant variable for password length
+const PASSWORD_LENGTH = 6; // You can adjust this value
+
 export default function FormTextFields({ formData, onChange }) {
   const [passwordError, setPasswordError] = React.useState(false);
+
+  const isNumeric = (value) => /^[0-9]+$/.test(value);
 
   const isFormValid = React.useMemo(() => {
     const isValid =
@@ -12,9 +17,10 @@ export default function FormTextFields({ formData, onChange }) {
       formData.Fornavn &&
       formData.Etternavn &&
       formData.Stilling &&
-      formData.password &&
-      formData.gjentaPassword &&
-      formData.password === formData.gjentaPassword;
+      isNumeric(formData.password) &&
+      isNumeric(formData.gjentaPassword) &&
+      formData.password === formData.gjentaPassword &&
+      formData.password.length === PASSWORD_LENGTH;
 
     return isValid;
   }, [formData]);
@@ -28,18 +34,35 @@ export default function FormTextFields({ formData, onChange }) {
 
   const handlePasswordChange = (event) => {
     const { id, value } = event.target;
-    onChange((prevData) => ({ ...prevData, [id]: value }));
-    // Set or remove the password error based on whether the passwords match
-    setPasswordError(value !== formData.gjentaPassword);
+  
+    // Use regex to check if the password only contains numbers
+    const isPasswordValid = /^[0-9]*$/.test(value);
+  
+    // Log the validation result for debugging
+    console.log('isPasswordValid:', isPasswordValid);
+  
+    // Set or remove the password error based on the validation condition
+    setPasswordError(!isPasswordValid || value.length !== PASSWORD_LENGTH);
+  
+    // Update the state regardless of password validation status
+    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
   };
-
+  
   const handleGjentaPasswordChange = (event) => {
     const { id, value } = event.target;
-    onChange((prevData) => ({ ...prevData, [id]: value }));
-    // Set or remove the password error based on whether the passwords match
-    setPasswordError(value !== formData.password);
+  
+    // Use regex to check if the password only contains numbers
+    const isPasswordValid = /^[0-9]*$/.test(value);
+  
+    // Log the validation result for debugging
+    console.log('isPasswordValid:', isPasswordValid);
+  
+    // Set or remove the password error based on the validation condition
+    setPasswordError(!isPasswordValid || value !== formData.password);
+  
+    // Update the state regardless of password validation status
+    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
   };
-
   React.useEffect(() => {
     // Reset the form fields when the formData changes
     document.getElementById('AnsattNr').value = formData.AnsattNr;
@@ -67,6 +90,7 @@ export default function FormTextFields({ formData, onChange }) {
           label="AnsattNr"
           variant="filled"
           onChange={handleChange}
+          value={formData.AnsattNr}
         />
         <TextField
           required
@@ -74,6 +98,7 @@ export default function FormTextFields({ formData, onChange }) {
           label="Fornavn"
           variant="filled"
           onChange={handleChange}
+          value={formData.Fornavn}
         />
         <TextField
           required
@@ -81,6 +106,7 @@ export default function FormTextFields({ formData, onChange }) {
           label="Etternavn"
           variant="filled"
           onChange={handleChange}
+          value={formData.Etternavn}
         />
         <TextField
           required
@@ -88,6 +114,7 @@ export default function FormTextFields({ formData, onChange }) {
           label="Stilling"
           variant="filled"
           onChange={handleChange}
+          value={formData.Stilling}
         />
         <TextField
           id="antallJobbtimer"
@@ -95,6 +122,7 @@ export default function FormTextFields({ formData, onChange }) {
           type="number"
           variant="filled"
           onChange={handleChange}
+          value={formData.antallJobbtimer}
         />
         <TextField
           required
@@ -104,6 +132,7 @@ export default function FormTextFields({ formData, onChange }) {
           autoComplete="current-password"
           variant="filled"
           onChange={handlePasswordChange}
+          value={formData.password}
         />
         <TextField
           required
@@ -113,8 +142,9 @@ export default function FormTextFields({ formData, onChange }) {
           autoComplete="current-password"
           variant="filled"
           error={passwordError}
-          helperText={passwordError ? 'Passwords do not match' : ''}
+          helperText={passwordError ? `Password must be ${PASSWORD_LENGTH} digits` : ''}
           onChange={handleGjentaPasswordChange}
+          value={formData.gjentaPassword}
         />
       </div>
     </Box>
