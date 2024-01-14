@@ -13,6 +13,8 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+const hoverColor = '#CCCCCC';
+const selectedColor = '#CCCCCC';
 
 const titler = ['Dashboard', 'Ny bruker', 'Slett bruker'];
 const pages = ['/admin', '/admin/nyBruker', '/admin/slettBruker'];
@@ -151,9 +153,9 @@ function ResponsiveAppBar() {
                   my: 2,
                   color: selectedButton === index ? '#000000' : 'white', // Black text when selected
                   display: 'block',
-                  backgroundColor: selectedButton === index ? '#CCCCCC' : '#800080', // Light grey when selected
+                  backgroundColor: selectedButton === index ? selectedColor : '#800080', // Light grey when selected
                   '&:hover': {
-                    backgroundColor: '#CCCCCC', // Blue hover color
+                    backgroundColor: hoverColor, // Hover color
                     color: '#000000', // Black text on hover
                   },
                 }}
@@ -187,7 +189,7 @@ function ResponsiveAppBar() {
             >
               {settings.map((setting) => (
                 <MenuItem key={setting} onClick={() => handleSettingClick(setting)}>
-                  <Typography textAlign="center" sx={{ color: '#CCCCCC' }}>
+                  <Typography textAlign="center" sx={{ color: selectedColor }}>
                     {setting}
                   </Typography>
                 </MenuItem>
