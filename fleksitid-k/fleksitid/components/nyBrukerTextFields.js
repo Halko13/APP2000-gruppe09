@@ -3,15 +3,13 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-// Define the constant variable for password length
-const PASSWORD_LENGTH = 6; // You can adjust this value
-
+export const PASSWORD_LENGTH = 6;
 export default function FormTextFields({ formData, onChange }) {
   const [passwordError, setPasswordError] = React.useState(false);
 
   const isNumeric = (value) => /^[0-9]+$/.test(value);
 
-  const isFormValid = React.useMemo(() => {
+  React.useEffect(() => {
     const isValid =
       formData.AnsattNr &&
       formData.Fornavn &&
@@ -22,49 +20,32 @@ export default function FormTextFields({ formData, onChange }) {
       formData.password === formData.gjentaPassword &&
       formData.password.length === PASSWORD_LENGTH;
 
-    return isValid;
+    setPasswordError(!isValid);
   }, [formData]);
 
   const handleChange = (event) => {
     const { id, value } = event.target;
     onChange((prevData) => ({ ...prevData, [id]: value }));
-    // Remove the password error when any other field changes
     setPasswordError(false);
   };
 
- const handlePasswordChange = (event) => {
-  const { id, value } = event.target;
+  const handlePasswordChange = (event) => {
+    const { id, value } = event.target;
+    //Sjekkker om det er tall mellom 0 og 9
+    const isPasswordValid = /^[0-9]*$/.test(value);
+    //Setter password er ugyldig hvis det ikke er tall og ikke riktig lengde
+    setPasswordError(!isPasswordValid || value.length !== PASSWORD_LENGTH);
+    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
+  };
 
-  // Use regex to check if the password only contains numbers
-  const isPasswordValid = /^[0-9]*$/.test(value);
+  const handleGjentaPasswordChange = (event) => {
+    const { id, value } = event.target;
+    const isPasswordValid = /^[0-9]*$/.test(value);
+    setPasswordError(!isPasswordValid || value !== formData.password);
+    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
+  };
 
-  // Log the validation result for debugging
-  console.log('isPasswordValid:', isPasswordValid);
-
-  // Set or remove the password error based on the validation condition
-  setPasswordError(!isPasswordValid || value.length !== PASSWORD_LENGTH);
-
-  // Update the state regardless of password validation status
-  onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
-};
-
-const handleGjentaPasswordChange = (event) => {
-  const { id, value } = event.target;
-
-  // Use regex to check if the password only contains numbers
-  const isPasswordValid = /^[0-9]*$/.test(value);
-
-  // Log the validation result for debugging
-  console.log('isPasswordValid:', isPasswordValid);
-
-  // Set or remove the password error based on the validation condition
-  setPasswordError(!isPasswordValid || value !== formData.password);
-
-  // Update the state regardless of password validation status
-  onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
-};
   React.useEffect(() => {
-    // Reset the form fields when the formData changes
     document.getElementById('AnsattNr').value = formData.AnsattNr;
     document.getElementById('Fornavn').value = formData.Fornavn;
     document.getElementById('Etternavn').value = formData.Etternavn;
@@ -133,6 +114,8 @@ const handleGjentaPasswordChange = (event) => {
           variant="filled"
           onChange={handlePasswordChange}
           value={formData.password}
+          error={passwordError}
+          helperText={passwordError ? `Password must be ${PASSWORD_LENGTH} digits` : ''}
         />
         <TextField
           required
@@ -141,10 +124,10 @@ const handleGjentaPasswordChange = (event) => {
           type="password"
           autoComplete="current-password"
           variant="filled"
-          error={passwordError}
-          helperText={passwordError ? `Password must be ${PASSWORD_LENGTH} digits` : ''}
           onChange={handleGjentaPasswordChange}
           value={formData.gjentaPassword}
+          error={passwordError}
+          helperText={passwordError ? 'Passwords must match' : ''}
         />
       </div>
     </Box>

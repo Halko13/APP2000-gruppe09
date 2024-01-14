@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 export default function IconLabelButtons({ onSave, isFormValid, onFormReset }) {
-  const handleClick = () => {
+  const handleSaveClick = () => {
     if (isFormValid) {
       onSave();
       onFormReset(); // Reset the form after successful save
@@ -14,10 +14,17 @@ export default function IconLabelButtons({ onSave, isFormValid, onFormReset }) {
     }
   };
 
+  const handleResetClick = () => {
+    onFormReset(); // Reset the form
+  };
+
   return (
     <Stack direction="row" spacing={2} alignItems="flex-end">
-      <Button variant="contained" onClick={handleClick}>
+      <Button variant="contained" onClick={handleSaveClick}>
         Send
+      </Button>
+      <Button variant="outlined" onClick={handleResetClick}>
+        Reset
       </Button>
     </Stack>
   );
