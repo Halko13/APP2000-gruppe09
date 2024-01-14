@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import FormPropsTextFields from "@/components/nyBrukerTextFields";
 import IconLabelButtons from "@/components/nyBrukerButton";
+import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -62,7 +63,8 @@ export default function NyBrukerSkjema() {
     formData.Stilling !== '' &&
     formData.password !== '' &&
     formData.gjentaPassword !== '' &&
-    formData.password === formData.gjentaPassword;
+    formData.password === formData.gjentaPassword &&
+    formData.password.length === PASSWORD_LENGTH;
 
   return (
     <Box sx={{ width: 0.5 }} alignItems={'center'} style={{ margin: 'auto' }}>
