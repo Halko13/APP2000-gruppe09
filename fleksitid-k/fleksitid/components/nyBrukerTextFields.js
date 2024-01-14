@@ -60,6 +60,7 @@ export default function FormTextFields({ formData, onChange }) {
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: 1 },
+        mx: 2, // Set equal margin on both sides
       }}
       noValidate
       autoComplete="off"
