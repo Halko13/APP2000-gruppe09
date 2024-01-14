@@ -2,64 +2,27 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { useFormUpdate } from "@/hooks/useFormUpdate";
+import { useFormDataEffect } from "@/hooks/useFormDataEffect";
+import { usePasswordChange } from "@/hooks/usePasswordChange";
+import { useGjentaPasswordChange } from "@/hooks/useGjentaPasswordChange";
 
 export const PASSWORD_LENGTH = 6;
+
 export default function FormTextFields({ formData, onChange }) {
-  const [passwordError, setPasswordError] = React.useState(false);
-
-  const isNumeric = (value) => /^[0-9]+$/.test(value);
-
-  React.useEffect(() => {
-    const isValid =
-      formData.AnsattNr &&
-      formData.Fornavn &&
-      formData.Etternavn &&
-      formData.Stilling &&
-      isNumeric(formData.password) &&
-      isNumeric(formData.gjentaPassword) &&
-      formData.password === formData.gjentaPassword &&
-      formData.password.length === PASSWORD_LENGTH;
-
-    setPasswordError(!isValid);
-  }, [formData]);
-
-  const handleChange = (event) => {
-    const { id, value } = event.target;
-    onChange((prevData) => ({ ...prevData, [id]: value }));
-    setPasswordError(false);
-  };
-
-  const handlePasswordChange = (event) => {
-    const { id, value } = event.target;
-    //Sjekkker om det er tall mellom 0 og 9
-    const isPasswordValid = /^[0-9]*$/.test(value);
-    //Setter password er ugyldig hvis det ikke er tall og ikke riktig lengde
-    setPasswordError(!isPasswordValid || value.length !== PASSWORD_LENGTH);
-    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
-  };
-
-  const handleGjentaPasswordChange = (event) => {
-    const { id, value } = event.target;
-    const isPasswordValid = /^[0-9]*$/.test(value);
-    setPasswordError(!isPasswordValid || value !== formData.password);
-    onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
-  };
-
-  React.useEffect(() => {
-    document.getElementById('AnsattNr').value = formData.AnsattNr;
-    document.getElementById('Fornavn').value = formData.Fornavn;
-    document.getElementById('Etternavn').value = formData.Etternavn;
-    document.getElementById('Stilling').value = formData.Stilling;
-    document.getElementById('antallJobbtimer').value = formData.antallJobbtimer;
-    document.getElementById('password').value = formData.password;
-    document.getElementById('gjentaPassword').value = formData.gjentaPassword;
-  }, [formData]);
+  const handleChange = useFormUpdate(onChange);
+  const passwordError = useFormValidation(formData);
+  useFormDataEffect(formData);
+  const handlePasswordChange = usePasswordChange(onChange);
+  const handleGjentaPasswordChange = useGjentaPasswordChange(onChange);
 
   return (
     <Box
       component="form"
       sx={{
         '& .MuiTextField-root': { m: 1, width: 1 },
+        mx: 2,
       }}
       noValidate
       autoComplete="off"
@@ -105,7 +68,7 @@ export default function FormTextFields({ formData, onChange }) {
           onChange={handleChange}
           value={formData.antallJobbtimer}
         />
-        <TextField
+         <TextField
           required
           id="password"
           label="Password"
