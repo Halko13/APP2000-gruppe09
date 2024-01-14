@@ -3,8 +3,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 
-const PASSWORD_LENGTH = 6; // You can adjust this value
-
+export const PASSWORD_LENGTH = 6;
 export default function FormTextFields({ formData, onChange }) {
   const [passwordError, setPasswordError] = React.useState(false);
 
@@ -32,7 +31,9 @@ export default function FormTextFields({ formData, onChange }) {
 
   const handlePasswordChange = (event) => {
     const { id, value } = event.target;
+    //Sjekkker om det er tall mellom 0 og 9
     const isPasswordValid = /^[0-9]*$/.test(value);
+    //Setter password er ugyldig hvis det ikke er tall og ikke riktig lengde
     setPasswordError(!isPasswordValid || value.length !== PASSWORD_LENGTH);
     onChange((prevData) => ({ ...prevData, [id]: isPasswordValid ? value : '' }));
   };
