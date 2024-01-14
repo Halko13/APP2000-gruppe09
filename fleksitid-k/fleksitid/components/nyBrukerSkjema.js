@@ -9,7 +9,7 @@ import IconLabelButtons from "@/components/nyBrukerButton";
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: 'white', // Set background color to white
+  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
   ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
