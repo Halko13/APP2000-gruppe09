@@ -8,7 +8,6 @@ import Paper from '@mui/material/Paper';
 import SlettBrukerTextField from "@/components/SlettBrukerTextField";
 import SlettBrukerButton from "@/components/SlettBrukerButton";
 
-import  { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 const Item = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(1),
@@ -21,7 +20,7 @@ export default function SlettBrukerSkjema() {
   });
 
   const handleSlettBruker = async () => {
-    // Her for å slette fra databasen
+    // Her for å slette fra sdatabasen
     // const res = await db.collection('brukere').doc(formData.AnsattNr).delete();
     console.log('Deleting data from the database:', formData.AnsattNr);
   
