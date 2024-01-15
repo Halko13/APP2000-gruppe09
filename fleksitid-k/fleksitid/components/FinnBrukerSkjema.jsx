@@ -5,8 +5,8 @@ import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 
-import SlettBrukerTextField from "@/components/SlettBrukerTextField";
-import SlettBrukerButton from "@/components/SlettBrukerButton";
+import FinnTextField from "@/components/FinnBrukerTextField";
+import FinnBrukerButton from "@/components/FinnBrukerButton";
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -45,12 +45,12 @@ export default function FinnBrukerSkjema() {
       <Box display="grid" gridTemplateColumns="repeat(1fr, 1fr)" gap={2} alignItems={'center'} style={{ margin: 'auto' }}>
         <Box gridColumn="span 1">
           <Item>
-            <SlettBrukerTextField formData={formData} onChange={setFormData} />
+            <FinnTextField formData={formData} onChange={setFormData} />
           </Item>
         {/* </Box>
         <Box gridColumn="span 1"> */}
           <Item>
-            <SlettBrukerButton onFind={handleFinnBruker} isFormValid={isFormValid} onFormReset={handleFormReset} />
+            <FinnBrukerButton onFind={handleFinnBruker} isFormValid={isFormValid} onFormReset={handleFormReset} />
           </Item>
         </Box>
       </Box>
