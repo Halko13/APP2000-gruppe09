@@ -2,15 +2,11 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetSlettBrukerForm } from '@/hooks/useResetSlettBrukerForm';
 
 export const PASSWORD_LENGTH = 6;
 
 export default function SlettBrukerTextField({ formData, onChange }) {
-  const handleChange = useFormUpdate(onChange);
-  useResetSlettBrukerForm(formData);
 
   return (
     <Box
@@ -24,12 +20,40 @@ export default function SlettBrukerTextField({ formData, onChange }) {
     >
       <div>
         <TextField
-          required
+          disabled
           id="AnsattNr"
           label="AnsattNr"
           variant="filled"
-          onChange={handleChange}
           value={formData.AnsattNr}
+        />
+        <TextField
+          disabled
+          id="Fornavn"
+          label="Fornavn"
+          variant="filled"
+          value={formData.Fornavn}
+        />
+        <TextField
+          disabled
+          id="Etternavn"
+          label="Etternavn"
+          variant="filled"
+          value={formData.Etternavn}
+        />
+        <TextField
+          disabled
+          id="Stilling"
+          label="Stilling"
+          variant="filled"
+          value={formData.Stilling}
+        />
+        <TextField
+          disabled
+          id="antallJobbtimer"
+          label="Antall jobbtimer"
+          type="number"
+          variant="filled"
+          value={formData.antallJobbtimer}
         />
       </div>
     </Box>
