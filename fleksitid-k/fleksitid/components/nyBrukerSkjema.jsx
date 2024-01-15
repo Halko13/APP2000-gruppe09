@@ -29,10 +29,12 @@ export default function NyBrukerSkjema() {
     gjentaPassword: '',
   });
 
-  const handleSave = () => {
+  const handleSave = async () => {
     // Here you can perform the logic to save the data to a database
+    
+    // const res = await db.collection('brukere').doc(formData.AnsattNr).set(formData);
     console.log('Saving data to the database:', formData);
-
+  
     // Reset the form data after saving
     setFormData({
       AnsattNr: '',
