@@ -70,7 +70,7 @@ const InnloggingSide = () => {
             <Typography variant="h4" gutterBottom style={{ marginTop: '70px' }}>
             For skjerminnlogging
             </Typography>
-            <NummerPad onNumClick={håndterNummerKlikk} onDelete={håndterSlett} onEnter={håndterEnter}/>
+            <NummerPad vedNumKlikk={håndterNummerKlikk} vedSlett={håndterSlett} vedEnter={håndterEnter}/>
         </div>
     );
 };
