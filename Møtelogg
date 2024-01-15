@@ -42,8 +42,28 @@ Sindre og Kjetil skriver om backend.
 Resten skriver om frontend.
 UML for backend og frontend.
 
-
 Fra forelesning:
 Innen slutten av januar vil Bjørn ha en link til applikasjonen
 hvor han kan gjøre CURD operasjoner.
 GUI ting er viktig!
+
+
+----------Møte Mandag 15.01.24----------
+Lokasjon: Kroa i Bø
+Tilstede: Richard, Christopher, Halvor, Ådne, Kjetil.
+
+Vi viser frem prototyper. Og får tilbakemelding på disse.
+
+Interessant å vise hvor mange timer man er i pluss eller minus hver måned.
+
+Må velge person med søk, og pinkode. Kan bli litt "kryptisk" om det kun er en pinkode.
+Hva om noen har samme pin? Hva om man skriver feil pin, osv.
+Kan også være andre muligheter på akkurat dette. 
+
+Prøver å minimalisere hvilke data som skal lagres om en ansatt i den grad det er mulig.
+
+Alt avhenger av hva som er definert som arbeidstid. Over midnatt vil som sagt bil en tvist.
+
+Designspråk som er enkelt.
+
+Brukergrensesnittet skal være intuitivt, og bruker skal vite hva den skal gjøre.
