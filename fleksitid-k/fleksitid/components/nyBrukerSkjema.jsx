@@ -75,8 +75,8 @@ export default function NyBrukerSkjema() {
           <Item>
             <FormPropsTextFields formData={formData} onChange={setFormData} />
           </Item>
-        </Box>
-        <Box gridColumn="span 1">
+        {/* </Box>
+        <Box gridColumn="span 1"> */}
           <Item>
             <IconLabelButtons onSave={handleSave} isFormValid={isFormValid} onFormReset={handleFormReset} />
           </Item>
