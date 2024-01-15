@@ -22,7 +22,7 @@ export default function SlettBrukerButton({ onSave, isFormValid, onFormReset }) 
   return (
     <Stack direction="row" spacing={2} justifyContent="flex-end">
       <Button variant="contained" onClick={handleSaveClick}>
-        Send
+        Slett bruker
       </Button>
       <Button variant="outlined" onClick={handleResetClick}>
         Reset
