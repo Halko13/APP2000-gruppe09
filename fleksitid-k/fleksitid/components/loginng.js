@@ -1,29 +1,15 @@
-"use client";
-
+// Innlogging.js
 import React from "react";
-import { FormControl, InputLabel, Select, MenuItem, TextField, Button } from '@mui/material';
+import { Typography, TextField, Button} from '@mui/material';
 
-
-const Innlogging = ({brukere, valgtBrukerId, håndterBrukerEndring, 
-  pin, håndterPinnEndring, håndterInnlogin }) => {
-
-    return (
+const Innlogging = ({valgtBrukerNavn, pin, håndterPinEndring, håndterInnlogin }) => {
+  return (
     <form onSubmit={håndterInnlogin}>
-    <FormControl>
-      <InputLabel id="velge-bruker-label">Velg bruker</InputLabel>
-      <Select
-      labelId="velge-bruker-label"
-      id="velge bruker"
-      value={valgtBrukerId}
-      label="Velg bruker"
-      onChange={håndterBrukerEndring}
-      >
-        {brukere.map((bruker) => (
-          <MenuItem key={bruker.id} value={bruker.id} >{bruker.navn}</MenuItem>
-        ))}
-      </Select>
-    </FormControl>
-
+      <form onSubmit={håndterInnlogin}>
+        <Typography variant="h5" gutterBottom>
+          {valgtBrukerNavn}
+        </Typography>
+      </form>
 
       <TextField
         fullWidth
@@ -36,11 +22,10 @@ const Innlogging = ({brukere, valgtBrukerId, håndterBrukerEndring,
         onChange={håndterPinEndring}
       />
 
-
-<Button variant="contained" type="sumbit" fullWidth>
-  Logg inn 
-</Button>
- </form>
+      <Button variant="contained" type="submit" fullWidth>
+        Logg inn
+      </Button>
+    </form>
   );
 };
 
