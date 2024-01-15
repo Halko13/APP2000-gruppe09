@@ -3,7 +3,7 @@ import SlettBrukerSkjema from '@/components/SlettBrukerSkjema';
 import SlettBrukerTittel from '@/components/SlettBrukerTittel'; // Corrected import
 import { Box } from '@mui/material';
 
-export default function admin() {
+export default function SlettBruker() {
   return (
     <main>
       <div>
