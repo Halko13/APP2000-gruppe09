@@ -18,16 +18,17 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function NyBrukerSkjema() {
+export default function SlettBrukerSkjema() {
   const [formData, setFormData] = React.useState({
     AnsattNr: ''
   });
 
-  const handleSave = () => {
+  const handleSlettBruker = async () => {
     // Her for å slette fra databasen
-    console.log('Saving data to the database:', formData);
-
-    // Reset the form data after saving
+    // const res = await db.collection('brukere').doc(formData.AnsattNr).delete();
+    console.log('Deleting data from the database:', formData.AnsattNr);
+  
+    // Reset the form data after deleting
     handleFormReset();
   };
 
@@ -51,7 +52,7 @@ export default function NyBrukerSkjema() {
         {/* </Box>
         <Box gridColumn="span 1"> */}
           <Item>
-            <SlettBrukerButton onSave={handleSave} isFormValid={isFormValid} onFormReset={handleFormReset} />
+            <SlettBrukerButton onDelete={handleSlettBruker} isFormValid={isFormValid} onFormReset={handleFormReset} />
           </Item>
         </Box>
       </Box>
