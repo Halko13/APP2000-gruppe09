@@ -1,5 +1,5 @@
 import React from 'react';
-import FinnBrukerSkjema from '@/components/FinnBrukerSkjema';
+import SlettBrukerSkjema from '@/components/SlettBrukerSkjema';
 import SlettBrukerTittel from '@/components/SlettBrukerTittel'; // Corrected import
 import { Box } from '@mui/material';
 
@@ -9,7 +9,7 @@ export default function SlettBruker() {
       <div>
         <Box>
           <SlettBrukerTittel />
-          <FinnBrukerSkjema />
+          <SlettBrukerSkjema />
         </Box>
       </div>
     </main>
