@@ -11,11 +11,11 @@ import IconLabelButtons from "@/components/nyBrukerButton";
 import  { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
+  // backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+  // ...theme.typography.body2,
   padding: theme.spacing(1),
   textAlign: 'center',
-  color: theme.palette.text.secondary,
+  // color: theme.palette.text.secondary,
 }));
 
 export default function NyBrukerSkjema() {
@@ -30,7 +30,7 @@ export default function NyBrukerSkjema() {
   });
 
   const handleSave = () => {
-    // Here you can perform the logic to save the data to a database
+    // Sende til database
     console.log('Saving data to the database:', formData);
 
     // Reset the form data after saving
