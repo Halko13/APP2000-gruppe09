@@ -4,7 +4,7 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Link from 'next/link';
 
-export default function SlettBrukerButton({ onDelete, isFormValid, onFormReset }) {
+export default function SlettBrukerButton({ onDelete, isFormValid, handleFormReturn }) {
   const handleDeleteUser = () => {
     if (isFormValid) {
       onDelete();
@@ -16,15 +16,16 @@ export default function SlettBrukerButton({ onDelete, isFormValid, onFormReset }
     }
   };
 
-  // const handleReturnClick = () => {
-   
-  // };
+  const handleReturnClick = () => {
+    handleFormReturn();
+    console.log("noe");
+  };
 
   return (
     <Stack direction="row" spacing={2} justifyContent="flex-end">
       <Link href = "/admin/slettBruker">
-      <Button variant="outlined">
-      {/* <Button variant="outlined" onClick={handleReturnClick}> */}
+      {/* <Button variant="outlined"> */}
+      <Button variant="outlined" onClick={handleReturnClick}>
 
         Tilbake
       </Button>
