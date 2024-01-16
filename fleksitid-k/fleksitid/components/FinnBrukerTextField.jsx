@@ -11,6 +11,11 @@ export default function FinnBrukerTextField({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
   useResetFinnBrukerForm(formData);
 
+  const fields = [
+    { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
+    // Add more fields as needed
+  ];
+
   return (
     <Box
       component="form"
@@ -22,14 +27,17 @@ export default function FinnBrukerTextField({ formData, onChange }) {
       autoComplete="off"
     >
       <div>
-        <TextField
-          required
-          id="AnsattNr"
-          label="AnsattNr"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.AnsattNr}
-        />
+        {fields.map((field) => (
+          <TextField
+            key={field.id}
+            required={field.required}
+            id={field.id}
+            label={field.label}
+            variant={field.variant}
+            onChange={handleChange}
+            value={formData[field.id]}
+          />
+        ))}
       </div>
     </Box>
   );
