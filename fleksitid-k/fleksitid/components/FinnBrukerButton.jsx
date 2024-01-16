@@ -7,9 +7,7 @@ export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
   const handleFindBruker = () => {
     if (isFormValid) {
       onFind();
-      onFormReset(); // Reset the form after successful save
     } else {
-      // Show an error message or handle the case where the form is not valid
       console.log("valider ikke " + isFormValid);
       alert('Please fill in the field');
     }
