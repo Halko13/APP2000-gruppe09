@@ -6,6 +6,21 @@ import { useFormUpdate } from "@/hooks/useFormUpdate";
 
 export const PASSWORD_LENGTH = 6;
 
+// Define the common style properties
+const textFieldStyle = {
+  fontSize: '16px',
+  fontWeight: 'bold',
+  color: 'black', // Set text color to black
+};
+
+const fieldDefinitions = [
+  { id: 'AnsattNr', label: 'AnsattNr', variant: 'filled'},
+  { id: 'Fornavn', label: 'Fornavn', variant: 'filled' },
+  { id: 'Etternavn', label: 'Etternavn', variant: 'filled' },
+  { id: 'Stilling', label: 'Stilling', variant: 'filled' },
+  { id: 'AntallJobbtimer', label: 'Antall jobbtimer', type: 'number', variant: 'filled' },
+];
+
 export default function SlettBrukerTextField({ formData, onChange }) {
 
   return (
@@ -19,42 +34,20 @@ export default function SlettBrukerTextField({ formData, onChange }) {
       autoComplete="off"
     >
       <div>
-        <TextField
-          disabled
-          id="AnsattNr"
-          label="AnsattNr"
-          variant="filled"
-          value={formData.AnsattNr}
-        />
-        <TextField
-          disabled
-          id="Fornavn"
-          label="Fornavn"
-          variant="filled"
-          value={formData.Fornavn}
-        />
-        <TextField
-          disabled
-          id="Etternavn"
-          label="Etternavn"
-          variant="filled"
-          value={formData.Etternavn}
-        />
-        <TextField
-          disabled
-          id="Stilling"
-          label="Stilling"
-          variant="filled"
-          value={formData.Stilling}
-        />
-        <TextField
-          disabled
-          id="antallJobbtimer"
-          label="Antall jobbtimer"
-          type="number"
-          variant="filled"
-          value={formData.antallJobbtimer}
-        />
+        {fieldDefinitions.map((field) => (
+          <TextField
+            key={field.id}
+            disabled
+            id={field.id}
+            label={field.label}
+            variant={field.variant}
+            type={field.type}
+            value={formData[field.id]}
+            InputProps={{
+              style: textFieldStyle,
+            }}
+          />
+        ))}
       </div>
     </Box>
   );
