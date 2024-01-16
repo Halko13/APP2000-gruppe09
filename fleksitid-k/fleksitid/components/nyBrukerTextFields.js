@@ -10,6 +10,17 @@ import { useGjentaPasswordChange } from "@/hooks/useGjentaPasswordChange";
 
 export const PASSWORD_LENGTH = 6;
 
+// Define the array of TextField properties
+const textFieldData = [
+  { id: 'AnsattNr', label: 'AnsattNr', required: true, variant: 'filled' },
+  { id: 'Fornavn', label: 'Fornavn', required: true, variant: 'filled' },
+  { id: 'Etternavn', label: 'Etternavn', required: true, variant: 'filled' },
+  { id: 'Stilling', label: 'Stilling', required: true, variant: 'filled' },
+  { id: 'antallJobbtimer', label: 'Antall jobbtimer', type: 'number', variant: 'filled' },
+  { id: 'password', label: 'Password', type: 'password', autoComplete: 'current-password', required: true, variant: 'filled' },
+  { id: 'gjentaPassword', label: 'Gjenta Password', type: 'password', autoComplete: 'current-password', required: true, variant: 'filled' },
+];
+
 export default function FormTextFields({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
   const passwordError = useFormValidation(formData);
@@ -28,70 +39,28 @@ export default function FormTextFields({ formData, onChange }) {
       autoComplete="off"
     >
       <div>
-        <TextField
-          required
-          id="AnsattNr"
-          label="AnsattNr"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.AnsattNr}
-        />
-        <TextField
-          required
-          id="Fornavn"
-          label="Fornavn"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.Fornavn}
-        />
-        <TextField
-          required
-          id="Etternavn"
-          label="Etternavn"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.Etternavn}
-        />
-        <TextField
-          required
-          id="Stilling"
-          label="Stilling"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.Stilling}
-        />
-        <TextField
-          id="antallJobbtimer"
-          label="Antall jobbtimer"
-          type="number"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.antallJobbtimer}
-        />
-        <TextField
-          required
-          id="password"
-          label="Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-          onChange={handlePasswordChange}
-          value={formData.password}
-          error={passwordError}
-          helperText={passwordError ? `Password must be ${PASSWORD_LENGTH} digits` : ''}
-        />
-        <TextField
-          required
-          id="gjentaPassword"
-          label="Gjenta Password"
-          type="password"
-          autoComplete="current-password"
-          variant="filled"
-          onChange={handleGjentaPasswordChange}
-          value={formData.gjentaPassword}
-          error={passwordError}
-          helperText={passwordError ? 'Passwords must match' : ''}
-        />
+        {textFieldData.map((field) => (
+          <TextField
+            key={field.id}
+            id={field.id}
+            label={field.label}
+            type={field.type || 'text'}
+            autoComplete={field.autoComplete || ''}
+            required={field.required || false}
+            variant={field.variant || 'filled'}
+            onChange={(e) => {
+              handleChange(e);
+              if (field.id === 'password') {
+                handlePasswordChange(e);
+              } else if (field.id === 'gjentaPassword') {
+                handleGjentaPasswordChange(e);
+              }
+            }}
+            value={formData[field.id]}
+            error={(field.id === 'password' || field.id === 'gjentaPassword') && passwordError}
+            helperText={(field.id === 'password' || field.id === 'gjentaPassword') && passwordError ? 'Password must be 6 digits' : ''}
+          />
+        ))}
       </div>
     </Box>
   );
