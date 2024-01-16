@@ -1,21 +1,12 @@
 // SlettBrukerSkjema.js
 'use client';
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-
 import SlettBrukerTextField from "@/components/SlettBrukerTextField";
 import SlettBrukerButton from "@/components/SlettBrukerButton";
+import { Item } from '@/hooks/useFormStyle';
 
-import  { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
-
-const Item = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(1),
-  textAlign: 'center',
-}));
-
-export default function SlettBrukerSkjema({ userData }) {
+export default function SlettBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
   const handleSlettBruker = async () => {
@@ -30,9 +21,10 @@ export default function SlettBrukerSkjema({ userData }) {
       Stilling: '',
       antallJobbtimer: ''
     });
+    onGoBack(); // Go back to FinnBrukerSkjema
   };
 
-  const handleFormReset = () => {
+  const handleFormReturn = () => {
     setFormData({
       AnsattNr: '',
       Fornavn: '',
@@ -40,6 +32,7 @@ export default function SlettBrukerSkjema({ userData }) {
       Stilling: '',
       antallJobbtimer: ''
     });
+    onGoBack(); // Go back to FinnBrukerSkjema
   };
 
   const isFormValid =
@@ -55,10 +48,8 @@ export default function SlettBrukerSkjema({ userData }) {
           <Item>
             <SlettBrukerTextField formData={formData} onChange={setFormData} />
           </Item>
-        </Box>
-        <Box gridColumn="span 1">
           <Item>
-            <SlettBrukerButton onDelete={handleSlettBruker} isFormValid={isFormValid} onFormReset={handleFormReset} />
+            <SlettBrukerButton onDelete={handleSlettBruker} isFormValid={isFormValid} handleFormReturn={handleFormReturn} />
           </Item>
         </Box>
       </Box>
