@@ -26,6 +26,33 @@ export default function FinnBrukerSkjema() {
   const [showSlettBrukerSkjema, setShowSlettBrukerSkjema] = React.useState(false);
 
   const handleFinnBruker = async () => {
+  //  Henter bruker fra server
+    // const brukerRef = db.collection('Brukere').doc(formData.AnsattNr);
+  
+    // try {
+    //   const doc = await brukerRef.get();
+  
+    //   if (!doc.exists) {
+    //     console.log("Finner ikke dokumentet");
+    //   } else {
+    //     const userDataFromFirestore = {
+    //       AnsattNr: doc.data().AnsattNr || '',
+    //       Fornavn: doc.data().Fornavn || '',
+    //       Etternavn: doc.data().Etternavn || '',
+    //       Stilling: doc.data().Stilling || '',
+    //       antallJobbtimer: doc.data().antallJobbtimer || '',
+    //     };
+  
+    //     setUserData(userDataFromFirestore);
+    //     setShowSlettBrukerSkjema(true);
+    //     console.log('Finner data fra database:', formData.AnsattNr);
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching data from Firestore:", error);
+    // }
+
+
+    // Dummy data
     setUserData(dummyUserData);
     setShowSlettBrukerSkjema(true);
     console.log('Finner data fra database:', formData.AnsattNr);
