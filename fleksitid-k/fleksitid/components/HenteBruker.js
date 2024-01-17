@@ -1,22 +1,28 @@
 import React, { useState } from "react";
-import { FormControl, InputLabel, Select, MenuItem, TextField, Button } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, TextField, Button, ListSubheader  } from '@mui/material';
 
 
-const VelgBrukerListe = ({brukere, valgtBrukerId, håndterBrukerEndring, gåTilInnlogging }) => {
+const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEndring, gåTilInnlogging }) => {
    
-    const [søkeTekst, setSøkeTekst] = useState("");
+ const [søkeTekst, setSøkeTekst] = useState("");
 
-    // Funksjon for hente bruker basert på søk
-    const filtertBruker = søkeTekst
-    ? brukere.filter((bruker) => 
-    bruker.navn.toLowerCase().includes(søkeTekst.toLowerCase())
-    )
-    : brukere;
+
+
+    // Filter the regular users based on the search text
+    const filtrerteBrukere = søkeTekst
+        ? brukere.filter(bruker => bruker.navn.toLowerCase().includes(søkeTekst.toLowerCase()))
+        : brukere;
+
+    // Filter the admin users based on the search text
+    const filtrerteAdmins = søkeTekst
+        ? adminBrukere.filter(admin => admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase()))
+        : adminBrukere;
 
     // Oppdater funksjonen for søketekstendring
     const håndterSøkeTekstEndring = (e) => {
         setSøkeTekst(e.target.value);
     };
+
 
    
     return (
@@ -37,10 +43,18 @@ const VelgBrukerListe = ({brukere, valgtBrukerId, håndterBrukerEndring, gåTilI
                 label="Velg bruker"
                 onChange={håndterBrukerEndring}
         >
-            {filtertBruker.map((bruker) => (
-            <MenuItem key={bruker.id} value={bruker.id}>{bruker.navn}</MenuItem>
-
-            ))}
+                    <ListSubheader>Brukere</ListSubheader>
+                    {filtrerteBrukere.map(bruker => (
+                        <MenuItem key={bruker.id} value={bruker.id}>
+                            {bruker.navn}
+                        </MenuItem>
+                    ))}
+                    <ListSubheader>Administratorer</ListSubheader>
+                    {filtrerteAdmins.map(admin => (
+                        <MenuItem key={admin.brukernavn} value={admin.brukernavn}>
+                            {admin.brukernavn}
+                        </MenuItem>
+                    ))}
         </Select>
         </FormControl>
         <Button variant="contained" onClick={gåTilInnlogging} fullWidth>
