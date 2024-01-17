@@ -1,95 +1,45 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Link from 'next/link';
+import Head from 'next/head';
+import { useState, useEffect } from 'react';
 
-export default function Home() {
+export default function Hjem() {
+  const [gjeldendeTid, setGjeldendeTid] = useState('');
+
+  useEffect(() => {
+    const tidtaker = setInterval(() => {
+      const nåTid = new Date();
+      setGjeldendeTid(nåTid.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+    }, 1000);
+
+    return () => clearInterval(tidtaker);
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
+    <div className="bg-gray-50 flex flex-col items-center justify-center h-screen relative">
+      <Head>
+        <title>Startside</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        <style>{`
+          @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+          .material-skygge {
+            box-shadow: 0px 3px 1px -2px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 1px 5px 0px rgba(0,0,0,0.12);
+          }
+        `}</style>
+      </Head>
+      <div className="absolute top-4 left-4 text-xl font-bold">{gjeldendeTid}</div>
+      <div className="text-center">
+        <h1 className="mb-4 text-xl font-bold text-gray-800 material-skygge">Velkommen</h1>
+        // Legg til riktig link her
+        <Link href="/innlogging" passHref>
+          <button className="bg-pink-600 text-white px-6 py-3 inline-block rounded-lg font-bold material-skygge hover:bg-pink-700 overgangsfarger varighet-200">Logg inn</button>
+        </Link>
       </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="absolute top-4 right-4">
+        // Visma bildet her
+        <img src="https://placehold.co/100x100" alt="Eksempelbilde" />
       </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    </div>
+  );
 }
