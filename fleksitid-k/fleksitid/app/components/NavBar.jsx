@@ -17,8 +17,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 const hoverColor = '#CCCCCC';
 const selectedColor = '#CCCCCC';
 
-const titler = ['Dashboard', 'Ny bruker', 'Slett bruker', 'Forside'];
-const pages = ['/admin', '/admin/nyBruker', '/admin/slettBruker','/ '];
+const titler = ['Sjekk inn', 'Historikk', 'Timebank', 'Forside'];
+const pages = ['/sjekkinn', '/admin/nyBruker', '/admin/slettBruker','/ '];
 const settings = ['Logout'];
 
 function ResponsiveAppBar() {
