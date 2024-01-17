@@ -20,7 +20,23 @@ export default function NyBrukerSkjema() {
 
   const handleSave = async () => {
     // Here you can perform the logic to save the data to a database
-    console.log('Saving data to the database:', formData);
+    
+    console.log('Saving data to the database:',  formData);
+  // const brukerRef = db.collection('Brukere').doc(formData.AnsattNr);
+
+    // try {
+    //   const doc = await brukerRef.get();
+
+    //   if (doc.exists) {
+    //     alert("Ansatt nummer finnes allerede");
+    //   } else {
+    //     // Document does not exist, create a new one
+    //     await brukerRef.set(formData);
+    //     console.log('Dokument lagd:', formData);
+    //   }
+    // } catch (error) {
+    //   console.error("Error fetching data from Firestore:", error);
+    // }
 
     // Reset the form data after saving
     setFormData({
