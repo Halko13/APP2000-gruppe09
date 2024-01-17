@@ -1,11 +1,13 @@
 import React from 'react'
 import ResponsiveAppBar from '../components/NavBar'
+import styles from '../page.module.css'
 
 const Knapp = () => {
   return (
-    <div>
+    <>
         <ResponsiveAppBar />
-    </div>
+        <h1 className={styles.ov}>Hei!</h1>
+    </>
   )
 }
 
