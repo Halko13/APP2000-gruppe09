@@ -11,8 +11,10 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
 
   const handleSlettBruker = async () => {
     console.log('Sletter data fra database:', formData);
-    // Implement deletion logic if needed
-    // const res = await db.collection('brukere').doc(formData.AnsattNr).delete();
+    // Sletter data fra database
+    // const brukerRef = db.collection('Brukere').doc(formData.AnsattNr);
+    // const res = await brukerRef.delete();
+
     // Reset the form data after saving
     setFormData({
       AnsattNr: '',
