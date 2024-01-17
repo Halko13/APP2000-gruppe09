@@ -2,12 +2,13 @@
 import React from 'react';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Link from 'next/link';
 
-export default function SlettBrukerButton({ onDelete, isFormValid, onFormReset }) {
+export default function SlettBrukerButton({ onDelete, isFormValid, handleFormReturn }) {
   const handleDeleteUser = () => {
     if (isFormValid) {
       onDelete();
-      onFormReset(); // Reset the form after successful save
+      // Reset the form after successful save
     } else {
       // Show an error message or handle the case where the form is not valid
       console.log("valider ikke " + isFormValid);
@@ -15,17 +16,22 @@ export default function SlettBrukerButton({ onDelete, isFormValid, onFormReset }
     }
   };
 
-  const handleResetClick = () => {
-    onFormReset(); // Reset the form
+  const handleReturnClick = () => {
+    handleFormReturn();
+    console.log("noe");
   };
 
   return (
     <Stack direction="row" spacing={2} justifyContent="flex-end">
+      <Link href = "/admin/slettBruker">
+      {/* <Button variant="outlined"> */}
+      <Button variant="outlined" onClick={handleReturnClick}>
+
+        Tilbake
+      </Button>
+      </Link>
       <Button variant="contained" onClick={handleDeleteUser}>
         Slett bruker
-      </Button>
-      <Button variant="outlined" onClick={handleResetClick}>
-        Reset
       </Button>
     </Stack>
   );

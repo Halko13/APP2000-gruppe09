@@ -2,15 +2,26 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetSlettBrukerForm } from '@/hooks/useResetSlettBrukerForm';
 
 export const PASSWORD_LENGTH = 6;
 
+// Define the common style properties
+const textFieldStyle = {
+  fontSize: '16px',
+  fontWeight: 'bold',
+  color: 'black', // Set text color to black
+};
+
+const fieldDefinitions = [
+  { id: 'AnsattNr', label: 'AnsattNr', variant: 'filled'},
+  { id: 'Fornavn', label: 'Fornavn', variant: 'filled' },
+  { id: 'Etternavn', label: 'Etternavn', variant: 'filled' },
+  { id: 'Stilling', label: 'Stilling', variant: 'filled' },
+  { id: 'AntallJobbtimer', label: 'Antall jobbtimer', type: 'number', variant: 'filled' },
+];
+
 export default function SlettBrukerTextField({ formData, onChange }) {
-  const handleChange = useFormUpdate(onChange);
-  useResetSlettBrukerForm(formData);
 
   return (
     <Box
@@ -23,14 +34,20 @@ export default function SlettBrukerTextField({ formData, onChange }) {
       autoComplete="off"
     >
       <div>
-        <TextField
-          required
-          id="AnsattNr"
-          label="AnsattNr"
-          variant="filled"
-          onChange={handleChange}
-          value={formData.AnsattNr}
-        />
+        {fieldDefinitions.map((field) => (
+          <TextField
+            key={field.id}
+            disabled
+            id={field.id}
+            label={field.label}
+            variant={field.variant}
+            type={field.type}
+            value={formData[field.id]}
+            InputProps={{
+              style: textFieldStyle,
+            }}
+          />
+        ))}
       </div>
     </Box>
   );
