@@ -14,7 +14,7 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
     // Sletter data fra database
     // const brukerRef = db.collection('Brukere').doc(formData.AnsattNr);
     // const res = await brukerRef.delete();
-
+    alert("Slettet velykket");
     // Reset the form data after saving
     setFormData({
       AnsattNr: '',
