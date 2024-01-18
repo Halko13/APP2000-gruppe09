@@ -1,5 +1,16 @@
 .ov {
-  color: brown;
+  color: red;
   text-align: center;
-  text-shadow: brown;
+}
+
+.dato {
+  text-align: center;
+}
+
+.knapp {
+  text-align: center;
+}
+
+.velkommen {
+  text-align: center;
 }
