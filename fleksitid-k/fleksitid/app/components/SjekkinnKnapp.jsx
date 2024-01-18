@@ -1,23 +1,25 @@
 "use client";
-import * as React from 'react';
-import Box from '@mui/material/Box';
+import React from 'react';
 import Button from '@mui/material/Button';
-import styles from '../page.module.css'
+import styles from '../page.module.css';
 
 const SjekkinnKnapp = () => {
-  let inn = "SJEKK INN"
-  let ut = "SJEKK UT"
+  const [erSjekketInn, setErSjekketInn] = React.useState(true);
+
+  const handleClick = () => {
+    // Bytt tilstanden når knappen klikkes
+    setErSjekketInn(!erSjekketInn);
+  };
+
   return (
     <div className={styles.knapp}>
-    <Button variant="contained" size="large" onClick={() => {
-    alert('clicked');
-  }}>
-          {inn}
-        </Button>
+      <Button variant="contained" size="large" onClick={handleClick}>
+        {erSjekketInn ? 'SJEKK INN' : 'SJEKK UT'}
+      </Button>
     </div>
-  )
+  );
 }
 
-export default SjekkinnKnapp
+export default SjekkinnKnapp;
 
 
