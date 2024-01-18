@@ -37,7 +37,7 @@ export default function NyBrukerSkjema() {
     // } catch (error) {
     //   console.error("Error fetching data from Firestore:", error);
     // }
-
+    alert("Ny bruker lagt til");
     // Reset the form data after saving
     setFormData({
       AnsattNr: '',
