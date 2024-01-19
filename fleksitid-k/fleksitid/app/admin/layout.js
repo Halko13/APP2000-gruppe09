@@ -1,5 +1,5 @@
 import { Inter } from 'next/font/google';
-import ResponsiveAppBar from '@/components/adminResponsivNavBar';
+import AdminNavBar from '@/components/adminResponsivNavBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,7 +12,7 @@ export default function AdminLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className} style={{ backgroundColor: 'white', margin: 0, padding: 0 }}>
-        <ResponsiveAppBar />
+        <AdminNavBar />
         {children}
       </body>
     </html>
