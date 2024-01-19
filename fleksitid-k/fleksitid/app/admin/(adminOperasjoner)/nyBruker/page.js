@@ -1,14 +1,15 @@
 import React from 'react';
-import NyBrukerSkjema from '@/components/nyBrukerSkjema';
-import NyBrukerTittel from '@/components/nyBrukerTittel'; // Corrected import
 import { Box } from '@mui/material';
+// Komponenter
+import NyBrukerSkjema from '@/components/nyBrukerSkjema';
+import NyBrukerTittel from '@/components/nyBrukerTittel';
 
 export default function Admin() {
   return (
     <main>
       <div>
         <Box>
-          <NyBrukerTittel /> {/* Corrected component name */}
+          <NyBrukerTittel />
           <NyBrukerSkjema />
         </Box>
       </div>
