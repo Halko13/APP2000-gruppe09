@@ -4,7 +4,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Item } from "@/hooks/useFormStyle";
 import FormPropsTextFields from "@/components/nyBrukerTextFields";
-import IconLabelButtons from "@/components/nyBrukerButton";
+import NyBrukerButton from "@/components/nyBrukerButton";
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 export default function NyBrukerSkjema() {
@@ -79,7 +79,7 @@ export default function NyBrukerSkjema() {
         <Box gridColumn="span 1">
           <Item>
             <FormPropsTextFields formData={formData} onChange={setFormData} />
-            <IconLabelButtons onSave={handleSave} isFormValid={isFormValid} onFormReset={handleFormReset} />
+            <NyBrukerButton onSave={handleSave} isFormValid={isFormValid} onFormReset={handleFormReset} />
           </Item>
         </Box>
       </Box>
