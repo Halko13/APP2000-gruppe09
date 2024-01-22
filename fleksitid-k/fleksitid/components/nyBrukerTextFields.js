@@ -21,7 +21,7 @@ const textFieldData = [
   { id: 'gjentaPassword', label: 'Gjenta Password', type: 'password', autoComplete: 'current-password', required: true, variant: 'filled' },
 ];
 
-export default function FormTextFields({ formData, onChange }) {
+export default function NyBrukerForm({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
   const passwordError = useFormValidation(formData);
   useFormDataEffect(formData);
