@@ -10,5 +10,11 @@ export const useFormDataEffect = (formData) => {
     document.getElementById('AntallJobbtimer').value = formData.AntallJobbtimer;
     document.getElementById('Password').value = formData.Password;
     document.getElementById('GjentaPassword').value = formData.GjentaPassword;
+
+    // Check if the checkbox element exists before setting the checked property
+    const erAdminCheckbox = document.getElementById('ErAdmin');
+    if (erAdminCheckbox) {
+      erAdminCheckbox.checked = formData.ErAdmin === undefined ? false : formData.ErAdmin;
+    }
   }, [formData]);
 };
