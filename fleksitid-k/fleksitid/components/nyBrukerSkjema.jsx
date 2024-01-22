@@ -9,7 +9,6 @@ import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 import { db } from '@/app/firebaseConfig';
 import { doc, setDoc } from "firebase/firestore"; 
 
-
 export default function NyBrukerSkjema() {
   const [formData, setFormData] = React.useState({
     AnsattNr: '',
@@ -19,21 +18,21 @@ export default function NyBrukerSkjema() {
     AntallJobbtimer: '',
     Password: '',
     GjentaPassword: '',
+    ErAdmin: false,
   });
 
   const handleSave = async () => {
-    // Here you can perform the logic to save the data to a database
-    
     console.log('Saving data to the database:',  formData);
-    // Add a new document in collection "cities"
     await setDoc(doc(db, "Brukere", formData.AnsattNr), {
       AnsattNr: formData.AnsattNr,
-      Fornavn : formData.Fornavn,
+      Fornavn: formData.Fornavn,
       Etternavn: formData.Etternavn,
-      AntallJobbTimer : formData.AntallJobbtimer,
-      Password : formData.Password
+      AntallJobbTimer: formData.AntallJobbtimer,
+      Password: formData.Password,
+      Innlogget: false,
+      ErAdmin: formData.ErAdmin,
     });
-    
+
     alert("Ny bruker lagt til");
     // Reset the form data after saving
     handleFormReset();
@@ -49,6 +48,7 @@ export default function NyBrukerSkjema() {
       AntallJobbtimer: '',
       Password: '',
       GjentaPassword: '',
+      ErAdmin: false,
     });
   };
 
