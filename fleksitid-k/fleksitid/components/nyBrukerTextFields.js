@@ -17,7 +17,6 @@ const textFieldData = [
   { id: 'Etternavn', label: 'Etternavn', required: true, variant: 'filled' },
   { id: 'Stilling', label: 'Stilling', required: true, variant: 'filled' },
   { id: 'AntallJobbtimer', label: 'Antall jobbtimer', type: 'number', variant: 'filled' },
-  { id: 'ErAdmin', label: 'Er adminbruker', type: 'number', variant: 'filled' },
   { id: 'Password', label: 'Password', type: 'password', autoComplete: 'current-password', required: true, variant: 'filled' },
   { id: 'GjentaPassword', label: 'Gjenta Password', type: 'password', autoComplete: 'current-password', required: true, variant: 'filled' },
 ];
