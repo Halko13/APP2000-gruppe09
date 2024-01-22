@@ -15,28 +15,24 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
     console.log('Sletter data fra database:', formData);
     // // Sletter data fra database
     await deleteDoc(doc(db, "Brukere", formData.AnsattNr));
-
-    setFormData({
-      AnsattNr: '',
-      Fornavn: '',
-      Etternavn: '',
-      Stilling: '',
-      antallJobbtimer: ''
-    });
+    alert("Slettet bruker");
+    resetForm();
     onGoBack(); // Go back to FinnBrukerSkjema
   };
 
   const handleFormReturn = () => {
-    setFormData({
-      AnsattNr: '',
-      Fornavn: '',
-      Etternavn: '',
-      Stilling: '',
-      antallJobbtimer: ''
-    });
+    resetForm();
     onGoBack(); // Go back to FinnBrukerSkjema
   };
-
+const resetForm = () => {
+  setFormData({
+    AnsattNr: '',
+    Fornavn: '',
+    Etternavn: '',
+    Stilling: '',
+    antallJobbtimer: ''
+  });
+};
   // const isFormValid =
   //   formData.AnsattNr !== '' &&
   //   formData.Fornavn !== '' &&
