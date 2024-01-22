@@ -83,6 +83,7 @@ export default function NyBrukerForm({ formData, onChange }) {
         <FormControlLabelPosition
           checked={erAdminChecked}
           onChange={handleErAdminChange}
+          label={checkboxData[0].label}  // Use the label from checkboxData
         />
       </div>
     </Box>
