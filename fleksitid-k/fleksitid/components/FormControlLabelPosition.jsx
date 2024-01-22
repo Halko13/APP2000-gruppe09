@@ -4,9 +4,8 @@ import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 
-export default function FormControlLabelPosition({ checked, onChange }) {
+export default function FormControlLabelPosition({ checked, onChange, label }) {
   const handleChange = (event) => {
     onChange(event.target.checked);
   };
@@ -17,7 +16,7 @@ export default function FormControlLabelPosition({ checked, onChange }) {
         <FormControlLabel
           value="ErAdmin"
           control={<Checkbox checked={checked} onChange={handleChange} sx={{ fontSize: '50px' }} />}
-          label={<span style={{ fontSize: '25px' }}>Adminbruker</span>}
+          label={<span style={{ fontSize: '25px' }}>{label}</span>}
           labelPlacement="start"
         />
       </FormGroup>
