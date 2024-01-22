@@ -1,5 +1,4 @@
 // useGjentaPasswordChange.js
-import * as React from 'react';
 
 export const useGjentaPasswordChange = (onChange) => {
   const handleGjentaPasswordChange = (event) => {

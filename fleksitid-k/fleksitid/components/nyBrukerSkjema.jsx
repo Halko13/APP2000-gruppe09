@@ -4,7 +4,7 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Item } from "@/hooks/useFormStyle";
 import NyBrukerForm from "@/components/nyBrukerTextFields";
-import NyBrukerButton from "@/components/nyBrukerButton";
+import NyBrukerButton from "@/components/NyBrukerButton";
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 import { db } from '@/app/firebaseConfig';
 import { doc, setDoc, getDoc } from "firebase/firestore"; 
