@@ -15,16 +15,10 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     console.log("Saving data to the database:", formData);
 
     // Check if there are any changes
-    if (
-      userData.AnsattNr !== formData.AnsattNr ||
-      userData.Fornavn !== formData.Fornavn ||
-      userData.Etternavn !== formData.Etternavn ||
-      userData.Stilling !== formData.Stilling ||
-      userData.AntallJobbtimer !== formData.AntallJobbtimer ||
-      userData.Password !== formData.Password ||
-      userData.GjentaPassword !== formData.GjentaPassword ||
-      userData.ErAdmin !== formData.ErAdmin
-    ) {
+    const isDataChanged = Object.keys(userData).some(
+      (key) => userData[key] !== formData[key]
+    );
+    if (isDataChanged) {
       // Check if AnsattNr has changed
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Check if the new AnsattNr already exists in the database
