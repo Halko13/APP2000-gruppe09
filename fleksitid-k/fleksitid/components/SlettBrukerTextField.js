@@ -19,6 +19,7 @@ const fieldDefinitions = [
   { id: 'Etternavn', label: 'Etternavn', variant: 'filled' },
   { id: 'Stilling', label: 'Stilling', variant: 'filled' },
   { id: 'AntallJobbtimer', label: 'Antall jobbtimer', type: 'number', variant: 'filled' },
+  { id: 'ErAdmin', label: "Adminbruker", type:"boolean", variant:'filled'},
 ];
 
 export default function SlettBrukerTextField({ formData, onChange }) {
