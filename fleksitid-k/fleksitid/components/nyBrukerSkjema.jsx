@@ -3,7 +3,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import { Item } from "@/hooks/useFormStyle";
-import FormPropsTextFields from "@/components/nyBrukerTextFields";
+import NyBrukerForm from "@/components/nyBrukerTextFields";
 import NyBrukerButton from "@/components/nyBrukerButton";
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
@@ -39,15 +39,7 @@ export default function NyBrukerSkjema() {
     // }
     alert("Ny bruker lagt til");
     // Reset the form data after saving
-    setFormData({
-      AnsattNr: '',
-      Fornavn: '',
-      Etternavn: '',
-      Stilling: '',
-      antallJobbtimer: '',
-      password: '',
-      gjentaPassword: '',
-    });
+    handleFormReset();
   };
 
   const handleFormReset = () => {
@@ -78,7 +70,7 @@ export default function NyBrukerSkjema() {
       <Box display="grid" gridTemplateColumns="repeat(1fr, 1fr)" gap={2} alignItems={'center'} style={{ margin: 'auto' }}>
         <Box gridColumn="span 1">
           <Item>
-            <FormPropsTextFields formData={formData} onChange={setFormData} />
+            <NyBrukerForm formData={formData} onChange={setFormData} />
             <NyBrukerButton onSave={handleSave} isFormValid={isFormValid} onFormReset={handleFormReset} />
           </Item>
         </Box>
