@@ -44,12 +44,6 @@ export default function NyBrukerSkjema() {
     });
     alert("Ny bruker lagt til");
   } 
-
-
-
-
-
- 
     // Reset the form data after saving
     handleFormReset();
   };
