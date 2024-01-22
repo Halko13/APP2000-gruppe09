@@ -7,24 +7,23 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
  const [søkeTekst, setSøkeTekst] = useState("");
 
 
-
-    // Filter the regular users based on the search text
     const filtrerteBrukere = søkeTekst
-        ? brukere.filter(bruker => bruker.navn.toLowerCase().includes(søkeTekst.toLowerCase()))
-        : brukere;
+    ? brukere.filter(bruker => 
+        (bruker.Fornavn && bruker.Fornavn.toLowerCase().includes(søkeTekst.toLowerCase())) ||
+        (bruker.Etternavn && bruker.Etternavn.toLowerCase().includes(søkeTekst.toLowerCase()))
+    )
+    : brukere;
 
-    // Filter the admin users based on the search text
+
     const filtrerteAdmins = søkeTekst
-        ? adminBrukere.filter(admin => admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase()))
-        : adminBrukere;
+    ? adminBrukere.filter(admin => admin.brukernavn && admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase()))
+     : adminBrukere;
 
     // Oppdater funksjonen for søketekstendring
     const håndterSøkeTekstEndring = (e) => {
         setSøkeTekst(e.target.value);
     };
 
-
-   
     return (
     <div>
         <TextField fullWidth margin="normal"
@@ -45,10 +44,10 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
         >
                     <ListSubheader>Brukere</ListSubheader>
                     {filtrerteBrukere.map(bruker => (
-                        <MenuItem key={bruker.id} value={bruker.id}>
-                            {bruker.navn}
-                        </MenuItem>
-                    ))}
+                    <MenuItem key={bruker.id} value={bruker.id}>
+                        {bruker.Fornavn ? bruker.Fornavn : 'Ukjent'} {bruker.Etternavn ? bruker.Etternavn : ''}
+                    </MenuItem>
+                     ))}
                     <ListSubheader>Administratorer</ListSubheader>
                     {filtrerteAdmins.map(admin => (
                         <MenuItem key={admin.brukernavn} value={admin.brukernavn}>

@@ -5,10 +5,10 @@ const NummerPad = ({vedNumKlikk, vedSlett, vedEnter}) => {
     const håndterNummerKlikk = (nøkkel) => {
         if (nøkkel === '⌫') {
             vedSlett(); // for å slette det siste tegnet
-        } else if (ke === '✓' ) {
+        } else if (nøkkel === '✓' ) {
             vedEnter(); // når brukeren trykker på sjekkmerket
         } else {
-            vedNumKlikk(); // for å legge til nummeret i PIN-koden
+            vedNumKlikk(nøkkel); // for å legge til nummeret i PIN-koden
         }
     };
 
