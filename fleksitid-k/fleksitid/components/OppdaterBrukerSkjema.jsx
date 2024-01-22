@@ -11,6 +11,8 @@ import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
+  const dbCollection = "Brukere";
+
   const handleSave = async () => {
     console.log("Saving data to the database:", formData);
 
@@ -22,7 +24,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
       // Check if AnsattNr has changed
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Check if the new AnsattNr already exists in the database
-        const newDocRef = doc(db, "Brukere", formData.AnsattNr);
+        const newDocRef = doc(db, dbCollection, formData.AnsattNr);
         const newDocSnap = await getDoc(newDocRef);
 
         if (newDocSnap.exists()) {
@@ -37,7 +39,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         });
 
         // Delete the old document
-        const oldDocRef = doc(db, "Brukere", userData.AnsattNr);
+        const oldDocRef = doc(db, dbCollection, userData.AnsattNr);
         const oldDocSnap = await getDoc(oldDocRef);
         if (oldDocSnap.exists()) {
           await deleteDoc(oldDocRef);
@@ -50,7 +52,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         onGoBack();
       } else {
         // AnsattNr hasn't changed, update the document
-        const docRef = doc(db, "Brukere", userData.AnsattNr);
+        const docRef = doc(db, dbCollection, userData.AnsattNr);
         await setDoc(docRef, {
           ...formData,
           Innlogget: false,
@@ -64,7 +66,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     } else {
       // No changes, go back
       console.log("No changes");
-      onGoBack();
+      // onGoBack();
     }
   };
 
@@ -91,10 +93,10 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     formData.Fornavn !== "" &&
     formData.Etternavn !== "" &&
     formData.Stilling !== "" &&
-    formData.Password &&
-    formData.GjentaPassword &&
-    formData.Password === formData.GjentaPassword &&
-    formData.Password.length === PASSWORD_LENGTH;
+    ((formData.Password === userData.Password &&
+      formData.GjentaPassword === userData.GjentaPassword) || // Password not changed
+      (formData.Password.length === PASSWORD_LENGTH &&
+        formData.Password === formData.GjentaPassword));
 
   return (
     <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
