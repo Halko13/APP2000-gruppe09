@@ -1,95 +1,78 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+'use client'
+import { db } from './firebaseConfig';
+import { collection, addDoc } from 'firebase/firestore';
+import React, { useState } from 'react';
+
+async function addDataToFirestore(brukernavn, passord) {
+  try {
+    const docRef = await addDoc(collection(db, 'Brukere'), {
+      brukernavn: brukernavn,
+      passord: passord,
+    });
+    consol.log("Dokument skrevet med ID: ", docRef.id);
+    return true;
+  } catch (error) {
+    console.error("Error legge til dokument ", error)
+    return false;
+  } 
+}
 
 export default function Home() {
+  const [brukernavn, setBrukernavn] = useState(" ");
+  const [passord, setPassord] = useState(" ");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const added = await addDataToFirestore(brukernavn, passord);
+    if (added) {
+      setBrukernavn("");
+      setPassord("");
+
+      alert("Data lagt til i firestore!!");
+    }
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main className="flex min-h-screen flex-col items-center p-24">
+     <h1
+       className="text-5xl font-bold m-10"
+     >
+      BLABLABLABLABLABLABLA
+     </h1>
+     <form onSubmit={handleSubmit} className='max-w-md mx-auto p-4 bg-white shadow-md rounded-lg'>
+     <div className='mb-4'>
+     <label htmlFor='brukernavn' className='block text-gray-700 font-bold mb-2'>
+      Brukernavn:
+     </label>
+     <input
+       type='text'
+       id='brukernavn'
+       className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
+       value={brukernavn}
+       onChange={(e) => setBrukernavn(e.target.value)}
+     />
+         </div>
+         <div className='mb-4'>
+     <label htmlFor='passord' className='block text-gray-700 font-bold mb-2'>
+      Passord:
+     </label>
+     <input
+       type='password'
+       id='passord'
+       className='w-full px-3 py-2 border rounded-lg focus:outline-none focus:border-blue-500'
+       value={passord}
+       onChange={(e) => setPassord(e.target.value)}
+     />
+         </div>
+         <div className='text-center'>
+          <button
+          type='submit'
+          className='bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg'
           >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+            Submit
+          </button>
+         </div>
+      </form>
+    </main> 
   )
 }
