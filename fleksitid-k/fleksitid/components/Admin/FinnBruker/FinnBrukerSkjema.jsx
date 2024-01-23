@@ -2,12 +2,12 @@
 
 "use client";
 import * as React from "react";
-import { Item } from "@/hooks/useFormStyle"; // Adjust the path as needed
+import { Item } from "@/hooks/useFormStyle";
 import { Box } from "@mui/material";
 import { db } from "@/app/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { usePathname } from "next/navigation";
-// Assuming other components are imported correctly
+//
 import FinnBrukerTextField from "@/components/Admin/FinnBruker/FinnBrukerTextField";
 import FinnBrukerButton from "@/components/Admin/FinnBruker/FinnBrukerButton";
 import SlettBrukerSkjema from "@/components/Admin/SlettBruker/SlettBrukerSkjema";
@@ -39,11 +39,15 @@ export default function FinnBrukerSkjema() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      // Setter userData til data fra database
-      setBrukerData(docSnap.data());
+      // Setter brukerData til data fra database
+      const brukerData = docSnap.data();
+      // Setter GjentaPassord til å være det samme som Passord, siden det ikke lagres i databasem
+      brukerData.GjentaPassord = brukerData.Passord;
+      // Setter brukerData til å være all info om bruker
+      setBrukerData(brukerData);
       if (currentPath === slettBrukerPath) setVisSlettBrukerSkjema(true);
-      else if (currentPath === oppdaterBrukerPath)
-        setVisOppdaterBrukerSkjema(true);
+      else if (currentPath === oppdaterBrukerPath) console.log(userData);
+      setVisOppdaterBrukerSkjema(true);
     } else {
       console.log("Finner ikke dokumentet");
     }

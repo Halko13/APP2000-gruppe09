@@ -3,7 +3,6 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useFormUpdate } from "@/hooks/useFormUpdate";
 
 export const PASSWORD_LENGTH = 6;
 
@@ -20,7 +19,7 @@ const fieldDefinitions = [
   { id: "Etternavn", label: "Etternavn", variant: "filled" },
   { id: "Stilling", label: "Stilling", variant: "filled" },
   {
-    id: "AntallJobbtimer",
+    id: "AntallJobbTimer",
     label: "Antall jobbtimer",
     type: "number",
     variant: "filled",

@@ -8,9 +8,9 @@ export const useFormDataEffect = (formData) => {
     document.getElementById("Fornavn").value = formData.Fornavn;
     document.getElementById("Etternavn").value = formData.Etternavn;
     document.getElementById("Stilling").value = formData.Stilling;
-    document.getElementById("AntallJobbtimer").value = formData.AntallJobbtimer;
-    document.getElementById("Password").value = formData.Password;
-    document.getElementById("GjentaPassword").value = formData.GjentaPassword;
+    document.getElementById("AntallJobbTimer").value = formData.AntallJobbTimer;
+    document.getElementById("Passord").value = formData.Passord;
+    document.getElementById("GjentaPassord").value = formData.GjentaPassord;
 
     // Check if the checkbox element exists before setting the checked property
     const erAdminCheckbox = document.getElementById("ErAdmin");

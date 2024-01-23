@@ -3,10 +3,10 @@
 export const usePasswordChange = (onChange) => {
   const handlePasswordChange = (e) => {
     const { id, value } = e.target;
-    const isPasswordValid = /^[0-9]*$/.test(value);
+    const isPassordValid = /^[0-9]*$/.test(value); // Changed from isPasswordValid to isPassordValid
     onChange((prevData) => ({
       ...prevData,
-      [id]: isPasswordValid ? value : "",
+      [id]: isPassordValid ? value : "", // Changed from Password to Passord
     }));
   };
 

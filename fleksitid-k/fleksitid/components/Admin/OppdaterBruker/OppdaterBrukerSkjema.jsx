@@ -12,11 +12,14 @@ import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
+  // Oppdaterer formData til nye ansattNr
+  React.useEffect(() => {
+    setFormData(userData);
+  }, [userData]);
+
   const dbCollection = "Brukere";
 
   const handleSave = async () => {
-    console.log("Saving data to the database:", formData);
-
     // Sjekker hvis det er noen endring
     // Fikk kuttet ned flere && if setning ved hjelp av chatGPT
     // Sjekket hver verdi mot hverandre
@@ -29,23 +32,25 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
       // Sjekket hvis ansattNr har endret seg
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Sjekker hvis ansattNr finnes fra før
-        const newDocRef = doc(db, dbCollection, formData.AnsattNr);
-        const newDocSnap = await getDoc(newDocRef);
-
-        if (!newDocSnap.exists()) {
+        const nyDocRef = doc(db, dbCollection, formData.AnsattNr);
+        const nyDocSnap = await getDoc(nyDocRef);
+        if (!nyDocSnap.exists()) {
           // Oppdaterer data med ny ansattNr
-          await setDoc(newDocRef, {
+          const nyData = {
             ...formData,
             Innlogget: false,
-          });
+          };
+          // Lagrer ikke gjenta passord i database
+          delete nyData.GjentaPassord;
+          await setDoc(nyDocRef, nyData);
 
           // Sletter gammelt dokument for å ikke ha flere dokumenter for samme ansatt
           // https://firebase.google.com/docs/firestore/manage-data/delete-data
 
-          const oldDocRef = doc(db, dbCollection, userData.AnsattNr);
-          const oldDocSnap = await getDoc(oldDocRef);
-          if (oldDocSnap.exists()) {
-            await deleteDoc(oldDocRef);
+          const gammelDocRef = doc(db, dbCollection, userData.AnsattNr);
+          const gammelDocSnap = await getDoc(gammelDocRef);
+          if (gammelDocSnap.exists()) {
+            await deleteDoc(gammelDocRef);
             console.log(
               "Slettet gammelt dokument med ansattNr: ",
               userData.AnsattNr
@@ -56,15 +61,19 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
           // Reset the form data after saving
           onGoBack();
+        } else {
+          alert("Kan ikke endre til et ansatt nummer som finnes fra før");
         }
-        alert("Kan ikke endre til et ansatt nummer som finnes fra før");
       } else {
         //Ansatt nummer har ikke endret seg, men andre data har
         const docRef = doc(db, dbCollection, userData.AnsattNr);
-        await setDoc(docRef, {
+        const oppdatertData = {
           ...formData,
           Innlogget: false,
-        });
+        };
+        delete oppdatertData.GjentaPassord;
+
+        await setDoc(docRef, oppdatertData);
 
         alert("Oppdatert bruker");
 
@@ -87,10 +96,10 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     formData.Fornavn !== "" &&
     formData.Etternavn !== "" &&
     formData.Stilling !== "" &&
-    ((formData.Password === userData.Password &&
-      formData.GjentaPassword === userData.GjentaPassword) || // Passord ikke endret, vil ikke være 6 tegn etter hashing
-      (formData.Password.length === PASSWORD_LENGTH &&
-        formData.Password === formData.GjentaPassword));
+    ((formData.Passord === userData.Passord &&
+      formData.GjentaPassord === userData.GjentaPassord) || // Passord ikke endret, vil ikke være 6 tegn etter hashing
+      (formData.Passord.length === PASSWORD_LENGTH &&
+        formData.Passord === formData.GjentaPassord));
 
   return (
     <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>

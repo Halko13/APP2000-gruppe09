@@ -16,22 +16,22 @@ const textFieldData = [
   { id: "Etternavn", label: "Etternavn", required: true, variant: "filled" },
   { id: "Stilling", label: "Stilling", required: true, variant: "filled" },
   {
-    id: "AntallJobbtimer",
+    id: "AntallJobbTimer",
     label: "Antall jobbtimer",
     type: "number",
     variant: "filled",
   },
   {
-    id: "Password",
-    label: "Password",
+    id: "Passord",
+    label: "Passord",
     type: "password",
     autoComplete: "current-password",
     required: true,
     variant: "filled",
   },
   {
-    id: "GjentaPassword",
-    label: "Gjenta Password",
+    id: "GjentaPassord",
+    label: "Gjenta Passord",
     type: "password",
     autoComplete: "current-password",
     required: true,
@@ -81,19 +81,19 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
             variant={field.variant || "filled"}
             onChange={(e) => {
               handleChange(e);
-              if (field.id === "Password") {
+              if (field.id === "Passord") {
                 handlePasswordChange(e);
-              } else if (field.id === "GjentaPassword") {
+              } else if (field.id === "GjentaPassord") {
                 handlePasswordChange(e);
               }
             }}
             value={formData[field.id]}
             error={
-              (field.id === "Password" || field.id === "GjentaPassword") &&
+              (field.id === "Passord" || field.id === "GjentaPassord") &&
               passwordError
             }
             helperText={
-              (field.id === "Password" || field.id === "GjentaPassword") &&
+              (field.id === "Passord" || field.id === "GjentaPassord") &&
               passwordError
                 ? "Password must be 6 digits"
                 : ""

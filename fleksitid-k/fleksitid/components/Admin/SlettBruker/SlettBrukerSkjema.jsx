@@ -33,7 +33,7 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
       Fornavn: "",
       Etternavn: "",
       Stilling: "",
-      antallJobbtimer: "",
+      antallJobbTimer: "",
     });
   };
 

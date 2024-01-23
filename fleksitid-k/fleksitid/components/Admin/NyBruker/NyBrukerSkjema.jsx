@@ -21,9 +21,9 @@ export default function NyBrukerSkjema() {
     Fornavn: "",
     Etternavn: "",
     Stilling: "",
-    AntallJobbtimer: "",
-    Password: "",
-    GjentaPassword: "",
+    AntallJobbTimer: "",
+    Passord: "",
+    GjentaPassord: "",
     ErAdmin: false,
   });
 
@@ -41,14 +41,14 @@ export default function NyBrukerSkjema() {
     } else {
       // Setter data inn i firestore
       // Hentet fra firestore doc
-      //https://firebase.google.com/docs/firestore/manage-data/add-data
+      // https://firebase.google.com/docs/firestore/manage-data/add-data
       await setDoc(doc(db, "Brukere", formData.AnsattNr), {
         AnsattNr: formData.AnsattNr,
         Fornavn: formData.Fornavn,
         Etternavn: formData.Etternavn,
         Stilling: formData.Stilling,
-        AntallJobbTimer: formData.AntallJobbtimer,
-        Password: formData.Password,
+        AntallJobbTimer: formData.AntallJobbTimer,
+        Passord: formData.Passord,
         Innlogget: false,
         ErAdmin: formData.ErAdmin,
       });
@@ -65,9 +65,9 @@ export default function NyBrukerSkjema() {
       Fornavn: "",
       Etternavn: "",
       Stilling: "",
-      AntallJobbtimer: "",
-      Password: "",
-      GjentaPassword: "",
+      AntallJobbTimer: "",
+      Passord: "",
+      GjentaPassord: "",
       ErAdmin: false,
     });
   };
@@ -77,10 +77,10 @@ export default function NyBrukerSkjema() {
     formData.Fornavn !== "" &&
     formData.Etternavn !== "" &&
     formData.Stilling !== "" &&
-    formData.Password !== "" &&
-    formData.GjentaPassword !== "" &&
-    formData.Password === formData.GjentaPassword &&
-    formData.Password.length === PASSWORD_LENGTH;
+    formData.Passord !== "" &&
+    formData.GjentaPassord !== "" &&
+    formData.Passord === formData.GjentaPassord &&
+    formData.Passord.length === PASSWORD_LENGTH;
 
   return (
     <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
