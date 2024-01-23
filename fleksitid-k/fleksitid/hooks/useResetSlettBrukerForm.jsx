@@ -1,3 +1,5 @@
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 
 export const useResetSlettBrukerForm = (formData) => {

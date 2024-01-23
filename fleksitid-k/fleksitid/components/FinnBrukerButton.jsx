@@ -1,5 +1,6 @@
 // Hentet fra MUI DOCS
 //https://mui.com/material-ui/react-button/
+// Utviklet av Halvor Vilnes
 import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";

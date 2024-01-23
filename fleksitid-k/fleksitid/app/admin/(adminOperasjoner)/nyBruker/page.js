@@ -1,8 +1,10 @@
-import React from 'react';
-import { Box } from '@mui/material';
+// Utviklet av Halvor Vilnes
+
+import React from "react";
+import { Box } from "@mui/material";
 // Komponenter
-import NyBrukerSkjema from '@/components/NyBrukerSkjema';
-import NyBrukerTittel from '@/components/NyBrukerTittel';
+import NyBrukerSkjema from "@/components/NyBrukerSkjema";
+import NyBrukerTittel from "@/components/NyBrukerTittel";
 
 export default function Admin() {
   return (

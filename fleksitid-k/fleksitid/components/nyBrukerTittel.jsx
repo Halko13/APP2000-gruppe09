@@ -1,5 +1,7 @@
 // Overskirft fra MUI
 // https://mui.com/material-ui/react-typography/
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";

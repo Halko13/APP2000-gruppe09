@@ -1,4 +1,5 @@
-// useFormValidation.js
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";

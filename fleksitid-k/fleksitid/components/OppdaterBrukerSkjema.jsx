@@ -1,4 +1,5 @@
-// OppdaterBrukerSkjema.jsx
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";

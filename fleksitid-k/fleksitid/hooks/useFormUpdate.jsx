@@ -1,3 +1,5 @@
+// Utviklet av Halvor Vilnes
+
 export const useFormUpdate = (onChange) => {
   const handleChange = (e) => {
     const { id, value } = e.target;

@@ -1,4 +1,5 @@
-// NyBrukerForm.jsx
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -6,7 +7,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
 import { usePasswordChange } from "@/hooks/usePasswordChange";
-import AdminCheckBox from "@/components/FormControlLabelPosition";
+import AdminCheckBox from "@/components/AdminCheckBox";
 
 // Define the array of TextField properties
 const textFieldData = [

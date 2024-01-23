@@ -1,4 +1,5 @@
-// SlettBrukerSkjema.js
+// Utviklet av Halvor Vilnes
+
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -13,7 +14,7 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
 
   const handleSlettBruker = async () => {
     console.log("Sletter data fra database:", formData);
-    // // Sletter data fra database
+
     // Hentet fra firestore doc
     //https://firebase.google.com/docs/firestore/manage-data/delete-data
     await deleteDoc(doc(db, "Brukere", formData.AnsattNr));

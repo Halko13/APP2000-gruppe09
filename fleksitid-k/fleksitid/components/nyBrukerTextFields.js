@@ -6,7 +6,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
 import { usePasswordChange } from "@/hooks/usePasswordChange";
-import AdminCheckBox from "@/components/FormControlLabelPosition";
+import AdminCheckBox from "@/components/AdminCheckBox";
 
 export const PASSWORD_LENGTH = 6;
 

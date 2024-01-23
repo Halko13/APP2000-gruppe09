@@ -1,4 +1,5 @@
-// FinnBrukerSkjema.js
+// Utviklet av Halvor Vilnes
+
 "use client";
 import * as React from "react";
 import { Item } from "@/hooks/useFormStyle"; // Adjust the path as needed

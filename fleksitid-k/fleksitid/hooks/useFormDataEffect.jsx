@@ -1,4 +1,5 @@
-// useFormDataEffect.js
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 
 export const useFormDataEffect = (formData) => {
