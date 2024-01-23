@@ -7,28 +7,34 @@ import { db } from "@/app/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { usePathname } from "next/navigation";
 // Assuming other components are imported correctly
-import FinnTextField from "@/components/FinnBrukerTextField";
+import FinnBrukerTextField from "@/components/FinnBrukerTextField";
 import FinnBrukerButton from "@/components/FinnBrukerButton";
 import SlettBrukerSkjema from "@/components/SlettBrukerSkjema";
 import OppdaterBrukerSkjema from "@/components/OppdaterBrukerSkjema";
 
 export default function FinnBrukerSkjema() {
+  // Data i feltene
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
   });
+  // Data fra database
   const [userData, setUserData] = React.useState(null);
-  const [showSlettBrukerSkjema, setShowSlettBrukerSkjema] =
+  // Skal slettBrukerSkjema vises
+  const [visSlettBrukerSkjema, setShowSlettBrukerSkjema] =
     React.useState(false);
-  const [showOppdaterBrukerSkjema, setShowOppdatgerBrukerSkjema] =
+  // Skal oppdaterBrukerSkjema vises
+  const [visOppdaterBrukerSkjema, setShowOppdatgerBrukerSkjema] =
     React.useState(false);
-
+  // Sjekker nå path
   const currentPath = usePathname();
   const oppdaterBrukerPath = "/admin/oppdaterBruker";
   const slettBrukerPath = "/admin/slettBruker";
 
+  // Finner bruker fra database
+  // firestore docs
+  // https://firebase.google.com/docs/firestore/query-data/get-data
   const handleFinnBruker = async () => {
     //  Henter bruker fra server
-    console.log(currentPath);
     const docRef = doc(db, "Brukere", formData.AnsattNr);
     const docSnap = await getDoc(docRef);
 
@@ -38,8 +44,7 @@ export default function FinnBrukerSkjema() {
       else if (currentPath === oppdaterBrukerPath)
         setShowOppdatgerBrukerSkjema(true);
     } else {
-      // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+      console.log("Finner ikke dokumentet");
     }
   };
 
@@ -47,7 +52,7 @@ export default function FinnBrukerSkjema() {
     setFormData({
       AnsattNr: "",
     });
-    setUserData(null); // Reset userData to null
+    setUserData(null);
     setShowSlettBrukerSkjema(false);
     setShowOppdatgerBrukerSkjema(false);
   };
@@ -55,14 +60,14 @@ export default function FinnBrukerSkjema() {
   const isFormValid = formData.AnsattNr !== "";
   return (
     <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
-      {showSlettBrukerSkjema ? (
+      {visSlettBrukerSkjema ? (
         <SlettBrukerSkjema userData={userData} onGoBack={handleFormReset} />
-      ) : showOppdaterBrukerSkjema ? (
+      ) : visOppdaterBrukerSkjema ? (
         <OppdaterBrukerSkjema userData={userData} onGoBack={handleFormReset} />
       ) : (
         <>
           <Item>
-            <FinnTextField formData={formData} onChange={setFormData} />
+            <FinnBrukerTextField formData={formData} onChange={setFormData} />
           </Item>
           <Item>
             <FinnBrukerButton

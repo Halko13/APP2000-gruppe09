@@ -1,11 +1,10 @@
-// nyBrukerTextFields.jsx
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
+// Hentet tekstfelt fra MUI
+// https://mui.com/material-ui/react-text-field/
+import * as React from "react";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetFinnBrukerForm } from '@/hooks/useResetFinnBrukerForm';
-
-export const PASSWORD_LENGTH = 6;
+import { useResetFinnBrukerForm } from "@/hooks/useResetFinnBrukerForm";
 
 export default function FinnBrukerTextField({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
@@ -20,7 +19,7 @@ export default function FinnBrukerTextField({ formData, onChange }) {
     <Box
       component="form"
       sx={{
-        '& .MuiTextField-root': { m: 1, width: 1 },
+        "& .MuiTextField-root": { m: 1, width: 1 },
         mx: 2,
       }}
       noValidate
