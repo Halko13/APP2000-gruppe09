@@ -71,6 +71,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           ...formData,
           Innlogget: false,
         };
+        // Lagrer ikke gjenta passord i database
         delete oppdatertData.GjentaPassord;
 
         await setDoc(docRef, oppdatertData);
@@ -81,9 +82,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         onGoBack();
       }
     } else {
-      // No changes, go back
       console.log("No changes");
-      // onGoBack();
     }
   };
 
