@@ -1,5 +1,3 @@
-// Hentet tekstfelt fra MUI
-// https://mui.com/material-ui/react-text-field/
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -15,6 +13,8 @@ export default function FinnBrukerTextField({ formData, onChange }) {
     // Add more fields as needed
   ];
 
+  // Hentet tekstfelt fra MUI
+  // https://mui.com/material-ui/react-text-field/
   return (
     <Box
       component="form"

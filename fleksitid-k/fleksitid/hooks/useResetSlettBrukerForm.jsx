@@ -1,8 +1,7 @@
-// useFormDataEffect.js
-import * as React from 'react';
+import * as React from "react";
 
 export const useResetSlettBrukerForm = (formData) => {
   React.useEffect(() => {
-    document.getElementById('AnsattNr').value = formData.AnsattNr;
+    document.getElementById("AnsattNr").value = formData.AnsattNr;
   }, [formData]);
 };

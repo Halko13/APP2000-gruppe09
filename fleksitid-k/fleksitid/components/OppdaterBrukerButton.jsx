@@ -24,13 +24,15 @@ export default function OppdaterBrukerButton({
     onFormReturn(); // Reset the form
   };
 
+  // Hentet fra MUI DOCS
+  //https://mui.com/material-ui/react-button/
   return (
     <Stack direction="row" spacing={2} justifyContent="flex-end">
-      <Button variant="contained" onClick={handleSaveClick}>
-        Oppdater
-      </Button>
       <Button variant="outlined" onClick={handleReturnClick}>
         Tilbake
+      </Button>
+      <Button variant="contained" onClick={handleSaveClick}>
+        Oppdater
       </Button>
     </Stack>
   );

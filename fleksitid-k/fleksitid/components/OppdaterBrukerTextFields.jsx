@@ -6,8 +6,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
 import { usePasswordChange } from "@/hooks/usePasswordChange";
-import { useGjentaPasswordChange } from "@/hooks/useGjentaPasswordChange";
-import FormControlLabelPosition from "@/components/FormControlLabelPosition";
+import AdminCheckBox from "@/components/FormControlLabelPosition";
 
 // Define the array of TextField properties
 const textFieldData = [
@@ -45,7 +44,6 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
   const passwordError = useFormValidation(formData);
   useFormDataEffect(formData);
   const handlePasswordChange = usePasswordChange(onChange);
-  const handleGjentaPasswordChange = useGjentaPasswordChange(onChange);
 
   // State for the checkbox
   // const [erAdminChecked, setErAdminChecked] = React.useState(formData.ErAdmin || false);  // Update the state when the form data changes
@@ -85,7 +83,7 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
               if (field.id === "Password") {
                 handlePasswordChange(e);
               } else if (field.id === "GjentaPassword") {
-                handleGjentaPasswordChange(e);
+                handlePasswordChange(e);
               }
             }}
             value={formData[field.id]}
@@ -102,8 +100,7 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
           />
         ))}
 
-        {/* Use the FormControlLabelPosition component and pass the state and handler */}
-        <FormControlLabelPosition
+        <AdminCheckBox
           checked={erAdminChecked}
           onChange={handleErAdminChange}
           label={checkboxData[0].label} // Use the label from checkboxData

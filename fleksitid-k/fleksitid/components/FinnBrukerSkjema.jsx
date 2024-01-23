@@ -18,12 +18,11 @@ export default function FinnBrukerSkjema() {
     AnsattNr: "",
   });
   // Data fra database
-  const [userData, setUserData] = React.useState(null);
+  const [userData, setBrukerData] = React.useState(null);
   // Skal slettBrukerSkjema vises
-  const [visSlettBrukerSkjema, setShowSlettBrukerSkjema] =
-    React.useState(false);
+  const [visSlettBrukerSkjema, setVisSlettBrukerSkjema] = React.useState(false);
   // Skal oppdaterBrukerSkjema vises
-  const [visOppdaterBrukerSkjema, setShowOppdatgerBrukerSkjema] =
+  const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
     React.useState(false);
   // Sjekker nå path
   const currentPath = usePathname();
@@ -39,10 +38,11 @@ export default function FinnBrukerSkjema() {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
-      setUserData(docSnap.data());
-      if (currentPath === slettBrukerPath) setShowSlettBrukerSkjema(true);
+      // Setter userData til data fra database
+      setBrukerData(docSnap.data());
+      if (currentPath === slettBrukerPath) setVisSlettBrukerSkjema(true);
       else if (currentPath === oppdaterBrukerPath)
-        setShowOppdatgerBrukerSkjema(true);
+        setVisOppdaterBrukerSkjema(true);
     } else {
       console.log("Finner ikke dokumentet");
     }
@@ -52,9 +52,9 @@ export default function FinnBrukerSkjema() {
     setFormData({
       AnsattNr: "",
     });
-    setUserData(null);
-    setShowSlettBrukerSkjema(false);
-    setShowOppdatgerBrukerSkjema(false);
+    setBrukerData(null);
+    setVisSlettBrukerSkjema(false);
+    setVisOppdaterBrukerSkjema(false);
   };
 
   const isFormValid = formData.AnsattNr !== "";

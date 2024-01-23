@@ -1,11 +1,12 @@
 // useFormValidation.js
-import * as React from 'react';
+import * as React from "react";
 
 import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
 
 export const useFormValidation = (formData) => {
   const [passwordError, setPasswordError] = React.useState(false);
 
+  // Bruker regex for å sjekke om det kun er nummer
   const isNumeric = (value) => /^[0-9]+$/.test(value);
 
   React.useEffect(() => {
