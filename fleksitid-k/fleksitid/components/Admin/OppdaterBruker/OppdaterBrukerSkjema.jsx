@@ -55,9 +55,9 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
               "Slettet gammelt dokument med ansattNr: ",
               userData.AnsattNr
             );
-          } else {
-            alert("Oppdatert bruker");
           }
+
+          alert("Oppdatert bruker");
 
           // Reset the form data after saving
           onGoBack();

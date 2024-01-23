@@ -18,7 +18,7 @@ const textFieldData = [
   { id: "Stilling", label: "Stilling", required: true, variant: "filled" },
   {
     id: "AntallJobbTimer",
-    label: "Antall jobbtimer",
+    label: "Antall jobbtimer i uka",
     type: "number",
     variant: "filled",
   },
