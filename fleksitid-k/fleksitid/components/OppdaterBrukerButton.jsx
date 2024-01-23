@@ -13,7 +13,7 @@ export default function OppdaterBrukerButton({
   const handleSaveClick = () => {
     if (isFormValid) {
       onSave();
-      onFormReturn(); // Reset the form after successful save
+      onFormReturn();
     } else {
       console.log("valider ikke " + isFormValid);
       alert("Fyll inn alle felter og passord må matche");

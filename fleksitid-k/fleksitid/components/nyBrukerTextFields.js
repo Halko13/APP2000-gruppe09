@@ -52,7 +52,7 @@ export default function NyBrukerForm({ formData, onChange }) {
     formData.ErAdmin || false //Hvis undefined, blir satt som false
   );
 
-  // Update the state when the form data changes
+  // Oppdaterer når checkbox endres i form
   React.useEffect(() => {
     setErAdminChecked(formData.ErAdmin || false);
   }, [formData.ErAdmin]);
@@ -86,9 +86,7 @@ export default function NyBrukerForm({ formData, onChange }) {
             variant={field.variant || "filled"}
             onChange={(e) => {
               handleChange(e);
-              if (field.id === "Password") {
-                handlePasswordChange(e);
-              } else if (field.id === "GjentaPassword") {
+              if (field.id === "Password" || field.id === "GjentaPassword") {
                 handlePasswordChange(e);
               }
             }}
