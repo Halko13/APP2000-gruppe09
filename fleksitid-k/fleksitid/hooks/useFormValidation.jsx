@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
+import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
 
 export const useFormValidation = (formData) => {
   const [passwordError, setPasswordError] = React.useState(false);
