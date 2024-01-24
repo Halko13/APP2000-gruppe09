@@ -12,7 +12,7 @@ import FinnBrukerTextField from "@/components/Admin/FinnBruker/FinnBrukerTextFie
 import FinnBrukerButton from "@/components/Admin/FinnBruker/FinnBrukerButton";
 import SlettBrukerSkjema from "@/components/Admin/SlettBruker/SlettBrukerSkjema";
 import OppdaterBrukerSkjema from "@/components/Admin/OppdaterBruker/OppdaterBrukerSkjema";
-
+import { FinnBrukerErrorAlert } from "@/components/Admin/FinnBruker/Alerts";
 export default function FinnBrukerSkjema() {
   // Data i feltene
   const [formData, setFormData] = React.useState({
@@ -25,7 +25,8 @@ export default function FinnBrukerSkjema() {
   // Skal oppdaterBrukerSkjema vises
   const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
     React.useState(false);
-
+  const [visFinnBrukerErrorAlert, setVisFinnBrukerErrorAlert] =
+    React.useState(false);
   // Sjekker nå path
   const currentPath = usePathname();
   const oppdaterBrukerPath = "/admin/oppdaterBruker";
@@ -50,7 +51,10 @@ export default function FinnBrukerSkjema() {
       else if (currentPath === oppdaterBrukerPath)
         setVisOppdaterBrukerSkjema(true);
     } else {
-      console.log("Finner ikke dokumentet");
+      setVisFinnBrukerErrorAlert(true);
+      setTimeout(() => {
+        setVisFinnBrukerErrorAlert(false);
+      }, 3000);
     }
   };
 
@@ -61,6 +65,7 @@ export default function FinnBrukerSkjema() {
     setBrukerData(null);
     setVisSlettBrukerSkjema(false);
     setVisOppdaterBrukerSkjema(false);
+    setVisFinnBrukerErrorAlert(false);
   };
 
   const isFormValid = formData.AnsattNr !== "";
@@ -79,6 +84,7 @@ export default function FinnBrukerSkjema() {
               isFormValid={isFormValid}
               onFormReset={handleFormReset}
             />
+            <FinnBrukerErrorAlert vis={visFinnBrukerErrorAlert} />
           </Item>
         </>
       )}
