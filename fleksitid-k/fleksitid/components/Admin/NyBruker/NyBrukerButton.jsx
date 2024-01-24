@@ -1,8 +1,10 @@
-import * as React from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+// Utviklet av Halvor Vilnes
 
-export default function IconLabelButtons({ onSave, isFormValid, onFormReset }) {
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+
+export default function NyBrukerButton({ onSave, isFormValid, onFormReset }) {
   const handleSaveClick = () => {
     if (isFormValid) {
       onSave();
@@ -10,7 +12,7 @@ export default function IconLabelButtons({ onSave, isFormValid, onFormReset }) {
     } else {
       // Show an error message or handle the case where the form is not valid
       console.log("valider ikke " + isFormValid);
-      alert('Please fill in all required fields and ensure passwords match.');
+      alert("Fyll inn alle felter og passord må matche");
     }
   };
 

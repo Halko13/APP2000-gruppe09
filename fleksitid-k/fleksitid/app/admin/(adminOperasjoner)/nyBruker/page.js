@@ -1,14 +1,17 @@
-import React from 'react';
-import NyBrukerSkjema from '@/components/nyBrukerSkjema';
-import NyBrukerTittel from '@/components/nyBrukerTittel'; // Corrected import
-import { Box } from '@mui/material';
+// Utviklet av Halvor Vilnes
+
+import React from "react";
+import { Box } from "@mui/material";
+// Komponenter
+import NyBrukerSkjema from "@/components/Admin/NyBruker/NyBrukerSkjema";
+import NyBrukerTittel from "@/components/Admin/NyBruker/NyBrukerTittel";
 
 export default function Admin() {
   return (
     <main>
       <div>
         <Box>
-          <NyBrukerTittel /> {/* Corrected component name */}
+          <NyBrukerTittel />
           <NyBrukerSkjema />
         </Box>
       </div>

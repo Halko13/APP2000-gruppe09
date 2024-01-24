@@ -1,26 +1,28 @@
-// useFormValidation.js
-import * as React from 'react';
+// Utviklet av Halvor Vilnes
 
-import { PASSWORD_LENGTH } from "@/components/nyBrukerTextFields";
+import * as React from "react";
+
+import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
 
 export const useFormValidation = (formData) => {
-  const [passwordError, setPasswordError] = React.useState(false);
+  const [passordError, setPassordError] = React.useState(false); // Changed from passwordError to passordError
 
+  // Bruker regex for å sjekke om det kun er nummer
   const isNumeric = (value) => /^[0-9]+$/.test(value);
-
+  // TODO endre kommentarer
   React.useEffect(() => {
     const isValid =
       formData.AnsattNr &&
       formData.Fornavn &&
       formData.Etternavn &&
       formData.Stilling &&
-      isNumeric(formData.password) &&
-      isNumeric(formData.gjentaPassword) &&
-      formData.password === formData.gjentaPassword &&
-      formData.password.length === PASSWORD_LENGTH;
+      isNumeric(formData.Passord) && // Changed from Password to Passord
+      isNumeric(formData.GjentaPassord) && // Changed from GjentaPassword to GjentaPassord
+      formData.Passord === formData.GjentaPassord && // Changed from Password to Passord and GjentaPassword to GjentaPassord
+      formData.Passord.length === PASSWORD_LENGTH; // Changed from Password to Passord
 
-    setPasswordError(!isValid);
+    setPassordError(!isValid); // Changed from setPasswordError to setPassordError
   }, [formData]);
 
-  return passwordError;
+  return passordError; // Changed from passwordError to passordError
 };

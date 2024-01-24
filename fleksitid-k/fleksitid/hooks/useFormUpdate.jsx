@@ -1,9 +1,8 @@
-// useFormUpdate.js
-import * as React from 'react';
+// Utviklet av Halvor Vilnes
 
 export const useFormUpdate = (onChange) => {
-  const handleChange = (event) => {
-    const { id, value } = event.target;
+  const handleChange = (e) => {
+    const { id, value } = e.target;
     onChange((prevData) => ({ ...prevData, [id]: value }));
   };
 

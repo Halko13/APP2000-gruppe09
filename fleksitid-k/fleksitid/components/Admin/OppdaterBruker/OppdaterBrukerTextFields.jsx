@@ -1,4 +1,5 @@
-// nyBrukerTextFields.jsx
+// Utviklet av Halvor Vilnes
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
@@ -6,9 +7,7 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
 import { usePasswordChange } from "@/hooks/usePasswordChange";
-import { useGjentaPasswordChange } from "@/hooks/useGjentaPasswordChange";
-
-export const PASSWORD_LENGTH = 6;
+import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
 // Define the array of TextField properties
 const textFieldData = [
@@ -17,35 +16,48 @@ const textFieldData = [
   { id: "Etternavn", label: "Etternavn", required: true, variant: "filled" },
   { id: "Stilling", label: "Stilling", required: true, variant: "filled" },
   {
-    id: "AntallJobbtimer",
+    id: "AntallJobbTimer",
     label: "Antall jobbtimer",
     type: "number",
     variant: "filled",
   },
   {
-    id: "Password",
-    label: "Password",
+    id: "Passord",
+    label: "Passord",
     type: "password",
     autoComplete: "current-password",
     required: true,
     variant: "filled",
   },
   {
-    id: "GjentaPassword",
-    label: "Gjenta Password",
+    id: "GjentaPassord",
+    label: "Gjenta Passord",
     type: "password",
     autoComplete: "current-password",
     required: true,
     variant: "filled",
   },
 ];
+const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
-export default function NyBrukerForm({ formData, onChange }) {
+export default function OppdaterBrukerForm({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
   const passwordError = useFormValidation(formData);
   useFormDataEffect(formData);
   const handlePasswordChange = usePasswordChange(onChange);
-  const handleGjentaPasswordChange = useGjentaPasswordChange(onChange);
+
+  // State for the checkbox
+  // const [erAdminChecked, setErAdminChecked] = React.useState(formData.ErAdmin || false);  // Update the state when the form data changes
+  const [erAdminChecked, setErAdminChecked] = React.useState(false); // Update the state when the form data changes
+
+  React.useEffect(() => {
+    setErAdminChecked(formData.ErAdmin || false);
+  }, [formData.ErAdmin]);
+
+  const handleErAdminChange = (checked) => {
+    setErAdminChecked(checked);
+    onChange({ ...formData, ErAdmin: checked });
+  };
 
   return (
     <Box
@@ -69,25 +81,31 @@ export default function NyBrukerForm({ formData, onChange }) {
             variant={field.variant || "filled"}
             onChange={(e) => {
               handleChange(e);
-              if (field.id === "password") {
+              if (field.id === "Passord") {
                 handlePasswordChange(e);
-              } else if (field.id === "gjentaPassword") {
-                handleGjentaPasswordChange(e);
+              } else if (field.id === "GjentaPassord") {
+                handlePasswordChange(e);
               }
             }}
             value={formData[field.id]}
             error={
-              (field.id === "password" || field.id === "gjentaPassword") &&
+              (field.id === "Passord" || field.id === "GjentaPassord") &&
               passwordError
             }
             helperText={
-              (field.id === "password" || field.id === "gjentaPassword") &&
+              (field.id === "Passord" || field.id === "GjentaPassord") &&
               passwordError
                 ? "Password must be 6 digits"
                 : ""
             }
           />
         ))}
+
+        <AdminCheckBox
+          checked={erAdminChecked}
+          onChange={handleErAdminChange}
+          label={checkboxData[0].label} // Use the label from checkboxData
+        />
       </div>
     </Box>
   );

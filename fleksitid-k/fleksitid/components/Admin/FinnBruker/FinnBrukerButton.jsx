@@ -1,7 +1,9 @@
-// SlettBrukerButton.jsx
-import React from 'react';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+// Hentet fra MUI DOCS
+//https://mui.com/material-ui/react-button/
+// Utviklet av Halvor Vilnes
+import React from "react";
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
 
 export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
   const handleFindBruker = () => {
@@ -9,7 +11,7 @@ export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
       onFind();
     } else {
       console.log("valider ikke " + isFormValid);
-      alert('Please fill in the field');
+      alert("Venligst fyll inn feltet");
     }
   };
 
