@@ -71,14 +71,16 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
           // onGoBack();
           setVisOppdatertBrukerSuccsessAlert(true);
+          setVisOppdatertBrukerErrorAlert(false);
           setTimeout(() => {
             onGoBack();
           }, 3000);
         } else {
           setVisOppdatertBrukerErrorAlert(true);
-          setTimeout(() => {
-            onGoBack();
-          }, 3000);
+          setVisOppdatertBrukerSuccsessAlert(false);
+          // setTimeout(() => {
+          //   onGoBack();
+          // }, 3000);
         }
       } else {
         //Ansatt nummer har ikke endret seg, men andre data har
@@ -94,6 +96,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
         // alert("Oppdatert bruker");
         setVisOppdatertBrukerSuccsessAlert(true);
+        setVisOppdatertBrukerErrorAlert(false);
         setTimeout(() => {
           onGoBack();
         }, 3000);
