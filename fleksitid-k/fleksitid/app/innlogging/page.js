@@ -11,22 +11,6 @@ import teama from '@/app/Temaer/Teama';
 import { db } from '@/app/firebaseConfig';
 import { collection, getDocs } from "firebase/firestore"; 
 
-/*
-// Dummy brukere 
-const testBrukere = [
-    {id: 1, navn: 'Roy Roger', pin: '1234'},
-    {id: 2, navn: 'Bob', pin: '5555'},
-    {id: 3, navn: 'Hans', pin: '9876'}
-];
-*/
-
-/*
-// Dummy admin brukere
-const testAdminBrukere = [
-    {brukernavn: 'admin1', passord: 'adminpass1', erAdmin: true}, 
-    {brukernavn: 'admin2', passord: 'adminpass2', erAdmin: true}
-];
-*/
 
 const InnloggingSide = () => {
     // Start verdi 
