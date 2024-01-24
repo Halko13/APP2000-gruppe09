@@ -46,8 +46,8 @@ export default function FinnBrukerSkjema() {
       // Setter brukerData til å være all info om bruker
       setBrukerData(brukerData);
       if (currentPath === slettBrukerPath) setVisSlettBrukerSkjema(true);
-      else if (currentPath === oppdaterBrukerPath) console.log(userData);
-      setVisOppdaterBrukerSkjema(true);
+      else if (currentPath === oppdaterBrukerPath)
+        setVisOppdaterBrukerSkjema(true);
     } else {
       console.log("Finner ikke dokumentet");
     }

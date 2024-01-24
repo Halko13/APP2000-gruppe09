@@ -59,7 +59,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
           alert("Oppdatert bruker");
 
-          // Reset the form data after saving
           onGoBack();
         } else {
           alert("Kan ikke endre til et ansatt nummer som finnes fra før");
@@ -78,16 +77,15 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
         alert("Oppdatert bruker");
 
-        // Reset the form data after saving
         onGoBack();
       }
     } else {
-      console.log("No changes");
+      console.log("Ingen ting endret");
     }
   };
 
   const handleFormReturn = () => {
-    onGoBack(); // Go back to FinnBrukerSkjema
+    onGoBack();
   };
 
   const isFormValid =

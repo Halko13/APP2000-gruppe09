@@ -37,7 +37,6 @@ export default function NyBrukerSkjema() {
       setTimeout(() => {
         setVisSuksessAlert(false);
       }, 5000);
-      // alert("Ansatt nummer finnes fra før");
     } else {
       await setDoc(doc(db, "Brukere", formData.AnsattNr), {
         AnsattNr: formData.AnsattNr,
@@ -51,7 +50,6 @@ export default function NyBrukerSkjema() {
       });
       setVisSuksessAlert(true);
 
-      // Set a timer to hide the alert after 10 seconds
       setTimeout(() => {
         setVisSuksessAlert(false);
       }, 5000);
@@ -99,8 +97,8 @@ export default function NyBrukerSkjema() {
               isFormValid={isFormValid}
               onFormReset={handleFormReset}
             />
-            <SuccessAlert show={visSuksessAlert} />
-            <ErrorAlert show={visErrorAlert} />
+            <SuccessAlert vis={visSuksessAlert} />
+            <ErrorAlert vis={visErrorAlert} />
           </Item>
         </Box>
       </Box>
