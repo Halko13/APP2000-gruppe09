@@ -9,3 +9,7 @@ export function OppdatertBrukerSuccsessAlert({ vis }) {
 export function OppdatertBrukerErrorAlert({ vis }) {
   return vis && <Alert severity="error">Ansatt nummer finnes fra før</Alert>;
 }
+
+export function OppdatertBrukerInfoAlert({ vis }) {
+  return vis && <Alert severity="info">Ingen ting er endret</Alert>;
+}

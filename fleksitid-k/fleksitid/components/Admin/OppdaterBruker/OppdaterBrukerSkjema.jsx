@@ -9,6 +9,7 @@ import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields"
 import {
   OppdatertBrukerSuccsessAlert,
   OppdatertBrukerErrorAlert,
+  OppdatertBrukerInfoAlert,
 } from "@/components/Admin/OppdaterBruker/Alerts";
 
 import { db } from "@/app/firebaseConfig";
@@ -26,7 +27,8 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     React.useState(false);
   const [visOppdatertBrukerErrorAlert, setVisOppdatertBrukerErrorAlert] =
     React.useState(false);
-
+  const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
+    React.useState(false);
   const dbCollection = "Brukere";
 
   const handleSave = async () => {
@@ -72,12 +74,14 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           // onGoBack();
           setVisOppdatertBrukerSuccsessAlert(true);
           setVisOppdatertBrukerErrorAlert(false);
+          setVisOppdatertBrukerInfoAlert(false);
           setTimeout(() => {
             onGoBack();
           }, 3000);
         } else {
           setVisOppdatertBrukerErrorAlert(true);
           setVisOppdatertBrukerSuccsessAlert(false);
+          setVisOppdatertBrukerInfoAlert(false);
           // setTimeout(() => {
           //   onGoBack();
           // }, 3000);
@@ -97,11 +101,15 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         // alert("Oppdatert bruker");
         setVisOppdatertBrukerSuccsessAlert(true);
         setVisOppdatertBrukerErrorAlert(false);
+        setVisOppdatertBrukerInfoAlert(false);
         setTimeout(() => {
           onGoBack();
         }, 3000);
       }
     } else {
+      setVisOppdatertBrukerInfoAlert(true);
+      setVisOppdatertBrukerErrorAlert(false);
+      setVisOppdatertBrukerSuccsessAlert(false);
       console.log("Ingen ting endret");
     }
   };
@@ -141,6 +149,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
               vis={visOppdatertBrukerSuccsessAlert}
             />
             <OppdatertBrukerErrorAlert vis={visOppdatertBrukerErrorAlert} />
+            <OppdatertBrukerInfoAlert vis={visOppdatertBrukerInfoAlert} />
           </Item>
         </Box>
       </Box>
