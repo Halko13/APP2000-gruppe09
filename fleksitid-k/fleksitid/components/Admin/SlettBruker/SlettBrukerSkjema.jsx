@@ -9,16 +9,11 @@ import { Item } from "@/hooks/useFormStyle";
 import { db } from "@/app/firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
 
-import {
-  SlettetBrukerSuccsessAlert,
-  SlettetBrukerErrorAlert,
-} from "@/components/Admin/SlettBruker/Alerts";
+import { SlettetBrukerSuccsessAlert } from "@/components/Admin/SlettBruker/Alerts";
 
 export default function SlettBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
   const [visSlettetBrukerSuccsessAlert, setVisSlettetBrukerSuccsessAlert] =
-    React.useState(false);
-  const [visSlettetBrukerErrorAlert, setVisSlettetBrukerErrorAlert] =
     React.useState(false);
 
   const handleSlettBruker = async () => {
@@ -36,15 +31,6 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
 
   const handleFormReturn = () => {
     onGoBack();
-  };
-  const resetForm = () => {
-    setFormData({
-      AnsattNr: "",
-      Fornavn: "",
-      Etternavn: "",
-      Stilling: "",
-      antallJobbTimer: "",
-    });
   };
 
   return (
@@ -65,7 +51,6 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
               handleFormReturn={handleFormReturn}
             />
             <SlettetBrukerSuccsessAlert vis={visSlettetBrukerSuccsessAlert} />
-            <SlettetBrukerErrorAlert vis={visSlettetBrukerErrorAlert} />
           </Item>
         </Box>
       </Box>

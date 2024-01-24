@@ -4,15 +4,18 @@
 import * as React from "react";
 import { Item } from "@/hooks/useFormStyle";
 import { Box } from "@mui/material";
+//DB
 import { db } from "@/app/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+//Next
 import { usePathname } from "next/navigation";
-//
+//komponenter
 import FinnBrukerTextField from "@/components/Admin/FinnBruker/FinnBrukerTextField";
 import FinnBrukerButton from "@/components/Admin/FinnBruker/FinnBrukerButton";
 import SlettBrukerSkjema from "@/components/Admin/SlettBruker/SlettBrukerSkjema";
 import OppdaterBrukerSkjema from "@/components/Admin/OppdaterBruker/OppdaterBrukerSkjema";
 import { FinnBrukerErrorAlert } from "@/components/Admin/FinnBruker/Alerts";
+
 export default function FinnBrukerSkjema() {
   // Data i feltene
   const [formData, setFormData] = React.useState({
@@ -38,7 +41,7 @@ export default function FinnBrukerSkjema() {
   // firestore docs
   // https://firebase.google.com/docs/firestore/query-data/get-data
   const handleFinnBruker = async () => {
-    //  Henter bruker fra server
+    //  Henter bruker fra DB
     const docRef = doc(db, "Brukere", formData.AnsattNr);
     const docSnap = await getDoc(docRef);
 

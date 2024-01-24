@@ -46,7 +46,6 @@ export default function NyBrukerForm({ formData, onChange }) {
   useFormDataEffect(formData);
   const handlePassordEndring = usePassordEndring(onChange);
 
-  // State for the checkbox
   const [erAdminChecked, setErAdminChecked] = React.useState(
     formData.ErAdmin || false //Hvis undefined, blir satt som false
   );

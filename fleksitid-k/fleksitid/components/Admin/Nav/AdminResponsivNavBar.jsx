@@ -60,17 +60,15 @@ function ResponsiveAppBar() {
   const handleSettingClick = (setting) => {
     handleCloseUserMenu();
     if (setting === "Logout") {
-      // Redirect to the root path when Logout is clicked
       window.location.href = "/";
     }
   };
 
   React.useEffect(() => {
-    // Check the current URL and update the selected button
     const currentPath = window.location.pathname;
     const selectedIndex = pages.findIndex((page) => page === currentPath);
     setSelectedButton(selectedIndex);
-  }, []); // Run only once when the component mounts
+  }, []);
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#800080" }}>
@@ -167,13 +165,13 @@ function ResponsiveAppBar() {
                 onClick={() => handleButtonClick(index)}
                 sx={{
                   my: 2,
-                  color: selectedButton === index ? "#000000" : "white", // Black text when selected
+                  color: selectedButton === index ? "#000000" : "white",
                   display: "block",
                   backgroundColor:
-                    selectedButton === index ? selectedColor : "#800080", // Light grey when selected
+                    selectedButton === index ? selectedColor : "#800080",
                   "&:hover": {
-                    backgroundColor: hoverColor, // Hover color
-                    color: "#000000", // Black text on hover
+                    backgroundColor: hoverColor,
+                    color: "#000000",
                   },
                 }}
               >

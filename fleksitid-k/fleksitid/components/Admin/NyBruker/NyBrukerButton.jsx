@@ -22,7 +22,7 @@ export default function NyBrukerButton({ onSave, isFormValid, onFormReset }) {
   };
 
   const handleResetClick = () => {
-    onFormReset(); // Reset the form
+    onFormReset();
     setVisButtonErrorAlert(false);
   };
   //Hentet fra MUI doc

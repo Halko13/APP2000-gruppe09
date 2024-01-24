@@ -1,11 +1,12 @@
-import React, { useState } from "react"; // Import useState from React
+//Utviklet av Halvor Vilnes
+import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { ButtonErrorAlert } from "@/components/Admin/FinnBruker/Alerts";
 
 export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
-  const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false); // Use useState inside the component
+  const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false);
 
   const handleFindBruker = () => {
     if (isFormValid) {

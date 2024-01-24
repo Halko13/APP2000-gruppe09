@@ -12,7 +12,6 @@ export default function FinnBrukerTextField({ formData, onChange }) {
 
   const fields = [
     { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
-    // Add more fields as needed
   ];
 
   // Hentet tekstfelt fra MUI

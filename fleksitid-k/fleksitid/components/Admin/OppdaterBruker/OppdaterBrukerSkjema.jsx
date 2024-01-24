@@ -68,10 +68,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
               userData.AnsattNr
             );
           }
-
-          // alert("Oppdatert bruker");
-
-          // onGoBack();
           setVisOppdatertBrukerSuccsessAlert(true);
           setVisOppdatertBrukerErrorAlert(false);
           setVisOppdatertBrukerInfoAlert(false);
@@ -95,7 +91,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
         await setDoc(docRef, oppdatertData);
 
-        // alert("Oppdatert bruker");
         setVisOppdatertBrukerSuccsessAlert(true);
         setVisOppdatertBrukerErrorAlert(false);
         setVisOppdatertBrukerInfoAlert(false);

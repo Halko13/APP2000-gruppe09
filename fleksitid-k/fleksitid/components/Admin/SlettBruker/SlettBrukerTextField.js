@@ -4,11 +4,10 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-// Define the common style properties
 const textFieldStyle = {
   fontSize: "16px",
   fontWeight: "bold",
-  color: "black", // Set text color to black
+  color: "black",
 };
 
 const fieldDefinitions = [
