@@ -4,8 +4,6 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-export const PASSWORD_LENGTH = 6;
-
 // Define the common style properties
 const textFieldStyle = {
   fontSize: "16px",

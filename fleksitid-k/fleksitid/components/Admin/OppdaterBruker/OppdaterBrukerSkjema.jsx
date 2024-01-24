@@ -82,9 +82,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           setVisOppdatertBrukerErrorAlert(true);
           setVisOppdatertBrukerSuccsessAlert(false);
           setVisOppdatertBrukerInfoAlert(false);
-          // setTimeout(() => {
-          //   onGoBack();
-          // }, 3000);
         }
       } else {
         //Ansatt nummer har ikke endret seg, men andre data har

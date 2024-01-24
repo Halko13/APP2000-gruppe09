@@ -5,6 +5,8 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
 export default function OppdaterBrukerTittel() {
+  //MUI component
+  //https://mui.com/material-ui/react-typography/
   return (
     <Box
       sx={{

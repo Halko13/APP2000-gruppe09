@@ -1,7 +1,7 @@
 // Hentet fra MUI Docs
 // https://mui.com/material-ui/react-app-bar/
 // Redigert til å passe vår nettside sitt behov
-// Redigert av Halvor Vilnes
+// Utviklet av Halvor Vilnes
 
 "use client";
 import * as React from "react";

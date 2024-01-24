@@ -1,16 +1,15 @@
-// NyBrukerForm.jsx
+// Utvilet av Halvor
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
-import { usePasswordChange } from "@/hooks/usePasswordChange";
+import { usePassordEndring } from "@/hooks/usePassordEndring";
 import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
 export const PASSWORD_LENGTH = 6;
 
-// Define the array of TextField properties
 const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
   { id: "Fornavn", label: "Fornavn", required: true, variant: "filled" },
@@ -43,9 +42,9 @@ const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
 export default function NyBrukerForm({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
-  const passwordError = useFormValidation(formData);
+  const passordError = useFormValidation(formData);
   useFormDataEffect(formData);
-  const handlePasswordChange = usePasswordChange(onChange);
+  const handlePassordEndring = usePassordEndring(onChange);
 
   // State for the checkbox
   const [erAdminChecked, setErAdminChecked] = React.useState(
@@ -87,18 +86,18 @@ export default function NyBrukerForm({ formData, onChange }) {
             onChange={(e) => {
               handleChange(e);
               if (field.id === "Passord" || field.id === "GjentaPassord") {
-                handlePasswordChange(e);
+                handlePassordEndring(e);
               }
             }}
             value={formData[field.id]}
             error={
               (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passwordError
+              passordError
             }
             helperText={
               (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passwordError
-                ? "Password must be 6 digits"
+              passordError
+                ? "Passord må ha lengde 6"
                 : ""
             }
           />
@@ -108,7 +107,7 @@ export default function NyBrukerForm({ formData, onChange }) {
         <AdminCheckBox
           checked={erAdminChecked}
           onChange={handleErAdminChange}
-          label={checkboxData[0].label} // Use the label from checkboxData
+          label={checkboxData[0].label}
         />
       </div>
     </Box>

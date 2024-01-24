@@ -25,6 +25,8 @@ export default function FinnBrukerSkjema() {
   // Skal oppdaterBrukerSkjema vises
   const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
     React.useState(false);
+
+  // Finner ikke bruker error alert
   const [visFinnBrukerErrorAlert, setVisFinnBrukerErrorAlert] =
     React.useState(false);
   // Sjekker nå path
@@ -47,11 +49,13 @@ export default function FinnBrukerSkjema() {
       brukerData.GjentaPassord = brukerData.Passord;
       // Setter brukerData til å være all info om bruker
       setBrukerData(brukerData);
+      // Sjekker om det er oppdaterbruker parh eller slett bruker path
       if (currentPath === slettBrukerPath) setVisSlettBrukerSkjema(true);
       else if (currentPath === oppdaterBrukerPath)
         setVisOppdaterBrukerSkjema(true);
     } else {
       setVisFinnBrukerErrorAlert(true);
+      // Fjerner alert etter 3 sekunder
       setTimeout(() => {
         setVisFinnBrukerErrorAlert(false);
       }, 3000);

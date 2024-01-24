@@ -35,7 +35,6 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
   };
 
   const handleFormReturn = () => {
-    // resetForm();
     onGoBack();
   };
   const resetForm = () => {

@@ -6,10 +6,9 @@ import TextField from "@mui/material/TextField";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
-import { usePasswordChange } from "@/hooks/usePasswordChange";
+import { usePassordEndring } from "@/hooks/usePassordEndring";
 import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
-// Define the array of TextField properties
 const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
   { id: "Fornavn", label: "Fornavn", required: true, variant: "filled" },
@@ -41,14 +40,12 @@ const textFieldData = [
 const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
 export default function OppdaterBrukerForm({ formData, onChange }) {
-  const handleChange = useFormUpdate(onChange);
-  const passwordError = useFormValidation(formData);
+  const handleEndring = useFormUpdate(onChange);
+  const passordError = useFormValidation(formData);
   useFormDataEffect(formData);
-  const handlePasswordChange = usePasswordChange(onChange);
+  const handlePassordEndring = usePassordEndring(onChange);
 
-  // State for the checkbox
-  // const [erAdminChecked, setErAdminChecked] = React.useState(formData.ErAdmin || false);  // Update the state when the form data changes
-  const [erAdminChecked, setErAdminChecked] = React.useState(false); // Update the state when the form data changes
+  const [erAdminChecked, setErAdminChecked] = React.useState(false);
 
   React.useEffect(() => {
     setErAdminChecked(formData.ErAdmin || false);
@@ -80,22 +77,19 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
             required={field.required || false}
             variant={field.variant || "filled"}
             onChange={(e) => {
-              handleChange(e);
-              if (field.id === "Passord") {
-                handlePasswordChange(e);
-              } else if (field.id === "GjentaPassord") {
-                handlePasswordChange(e);
-              }
+              handleEndring(e);
+              if (field.id === "Passord" || field.id === "GjentaPassord")
+                handlePassordEndring(e);
             }}
             value={formData[field.id]}
             error={
               (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passwordError
+              passordError
             }
             helperText={
               (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passwordError
-                ? "Password must be 6 digits"
+              passordError
+                ? "Passord må ha 6 nummer"
                 : ""
             }
           />

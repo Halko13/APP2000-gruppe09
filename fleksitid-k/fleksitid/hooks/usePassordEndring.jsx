@@ -1,7 +1,7 @@
 // Utviklet av Halvor Vilnes
 
-export const usePasswordChange = (onChange) => {
-  const handlePasswordChange = (e) => {
+export const usePassordEndring = (onChange) => {
+  const handlePassordEndring = (e) => {
     const { id, value } = e.target;
     const isPassordValid = /^[0-9]*$/.test(value); // Changed from isPasswordValid to isPassordValid
     onChange((prevData) => ({
@@ -10,5 +10,5 @@ export const usePasswordChange = (onChange) => {
     }));
   };
 
-  return handlePasswordChange;
+  return handlePassordEndring;
 };
