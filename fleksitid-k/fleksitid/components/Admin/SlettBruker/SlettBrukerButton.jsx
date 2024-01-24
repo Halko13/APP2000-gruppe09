@@ -3,7 +3,6 @@
 import React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import Link from "next/link";
 
 export default function SlettBrukerButton({ onDelete, handleFormReturn }) {
   const handleDeleteUser = () => {
@@ -12,7 +11,6 @@ export default function SlettBrukerButton({ onDelete, handleFormReturn }) {
 
   const handleReturnClick = () => {
     handleFormReturn();
-    console.log("noe");
   };
   // Hentet fra MUI DOCS
   //https://mui.com/material-ui/react-button/

@@ -6,6 +6,11 @@ import { Item } from "@/hooks/useFormStyle";
 import OppdaterBrukerForm from "@/components/Admin/OppdaterBruker/OppdaterBrukerTextFields";
 import OppdaterBrukerButton from "@/components/Admin/OppdaterBruker/OppdaterBrukerButton";
 import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
+import {
+  OppdatertBrukerSuccsessAlert,
+  OppdatertBrukerErrorAlert,
+} from "@/components/Admin/OppdaterBruker/Alerts";
+
 import { db } from "@/app/firebaseConfig";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 
@@ -16,6 +21,11 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   React.useEffect(() => {
     setFormData(userData);
   }, [userData]);
+
+  const [visOppdatertBrukerSuccsessAlert, setVisOppdatertBrukerSuccsessAlert] =
+    React.useState(false);
+  const [visOppdatertBrukerErrorAlert, setVisOppdatertBrukerErrorAlert] =
+    React.useState(false);
 
   const dbCollection = "Brukere";
 
@@ -57,11 +67,18 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
             );
           }
 
-          alert("Oppdatert bruker");
+          // alert("Oppdatert bruker");
 
-          onGoBack();
+          // onGoBack();
+          setVisOppdatertBrukerSuccsessAlert(true);
+          setTimeout(() => {
+            onGoBack();
+          }, 3000);
         } else {
-          alert("Kan ikke endre til et ansatt nummer som finnes fra før");
+          setVisOppdatertBrukerErrorAlert(true);
+          setTimeout(() => {
+            onGoBack();
+          }, 3000);
         }
       } else {
         //Ansatt nummer har ikke endret seg, men andre data har
@@ -75,9 +92,11 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
 
         await setDoc(docRef, oppdatertData);
 
-        alert("Oppdatert bruker");
-
-        onGoBack();
+        // alert("Oppdatert bruker");
+        setVisOppdatertBrukerSuccsessAlert(true);
+        setTimeout(() => {
+          onGoBack();
+        }, 3000);
       }
     } else {
       console.log("Ingen ting endret");
@@ -115,6 +134,10 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
               isFormValid={isFormValid}
               onFormReturn={handleFormReturn}
             />
+            <OppdatertBrukerSuccsessAlert
+              vis={visOppdatertBrukerSuccsessAlert}
+            />
+            <OppdatertBrukerErrorAlert vis={visOppdatertBrukerErrorAlert} />
           </Item>
         </Box>
       </Box>

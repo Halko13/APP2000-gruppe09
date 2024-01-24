@@ -25,6 +25,7 @@ export default function FinnBrukerSkjema() {
   // Skal oppdaterBrukerSkjema vises
   const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
     React.useState(false);
+
   // Sjekker nå path
   const currentPath = usePathname();
   const oppdaterBrukerPath = "/admin/oppdaterBruker";
@@ -73,8 +74,6 @@ export default function FinnBrukerSkjema() {
         <>
           <Item>
             <FinnBrukerTextField formData={formData} onChange={setFormData} />
-          </Item>
-          <Item>
             <FinnBrukerButton
               onFind={handleFinnBruker}
               isFormValid={isFormValid}

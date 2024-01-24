@@ -9,8 +9,17 @@ import { Item } from "@/hooks/useFormStyle";
 import { db } from "@/app/firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
 
+import {
+  SlettetBrukerSuccsessAlert,
+  SlettetBrukerErrorAlert,
+} from "@/components/Admin/SlettBruker/Alerts";
+
 export default function SlettBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
+  const [visSlettetBrukerSuccsessAlert, setVisSlettetBrukerSuccsessAlert] =
+    React.useState(false);
+  const [visSlettetBrukerErrorAlert, setVisSlettetBrukerErrorAlert] =
+    React.useState(false);
 
   const handleSlettBruker = async () => {
     console.log("Sletter data fra database:", formData);
@@ -18,14 +27,16 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
     // Hentet fra firestore doc
     //https://firebase.google.com/docs/firestore/manage-data/delete-data
     await deleteDoc(doc(db, "Brukere", formData.AnsattNr));
-    alert("Slettet bruker");
-    resetForm();
-    onGoBack(); // Go back to FinnBrukerSkjema
+    setVisSlettetBrukerSuccsessAlert(true);
+
+    setTimeout(() => {
+      onGoBack();
+    }, 3000);
   };
 
   const handleFormReturn = () => {
-    resetForm();
-    onGoBack(); // Go back to FinnBrukerSkjema
+    // resetForm();
+    onGoBack();
   };
   const resetForm = () => {
     setFormData({
@@ -49,12 +60,13 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
         <Box gridColumn="span 1">
           <Item>
             <SlettBrukerTextField formData={formData} />
-          </Item>
-          <Item>
+
             <SlettBrukerButton
               onDelete={handleSlettBruker}
               handleFormReturn={handleFormReturn}
             />
+            <SlettetBrukerSuccsessAlert vis={visSlettetBrukerSuccsessAlert} />
+            <SlettetBrukerErrorAlert vis={visSlettetBrukerErrorAlert} />
           </Item>
         </Box>
       </Box>
