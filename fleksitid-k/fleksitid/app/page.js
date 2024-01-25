@@ -1,95 +1,67 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
 
-export default function Home() {
+import { useEffect, useState } from "react";
+import { Box, Typography, Button } from "@mui/material";
+import Head from "next/head";
+import Link from "next/link";
+
+export default function Hjem() {
+  const [gjeldendeTid, setGjeldendeTid] = useState("");
+
+  // Effekten for å hente nåverende klokkeslett er henta fra chatGtp
+  useEffect(() => {
+    const tidtaker = setInterval(() => {
+      const nåTid = new Date();
+      setGjeldendeTid(
+        nåTid.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      );
+    }, 1000);
+
+    return () => clearInterval(tidtaker);
+  }, []);
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <Box
+      sx={{
+        bgcolor: "grey.50",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        position: "relative",
+      }}
+    >
+      <Head>
+        <title>Startside</title>
+      </Head>
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+      <Typography
+        variant="h2"
+        sx={{ position: "relative", margin: "auto", fontWeight: "bold" }}
+      >
+        {gjeldendeTid}
+      </Typography>
 
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
+      <Box sx={{ textAlign: "center", margin: "auto" }}>
+        <Typography
+          variant="h4"
+          sx={{
+            mb: 2,
+            fontWeight: "bold",
+            color: "grey.1000",
+            boxShadow: 1000,
+          }}
         >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
+          Velkommen til Fleksitid
+        </Typography>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+        <Link href="/innlogging" passHref>
+          <Button variant="contained" color="secondary" sx={{ boxShadow: 5 }}>
+            Logg inn
+          </Button>
+        </Link>
+      </Box>
+    </Box>
+  );
 }
