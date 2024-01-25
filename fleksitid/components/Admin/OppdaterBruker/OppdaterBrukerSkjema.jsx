@@ -14,7 +14,7 @@ import {
 
 import { db } from "@/app/firebaseConfig";
 import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
-
+import { dbCollection } from "@/app/firebaseConfig";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
@@ -29,7 +29,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     React.useState(false);
   const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
     React.useState(false);
-  const dbCollection = "Brukere";
 
   const handleSave = async () => {
     // Sjekker hvis det er noen endring

@@ -8,6 +8,7 @@ import SlettBrukerButton from "@/components/Admin/SlettBruker/SlettBrukerButton"
 import { Item } from "@/hooks/useFormStyle";
 import { db } from "@/app/firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
+import { dbCollection } from "@/app/firebaseConfig";
 
 import { SlettetBrukerSuccsessAlert } from "@/components/Admin/SlettBruker/Alerts";
 
@@ -21,7 +22,7 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
 
     // Hentet fra firestore doc
     //https://firebase.google.com/docs/firestore/manage-data/delete-data
-    await deleteDoc(doc(db, "Brukere", formData.AnsattNr));
+    await deleteDoc(doc(db, dbCollection, formData.AnsattNr));
     setVisSlettetBrukerSuccsessAlert(true);
 
     setTimeout(() => {
