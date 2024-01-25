@@ -8,7 +8,7 @@ import NyBrukerButton from "@/components/Admin/NyBruker/NyBrukerButton";
 import { SuccessAlert, ErrorAlert } from "@/components/Admin/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
 import { db } from "@/app/firebaseConfig";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { dbCollection } from "@/app/firebaseConfig";
 export default function NyBrukerSkjema() {
   const [formData, setFormData] = React.useState({
@@ -48,6 +48,8 @@ export default function NyBrukerSkjema() {
         Passord: formData.Passord,
         Innlogget: false,
         ErAdmin: formData.ErAdmin,
+        Opprettet: serverTimestamp(),
+        SistEndret: serverTimestamp(),
       });
       setVisSuksessAlert(true);
       setVisErrorAlert(false);

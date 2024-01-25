@@ -13,7 +13,13 @@ import {
 } from "@/components/Admin/OppdaterBruker/Alerts";
 
 import { db } from "@/app/firebaseConfig";
-import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { dbCollection } from "@/app/firebaseConfig";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
@@ -49,6 +55,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           // Oppdaterer data med ny ansattNr
           const nyData = {
             ...formData,
+            SistEndret: serverTimestamp(),
             Innlogget: false,
           };
           // Lagrer ikke gjenta passord i database
@@ -74,6 +81,8 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
             onGoBack();
           }, 3000);
         } else {
+          // Finnes allerde ansatt nummer
+          //
           setVisOppdatertBrukerErrorAlert(true);
           setVisOppdatertBrukerSuccsessAlert(false);
           setVisOppdatertBrukerInfoAlert(false);
@@ -83,6 +92,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         const docRef = doc(db, dbCollection, userData.AnsattNr);
         const oppdatertData = {
           ...formData,
+          SistEndret: serverTimestamp(),
           Innlogget: false,
         };
         // Lagrer ikke gjenta passord i database
