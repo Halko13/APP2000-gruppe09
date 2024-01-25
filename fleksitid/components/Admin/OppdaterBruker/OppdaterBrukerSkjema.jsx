@@ -35,7 +35,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     React.useState(false);
   const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
     React.useState(false);
-
   const handleSave = async () => {
     // Sjekker hvis det er noen endring
     // Fikk kuttet ned flere && if setning ved hjelp av chatGPT
@@ -43,6 +42,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     const isDataChanged = Object.keys(userData).some(
       (key) => userData[key] !== formData[key]
     );
+
     // Hente data fra firestore database
     // https://firebase.google.com/docs/firestore/manage-data/add-data
     if (isDataChanged) {
@@ -53,6 +53,12 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         const nyDocSnap = await getDoc(nyDocRef);
         if (!nyDocSnap.exists()) {
           // Oppdaterer data med ny ansattNr
+          // Sjekk om antall jobb timer endrer seg
+          if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
+            const newTimebankVerdi = Number(formData.AntallJobbTimer);
+            formData.Timebank = newTimebankVerdi;
+          }
+
           const nyData = {
             ...formData,
             SistEndret: serverTimestamp(),
@@ -88,8 +94,14 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           setVisOppdatertBrukerInfoAlert(false);
         }
       } else {
-        //Ansatt nummer har ikke endret seg, men andre data har
+        // Ansatt nummer har ikke endret seg, men andre data har
         const docRef = doc(db, dbCollection, userData.AnsattNr);
+
+        if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
+          const newTimebankVerdi = Number(formData.AntallJobbTimer);
+          formData.Timebank = newTimebankVerdi;
+        }
+
         const oppdatertData = {
           ...formData,
           SistEndret: serverTimestamp(),
@@ -114,7 +126,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
       console.log("Ingen ting endret");
     }
   };
-
   const handleFormReturn = () => {
     onGoBack();
   };

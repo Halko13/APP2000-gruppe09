@@ -50,6 +50,7 @@ export default function NyBrukerSkjema() {
         ErAdmin: formData.ErAdmin,
         Opprettet: serverTimestamp(),
         SistEndret: serverTimestamp(),
+        Timebank: Number(formData.AntallJobbTimer),
       });
       setVisSuksessAlert(true);
       setVisErrorAlert(false);
