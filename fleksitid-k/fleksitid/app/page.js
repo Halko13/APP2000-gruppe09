@@ -38,12 +38,12 @@ export default function Hjem() {
 
       <Typography
         variant="h2"
-        sx={{ position: "absolute", top: 450, left: 1200, fontWeight: "bold" }}
+        sx={{ position: "relative", margin: "auto", fontWeight: "bold" }}
       >
         {gjeldendeTid}
       </Typography>
 
-      <Box sx={{ textAlign: "center" }}>
+      <Box sx={{ textAlign: "center", margin: "auto" }}>
         <Typography
           variant="h4"
           sx={{
@@ -53,7 +53,7 @@ export default function Hjem() {
             boxShadow: 1000,
           }}
         >
-          Velkommen til Min Tid
+          Velkommen til Fleksitid
         </Typography>
 
         <Link href="/innlogging" passHref>
