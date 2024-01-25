@@ -9,7 +9,6 @@ import { Item } from "@/hooks/useFormStyle";
 import { db } from "@/app/firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
 import { dbCollection } from "@/app/firebaseConfig";
-
 import { SlettetBrukerSuccsessAlert } from "@/components/Admin/SlettBruker/Alerts";
 
 export default function SlettBrukerSkjema({ userData, onGoBack }) {

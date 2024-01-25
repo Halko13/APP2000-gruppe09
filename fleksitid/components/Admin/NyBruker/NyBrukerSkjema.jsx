@@ -33,10 +33,11 @@ export default function NyBrukerSkjema() {
 
     if (docSnap.exists()) {
       setVisErrorAlert(true);
+      setVisSuksessAlert(false);
 
       setTimeout(() => {
-        setVisSuksessAlert(false);
-      }, 5000);
+        setVisErrorAlert(false);
+      }, 3000);
     } else {
       await setDoc(doc(db, dbCollection, formData.AnsattNr), {
         AnsattNr: formData.AnsattNr,
@@ -49,6 +50,7 @@ export default function NyBrukerSkjema() {
         ErAdmin: formData.ErAdmin,
       });
       setVisSuksessAlert(true);
+      setVisErrorAlert(false);
 
       setTimeout(() => {
         setVisSuksessAlert(false);
