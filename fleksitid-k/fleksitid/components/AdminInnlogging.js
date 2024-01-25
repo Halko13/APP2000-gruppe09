@@ -14,7 +14,7 @@ const AdminInnlogging = ({ adminBruker, vedPassordEndring, vedLoginKlikk, passor
         value={passord}
         onChange={vedPassordEndring}
     />
-        <Button 
+        <Button
         variant="contained" 
         onClick={vedLoginKlikk} 
         fullWidth 
@@ -26,4 +26,4 @@ const AdminInnlogging = ({ adminBruker, vedPassordEndring, vedLoginKlikk, passor
  );   
 };
 
-export default AdminInnlogging
+export default AdminInnlogging;

@@ -1,18 +1,25 @@
 "use client";
 
+import { useRouter } from 'next/router';
 import React, { useState, useEffect} from "react";
-import { Typography } from '@mui/material';
+import { Typography, ThemeProvider } from '@mui/material';
 import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
 import VelgBrukerListe from "@/components/HenteBruker";
+import teama from "./Temaer/Teama";
+import { db } from '@/app/firebaseConfig';
+import { collection, getDocs } from "firebase/firestore"; 
 
+/*
 // Dummy brukere 
 const testBrukere = [
     {id: 1, navn: 'Roy Roger', pin: '1234'},
     {id: 2, navn: 'Bob', pin: '5555'},
     {id: 3, navn: 'Hans', pin: '9876'}
 ];
+*/
+
 
 // Dummy admin brukere
 const testAdminBrukere = [
@@ -22,39 +29,64 @@ const testAdminBrukere = [
 
 const InnloggingSide = () => {
     // Start verdi 
-    const [valgtBrukerId, setValgtBrukerId] = useState(testBrukere[0].id.toString());
+        // const [valgtBrukerId, setValgtBrukerId] = useState(testBrukere[0].id.toString());
+    const [valgtBrukerId, setValgtBrukerId] = useState("");
     const [pin, setPin] = useState('');
     const [loginStatus, setLoginStatus] = useState('');
     const [aktivSide, setAktivSide] = useState('VelgBrukerListe');
     const [erAdmin, setErAdmin] = useState(false);
 
-    // Endrer ansatt bruker
+    // Firstore variabler
+    const [brukere, setBrukere] = useState([]); // Holder på alle brukere
+    const [adminBrukere, setAdminBrukere] = useState([]); // Holder på admin brukere
+
+   // const router  = useRouter();
+
+
+    // Hente brukere fra firestore
+    useEffect(() => {
+        const hentBrukere = async () => {
+            const brukerCollectionRef = collection(db, "Brukere");
+            const brukerData = await getDocs(brukerCollectionRef);
+            const brukerListe = brukerData.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setBrukere(brukerListe);
+            // Admin brukere fra firestore
+        }
+
+        hentBrukere();
+    }, []);
+
+    // Feil søk
+    useEffect(() => {
+        console.log(brukere);
+    }, [brukere]);
+
+    // Håndterer bruker endring verdier
     const håndterBrukerEndring = (e) => {
         const valgtVerdi = e.target.value;
-        let brukerErAdmin = false;
-        let valgtBruker;
-
-        const adminBruker = testAdminBrukere.find(admin => admin.brukernavn == valgtVerdi);
+        const adminBruker = testAdminBrukere.find(admin => admin.brukernavn === valgtVerdi);
         if (adminBruker) {
-            brukerErAdmin = true;
-            valgtBruker = adminBruker;
+            setErAdmin(true);
+            setValgtBrukerId(adminBruker.brukernavn);
         } else {
-            valgtBruker = testBrukere.find(user => user.id.toString() == valgtVerdi);
-        } 
-        setErAdmin(brukerErAdmin);
-        setValgtBrukerId(valgtBruker.id || valgtBruker.brukernavn);
-        // Reset pin and login status when user changes
+            const bruker = brukere.find(bruker => bruker.id === valgtVerdi);
+            if (bruker) {
+                setErAdmin(false);
+                setValgtBrukerId(bruker.id);
+            } else {
+                setValgtBrukerId('');
+            }
+        }
         setPin('');
         setLoginStatus('');
     };
-
     const håndterPinKodeEndring = (e) => {
         setPin(e.target.value);
     };
 
     const gåTilInnlogging = () => {
         setAktivSide('innlogging');
-    }
+    };
 
     // Sjekk av bruker og admin bruker kan logge seg inn
     const validerLogin = () => {
@@ -64,14 +96,15 @@ const InnloggingSide = () => {
         if (adminBruker && adminBruker.passord === pin) {
         setLoginStatus('Logget inn som admin. Velkommen' + adminBruker.brukernavn + " !");
         // TODO: Viderefør admin brukeren til en autentisert sesjon
+        window.location.href = '/admin/nybruker/page';
         return;
         } 
         }
 
-        // Sjekk for vanlig brukere 
-        const bruker = testBrukere.find(bruker => bruker.id === parseInt(valgtBrukerId));
-        if (bruker && bruker.pin === pin) {
-            setLoginStatus('Logget inn. Velkommen ' + bruker.navn + "!");
+        // Sjekk for vanlige brukere 
+        const bruker = brukere.find(bruker => bruker.id === valgtBrukerId);
+        if (bruker && bruker.Password === pin) {
+            setLoginStatus(`Logget inn. Velkommen ${bruker.Fornavn} ${bruker.Etternavn}!`);
             // TODO: Viderefør brukeren til en autentisert sesjon
         } else {
             setLoginStatus('Innlogin feilet. Feil navn eller pin kode!');
@@ -83,7 +116,6 @@ const InnloggingSide = () => {
         validerLogin();
     };
 
-    
     // Tasatur funksjon
     useEffect(() => {
         const håndterTaseTrykk = (e) => {
@@ -115,10 +147,11 @@ const InnloggingSide = () => {
     };
 
     return (
+        <ThemeProvider theme={teama}>
         <div>
             {aktivSide === 'VelgBrukerListe' ? (
                 <VelgBrukerListe
-                    brukere={testBrukere}
+                    brukere={brukere}
                     adminBrukere={testAdminBrukere}
                     valgtBrukerId={valgtBrukerId}
                     håndterBrukerEndring={håndterBrukerEndring}
@@ -126,13 +159,19 @@ const InnloggingSide = () => {
                 />
             ) : (
                 <div>
-                    <Typography variant="h2" gutterBottom>Velkommen {erAdmin ? testAdminBrukere.find(admin => admin.brukernavn === valgtBrukerId)?.brukernavn 
-                    : testBrukere.find(bruker => bruker.id === parseInt(valgtBrukerId))?.navn}</Typography>
-                    <Typography variant="h5" gutterBottom > Logget på som: {erAdmin 
-                            ? testAdminBrukere.find(admin => admin.brukernavn === valgtBrukerId)?.brukernavn || 'Ukjent Admin'
-                            : testBrukere.find(bruker => bruker.id === parseInt(valgtBrukerId))?.navn || 'Ukjent Bruker'}
+                    <Typography variant="h2" gutterBottom>
+                        Velkommen {
+                            erAdmin 
+                            ? testAdminBrukere.find(admin => admin.brukernavn === valgtBrukerId)?.brukernavn 
+                            : `${brukere.find(bruker => bruker.id === valgtBrukerId)?.Fornavn} ${brukere.find(bruker => bruker.id === valgtBrukerId)?.Etternavn}`
+                        }
                     </Typography>
-                    <Typography variant="h2" gutterBottom>Bilde her</Typography>
+                    <Typography variant="h5" gutterBottom >
+                        Logget på som: {
+                            erAdmin 
+                            ? testAdminBrukere.find(admin => admin.brukernavn === valgtBrukerId)?.brukernavn || 'Ukjent Admin'
+                            : `${brukere.find(bruker => bruker.id === valgtBrukerId)?.Fornavn} ${brukere.find(bruker => bruker.id === valgtBrukerId)?.Etternavn}` || 'Ukjent Bruker'}
+                    </Typography>
                     {erAdmin ? (
                 <div>
                         <AdminInnlogging
@@ -161,7 +200,9 @@ const InnloggingSide = () => {
                 )}
              {loginStatus && <Typography variant="h5" style={{ marginTop: '15px' }}>{loginStatus}</Typography>}
           </div>
+          </ThemeProvider>
     );
 };
+
 
 export default InnloggingSide;
