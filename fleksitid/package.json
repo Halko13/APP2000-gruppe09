@@ -15,7 +15,7 @@
     "@mui/material": "^5.15.5",
     "@protobufjs/codegen": "^2.0.4",
     "firebase": "^10.7.2",
-    "next": "^14.0.4",
+    "next": "^14.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
