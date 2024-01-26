@@ -12,7 +12,7 @@ import {
   OppdatertBrukerInfoAlert,
 } from "@/components/Admin/OppdaterBruker/Alerts";
 
-import { db } from "@/app/firebaseConfig";
+import { db } from "@/firebase/firebaseConfig";
 import {
   doc,
   setDoc,
@@ -20,7 +20,7 @@ import {
   deleteDoc,
   serverTimestamp,
 } from "firebase/firestore";
-import { dbCollection } from "@/app/firebaseConfig";
+import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
@@ -49,7 +49,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
       // Sjekket hvis ansattNr har endret seg
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Sjekker hvis ansattNr finnes fra før
-        const nyDocRef = doc(db, dbCollection, formData.AnsattNr);
+        const nyDocRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
         const nyDocSnap = await getDoc(nyDocRef);
         if (!nyDocSnap.exists()) {
           // Oppdaterer data med ny ansattNr
@@ -71,7 +71,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           // Sletter gammelt dokument for å ikke ha flere dokumenter for samme ansatt
           // https://firebase.google.com/docs/firestore/manage-data/delete-data
 
-          const gammelDocRef = doc(db, dbCollection, userData.AnsattNr);
+          const gammelDocRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
           const gammelDocSnap = await getDoc(gammelDocRef);
           if (gammelDocSnap.exists()) {
             await deleteDoc(gammelDocRef);
@@ -95,7 +95,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         }
       } else {
         // Ansatt nummer har ikke endret seg, men andre data har
-        const docRef = doc(db, dbCollection, userData.AnsattNr);
+        const docRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
 
         if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
           const newTimebankVerdi = Number(formData.AntallJobbTimer);

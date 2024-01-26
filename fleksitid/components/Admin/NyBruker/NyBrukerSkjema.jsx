@@ -7,9 +7,9 @@ import NyBrukerForm from "@/components/Admin/NyBruker/NyBrukerTextFields";
 import NyBrukerButton from "@/components/Admin/NyBruker/NyBrukerButton";
 import { SuccessAlert, ErrorAlert } from "@/components/Admin/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
-import { db } from "@/app/firebaseConfig";
+import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
-import { dbCollection } from "@/app/firebaseConfig";
+import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 export default function NyBrukerSkjema() {
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
@@ -28,7 +28,7 @@ export default function NyBrukerSkjema() {
   const handleSave = async () => {
     console.log("Lagrer data til database:", formData);
 
-    const docRef = doc(db, dbCollection, formData.AnsattNr);
+    const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -39,7 +39,7 @@ export default function NyBrukerSkjema() {
         setVisErrorAlert(false);
       }, 3000);
     } else {
-      await setDoc(doc(db, dbCollection, formData.AnsattNr), {
+      await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
         AnsattNr: formData.AnsattNr,
         Fornavn: formData.Fornavn,
         Etternavn: formData.Etternavn,

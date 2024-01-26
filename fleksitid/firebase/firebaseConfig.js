@@ -15,4 +15,4 @@ const db = getFirestore(app);
 
 export { db };
 
-export const dbCollection = "Brukere";
+export const dbCollectionBrukere = "Brukere";
