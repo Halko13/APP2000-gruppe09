@@ -183,7 +183,8 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                {/* Hentet fra: https://pixabay.com/vectors/user-icon-person-personal-about-me-2935527/*/}
+                <Avatar alt="Admin" src="\static\images\avatar-icon-2.png" />
               </IconButton>
             </Tooltip>
             <Menu
