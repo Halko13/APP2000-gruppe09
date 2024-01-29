@@ -5,8 +5,10 @@ import * as React from "react";
 import { Item } from "@/hooks/useFormStyle";
 import { Box } from "@mui/material";
 //DB
-import { db } from "@/app/firebaseConfig";
+import { db } from "@/firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
+import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
+
 //Next
 import { usePathname } from "next/navigation";
 //komponenter
@@ -23,7 +25,7 @@ export default function FinnBrukerSkjema() {
   });
   // Data fra database
   const [userData, setBrukerData] = React.useState(null);
-  // Skal slettBrukerSkjema vises
+  // Skal slettBrukerSkjema vises"
   const [visSlettBrukerSkjema, setVisSlettBrukerSkjema] = React.useState(false);
   // Skal oppdaterBrukerSkjema vises
   const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
@@ -42,7 +44,7 @@ export default function FinnBrukerSkjema() {
   // https://firebase.google.com/docs/firestore/query-data/get-data
   const handleFinnBruker = async () => {
     //  Henter bruker fra DB
-    const docRef = doc(db, "Brukere", formData.AnsattNr);
+    const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
