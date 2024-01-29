@@ -18,7 +18,11 @@ const hoverColor = "#CCCCCC";
 const selectedColor = "#CCCCCC";
 
 const titler = ["Sjekk inn", "Historikk", "Timebank"];
-const pages = ["/sjekkinn", "/dashboard/historikk", "/dashboard/timebank"];
+const pages = [
+  "/dashboard/sjekkinn",
+  "/dashboard/historikk",
+  "/dashboard/timebank",
+];
 const settings = ["Logout"];
 
 function ResponsiveAppBar() {
@@ -71,7 +75,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/admin"
+            href="/dashboard/sjekkinn"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
