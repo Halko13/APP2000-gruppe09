@@ -12,9 +12,15 @@ import {
   OppdatertBrukerInfoAlert,
 } from "@/components/Admin/OppdaterBruker/Alerts";
 
-import { db } from "@/app/firebaseConfig";
-import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
-
+import { db } from "@/firebase/firebaseConfig";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
@@ -29,8 +35,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     React.useState(false);
   const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
     React.useState(false);
-  const dbCollection = "Brukere";
-
   const handleSave = async () => {
     // Sjekker hvis det er noen endring
     // Fikk kuttet ned flere && if setning ved hjelp av chatGPT
@@ -38,18 +42,26 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     const isDataChanged = Object.keys(userData).some(
       (key) => userData[key] !== formData[key]
     );
+
     // Hente data fra firestore database
     // https://firebase.google.com/docs/firestore/manage-data/add-data
     if (isDataChanged) {
       // Sjekket hvis ansattNr har endret seg
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Sjekker hvis ansattNr finnes fra før
-        const nyDocRef = doc(db, dbCollection, formData.AnsattNr);
+        const nyDocRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
         const nyDocSnap = await getDoc(nyDocRef);
         if (!nyDocSnap.exists()) {
           // Oppdaterer data med ny ansattNr
+          // Sjekk om antall jobb timer endrer seg
+          if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
+            const newTimebankVerdi = Number(formData.AntallJobbTimer);
+            formData.Timebank = newTimebankVerdi;
+          }
+
           const nyData = {
             ...formData,
+            SistEndret: serverTimestamp(),
             Innlogget: false,
           };
           // Lagrer ikke gjenta passord i database
@@ -59,7 +71,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           // Sletter gammelt dokument for å ikke ha flere dokumenter for samme ansatt
           // https://firebase.google.com/docs/firestore/manage-data/delete-data
 
-          const gammelDocRef = doc(db, dbCollection, userData.AnsattNr);
+          const gammelDocRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
           const gammelDocSnap = await getDoc(gammelDocRef);
           if (gammelDocSnap.exists()) {
             await deleteDoc(gammelDocRef);
@@ -75,15 +87,24 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
             onGoBack();
           }, 3000);
         } else {
+          // Finnes allerde ansatt nummer
+          //
           setVisOppdatertBrukerErrorAlert(true);
           setVisOppdatertBrukerSuccsessAlert(false);
           setVisOppdatertBrukerInfoAlert(false);
         }
       } else {
-        //Ansatt nummer har ikke endret seg, men andre data har
-        const docRef = doc(db, dbCollection, userData.AnsattNr);
+        // Ansatt nummer har ikke endret seg, men andre data har
+        const docRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
+
+        if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
+          const newTimebankVerdi = Number(formData.AntallJobbTimer);
+          formData.Timebank = newTimebankVerdi;
+        }
+
         const oppdatertData = {
           ...formData,
+          SistEndret: serverTimestamp(),
           Innlogget: false,
         };
         // Lagrer ikke gjenta passord i database
@@ -105,7 +126,6 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
       console.log("Ingen ting endret");
     }
   };
-
   const handleFormReturn = () => {
     onGoBack();
   };
