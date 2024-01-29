@@ -8,7 +8,7 @@ export default function Admin() {
   return (
     <main>
       <div>
-        <Box>hei</Box>
+        <Box>Kommer senere</Box>
       </div>
     </main>
   );
