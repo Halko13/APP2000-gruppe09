@@ -13,8 +13,7 @@ export default function ByttPassordTittel() {
         width: "100%",
         maxWidth: 1000,
         textAlign: "center",
-        margin: "0 auto",
-        padding: "2rem",
+        margin: "auto",
       }}
     >
       <Typography variant="h1" sx={{ fontSize: "2rem" }} gutterBottom>

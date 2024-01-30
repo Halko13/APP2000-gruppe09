@@ -10,6 +10,7 @@ import {
 } from "@/components/Admin/OppdaterBruker/ByttPassord/Alerts";
 import ByttPassordForm from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTextFields";
 import ByttPassordButton from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordButton";
+import ByttPassordTittel from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTittel";
 // DB
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
@@ -49,7 +50,13 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
       formData.Passord === formData.GjentaPassord);
 
   return (
-    <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
+    <Box
+      sx={{ width: 0.5 }}
+      alignItems={"center"}
+      // justifyContent={"center"}
+      style={{ margin: "auto" }}
+    >
+      <ByttPassordTittel />
       <Box
         display="grid"
         gridTemplateColumns="repeat(1fr, 1fr)"
