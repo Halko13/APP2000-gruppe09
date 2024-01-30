@@ -1,13 +1,15 @@
 // Forfatter Christopher Westergren
-
+'use client';
 import React from "react";
 import styles from "@/app/page.module.css";
 import Klokke from "@/components/Klokke";
 import SjekkinnKnapp from "@/components/SjekkinnKnapp";
+import VelgBrukerListe from "@/components/HenteBruker";
+
 
 const SjekkInn = () => {
   let dato = new Date().toLocaleDateString();
-  let navn = "Erik";
+  let navn = "Christopher";
   return (
     <>
       <h1 className={styles.velkommen}>Velkommen {navn}! </h1>
