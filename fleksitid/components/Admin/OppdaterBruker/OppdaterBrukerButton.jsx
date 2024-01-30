@@ -41,7 +41,7 @@ export default function OppdaterBrukerButton({
   //https://mui.com/material-ui/react-button/
   return (
     <div>
-      <Stack>
+      <Stack style={{ marginBottom: "20px" }}>
         <Button variant="outlined" onClick={handleByttPassord}>
           ByttPassord
         </Button>

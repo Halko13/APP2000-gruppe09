@@ -36,7 +36,7 @@ export default function ByttPassordButton({
   //https://mui.com/material-ui/react-button/
   return (
     <div>
-      <Stack direction="row" spacing={2} justifyContent="flex-end">
+      <Stack direction="row" spacing={2} justifyContent="flex-center">
         <Button variant="outlined" onClick={handleReturnClick}>
           Tilbake
         </Button>
