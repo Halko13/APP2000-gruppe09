@@ -18,6 +18,7 @@ import {
   getDoc,
   deleteDoc,
   serverTimestamp,
+  onSnapshot,
 } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 import ByttPassordSkjema from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordSkjema";
@@ -28,7 +29,22 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   React.useEffect(() => {
     setFormData(userData);
   }, [userData]);
+  // Real time lytter, som ser om endring i passord feltet
+  React.useEffect(() => {
+    const docRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
 
+    const unsubscribe = onSnapshot(docRef, (doc) => {
+      if (doc.exists()) {
+        const oppdatertPassord = doc.data().Passord;
+        setFormData((prevData) => ({
+          ...prevData,
+          Passord: oppdatertPassord,
+        }));
+      }
+    });
+
+    return () => unsubscribe(); // Unsubscribe when the component unmounts or when no longer needed
+  }, [userData.AnsattNr]);
   const [visOppdatertBrukerSuccsessAlert, setVisOppdatertBrukerSuccsessAlert] =
     React.useState(false);
   const [visOppdatertBrukerErrorAlert, setVisOppdatertBrukerErrorAlert] =
@@ -41,13 +57,13 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     // Sjekker hvis det er noen endring
     // Fikk kuttet ned flere && if setning ved hjelp av chatGPT
     // Sjekket hver verdi mot hverandre
-    const isDataChanged = Object.keys(userData).some(
+    const erDataEndret = Object.keys(userData).some(
       (key) => userData[key] !== formData[key]
     );
 
     // Hente data fra firestore database
     // https://firebase.google.com/docs/firestore/manage-data/add-data
-    if (isDataChanged) {
+    if (erDataEndret) {
       // Sjekket hvis ansattNr har endret seg
       if (formData.AnsattNr !== userData.AnsattNr) {
         // Sjekker hvis ansattNr finnes fra før

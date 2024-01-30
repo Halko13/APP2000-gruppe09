@@ -12,14 +12,14 @@ export default function OppdaterBrukerButton({
   onByttPassord,
 }) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = React.useState(false);
-  console.log("isFormValid:", isFormValid);
+  // console.log("isFormValid:", isFormValid);
 
   const handleSaveClick = () => {
     if (isFormValid) {
       onSave();
       setVisButtonErrorAlert(false);
     } else {
-      console.log("valider ikke " + isFormValid);
+      // console.log("valider ikke " + isFormValid);
       setVisButtonErrorAlert(true);
 
       setTimeout(() => {
