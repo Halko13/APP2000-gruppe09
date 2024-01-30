@@ -1,7 +1,7 @@
 -------------------MØTELOGG-------------------
 
 ----------Møte Onsdag 06.09.23----------
-Vi brukte alle gruppemedlemmene en time på å se igjennom oppgavene, samt 
+Vi brukte alle gruppemedlemmene en time på å se igjennom oppgavene, samt
 å lage en prioriteringsliste over oppgaver som var aktuelle å velge for vår gruppe.
 
 ----------Møte Mandag 11.09.23----------
@@ -10,11 +10,10 @@ for fleksitid. Etter forelesning møttes alle gruppemedlemmene i 1 time for å l
 samt å diskutere litt rundt hvordan vi ønsker å angripe/starte oppgaven.
 
 ----------Møte Mandag 18.09.23----------
-Vi sendte første email til oppdragsgiver. Samt å gå igjennom oppgaven, og lage noen spørsmål til 
-oppgaven. Vi gikk igjennom målsettningen, interessenter og roller. Vi snakket også litt om 
+Vi sendte første email til oppdragsgiver. Samt å gå igjennom oppgaven, og lage noen spørsmål til
+oppgaven. Vi gikk igjennom målsettningen, interessenter og roller. Vi snakket også litt om
 funksjonelle, og ikke funksjonelle krav. Vi drøftet også litt om fremgangsmåten til Oblig 1.
 Dette møtet hadde en variget på 2 timer. Alle gruppemedelemmene deltok.
-
 
 ----------Møte Mandag 25.09.23----------
 Lokasjon: Visma Enterprise i Porsgrunn
@@ -26,48 +25,50 @@ Oppgaven er å lage et stemplingsystem, som skal stemple inn og ut ansatte i en 
 samt å ha kontroll over antall timer man jobber i løpet av en dag/uke/måned/år. Det finnes
 allerede et eksiterende system i dag, men dette skal oppgraderes. Løsningen bør
 ha/inneholde:
-* Et enkelt brukergrensesnitt som er intuitivt.
-* Visuell bekreftelse på at bruker er stemplet inn/ut. Etter man har fått denne
+
+- Et enkelt brukergrensesnitt som er intuitivt.
+- Visuell bekreftelse på at bruker er stemplet inn/ut. Etter man har fått denne
   bekreftelsen, så skal man raskt tilbake til start/innloggings delen.
-* Være responsivt.
-* Touch-vennlig.
-* Ha en servicebruker som kan legge til, oppdatere og fjerne ansatte. Lage et
+- Være responsivt.
+- Touch-vennlig.
+- Ha en servicebruker som kan legge til, oppdatere og fjerne ansatte. Lage et
   brukergrensesnitt for dette?
-* Hver enkelt stempling skal kunne lagres i systemet (Timestamp).
-* Minimumskravet er å beregne totalt antall timer en ansatt har vært på jobb om dagen.
-* Designmessig har vi frie tøyler. Det skal følge WCAG. Ikke lov med konfetti.
-* Dummydatabase av brukere. (Firebase?)
+- Hver enkelt stempling skal kunne lagres i systemet (Timestamp).
+- Minimumskravet er å beregne totalt antall timer en ansatt har vært på jobb om dagen.
+- Designmessig har vi frie tøyler. Det skal følge WCAG. Ikke lov med konfetti.
+- Dummydatabase av brukere. (Firebase?)
 
 Ting å tenke på:
-* Når skal stemplingene inn i databasen? Etter hver stempling? Eller oppdateres
-daglig?
-* Hvordan få en god løsning på kvelds- og nattevakter når klokken går over midnatt?
-* Skal man kunne gå tilbake å stemple seg inn hvis man har glemt det? I så fall hvor
+
+- Når skal stemplingene inn i databasen? Etter hver stempling? Eller oppdateres
+  daglig?
+- Hvordan få en god løsning på kvelds- og nattevakter når klokken går over midnatt?
+- Skal man kunne gå tilbake å stemple seg inn hvis man har glemt det? I så fall hvor
   lenge skal det være mulig å gå tilbake? Timer? Dager?
-* GDPR. Hvilke informasjoner om en ansatt er nødvendig å lagre?
+- GDPR. Hvilke informasjoner om en ansatt er nødvendig å lagre?
 
 Det som er mest interessant er ideene vi kommer med til løsningen. Dersom vi ikke skulle
 klart å implementere en ide i vår løsning, skal vi fremdeles belyse den.
 Tips:
-* Fordele arbeidsoppgaver og lage en strukturert plan, slik at vi har et mål å jobbe mot.
-* Tidsfordeling mellom gruppemedlemmer i planleggingsfasen.
-* Bruk eksisterende teknologier og biblioteker. Det viktigste er ikke å lære seg alle
-  teknologiene, men selve prosessen. Best practice i kodeutvikling holder.
-* Material UI.
-* Datautveksling går imellom JSON.
-* API: .net bruker Visma i dag. Men vi står fritt til å velge, så lenge dataene blir
-  presentert på en grei måte.
-* Rest Api, bør lese litt på dette.
-* Bruke Oauth 2.0 flyt og JSON Web Tolkens.
-* Figma til prototyping
-* Testing: Selenium, JUnit Tester.
-* Owasp top 10
-* Tenke på hvordan dataene flyter mellom frontend og backend.
-* Lage diagrammer på hvordan databasen ser ut, og hvordan klassene henger
-  sammen.
-Avslutningsvis ble vi enige om å holde dialogen på mail. Vi i gruppe 9 takker for møtet, og
-gleder oss til samarbeidet videre.
 
+- Fordele arbeidsoppgaver og lage en strukturert plan, slik at vi har et mål å jobbe mot.
+- Tidsfordeling mellom gruppemedlemmer i planleggingsfasen.
+- Bruk eksisterende teknologier og biblioteker. Det viktigste er ikke å lære seg alle
+  teknologiene, men selve prosessen. Best practice i kodeutvikling holder.
+- Material UI.
+- Datautveksling går imellom JSON.
+- API: .net bruker Visma i dag. Men vi står fritt til å velge, så lenge dataene blir
+  presentert på en grei måte.
+- Rest Api, bør lese litt på dette.
+- Bruke Oauth 2.0 flyt og JSON Web Tolkens.
+- Figma til prototyping
+- Testing: Selenium, JUnit Tester.
+- Owasp top 10
+- Tenke på hvordan dataene flyter mellom frontend og backend.
+- Lage diagrammer på hvordan databasen ser ut, og hvordan klassene henger
+  sammen.
+  Avslutningsvis ble vi enige om å holde dialogen på mail. Vi i gruppe 9 takker for møtet, og
+  gleder oss til samarbeidet videre.
 
 ----------Møte Mandag 08.01.24----------
 Vi har allerede en prototype som vi har levert i arb. krav 2. Men vi
@@ -76,11 +77,11 @@ For å få litt innspill fra alle.
 Christopher har sendt mail til Richard for å planlegge et møte.
 
 Arbeidsfordeling i oppgaven:
-Halvor       -  Blir med på klinetsiden først, men jobber også backend. (Admin dasbord)
-Kjetil       -  Backend (database)
-Ådne         -  Klient (Innlogging)
-Sindre       -  Backend (database)
-Christopher  -  Blir med på klinetsiden først, men jobber også backend. (dashbord)
+Halvor - Blir med på klinetsiden først, men jobber også backend. (Admin dasbord)
+Kjetil - Backend (database)
+Ådne - Klient (Innlogging)
+Sindre - Backend (database)
+Christopher - Blir med på klinetsiden først, men jobber også backend. (dashbord)
 
 Hva skal vi gjøre fremover?
 
@@ -89,7 +90,6 @@ Sette opp database, koble den opp på klienten.
 Få opp klientsiden på en webtjener.
 Få laget utseende i HTML, CSS og react.
 HTTP spørringer.
-
 
 Arb.krav 3
 Sindre og Kjetil skriver om backend.
@@ -101,19 +101,18 @@ Innen slutten av januar vil Bjørn ha en link til applikasjonen
 hvor han kan gjøre CURD operasjoner.
 GUI ting er viktig!
 
-
 ----------Møte Mandag 15.01.24----------
 Lokasjon: Kroa i Bø
 Tilstede: Richard, Christopher, Halvor, Ådne, Kjetil.
 
 Vi viser frem prototyper. Og får tilbakemelding på disse.
-Det som er det mest interessante er å få vist frem på en god måte 
-hvor mange timer man er i pluss eller minus hver måned. Det er dette som 
+Det som er det mest interessante er å få vist frem på en god måte
+hvor mange timer man er i pluss eller minus hver måned. Det er dette som
 forankres i termen fleksitid.
 
 Må velge person med søk, og pinkode. Kan bli litt "kryptisk" om det kun er en pinkode.
 Hva om noen har samme pin? Hva om man skriver feil pin, osv.
-Kan også være andre muligheter på akkurat dette. 
+Kan også være andre muligheter på akkurat dette.
 
 Prøver å minimalisere hvilke data som skal lagres om en ansatt i den grad det er mulig.
 
@@ -126,3 +125,9 @@ Over midnatt vil som sagt bil en tvist.
 Designspråk som er enkelt.
 Brukergrensesnittet skal være intuitivt, og bruker skal vite hva den skal gjøre.
 Alle ansatte skal til en hver tid ha oversikt over hvem som er på jobb. Mulig vi løser det med rød/grønn sirkel i dropdown med navn?
+
+----------Møte Torsdag 25.01.24----------
+Tilstede: alle.
+10:00 - 14:00
+Vi hadde møte på discord og diskuterte litt om veien videre, vi fikk også webhosting til å funke. Til nestegang vi møtes
+gjør vi litt fin-tuning på delen som man selv jobber med. Samt prøver å ferdigstille rapport.

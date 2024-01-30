@@ -7,8 +7,8 @@ import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
 import VelgBrukerListe from "@/components/HenteBruker";
-import teama from "@/app/Temaer/Teama";
-import { db } from "@/app/firebaseConfig";
+import teama from "@/components/Temaer/Teama";
+import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 
 const InnloggingSide = () => {
@@ -73,7 +73,7 @@ const InnloggingSide = () => {
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
         // Til ansatt siden
-        window.location.href = "/sjekkinn";
+        window.location.href = "/dashboard/sjekkinn";
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
