@@ -8,7 +8,6 @@ export const useFormOppdaterBrukerDataEffect = (formData) => {
     document.getElementById("Stilling").value = formData.Stilling;
     document.getElementById("AntallJobbTimer").value = formData.AntallJobbTimer;
 
-    // Check if the checkbox element exists before setting the checked property
     const erAdminCheckbox = document.getElementById("ErAdmin");
     if (erAdminCheckbox) {
       erAdminCheckbox.checked =

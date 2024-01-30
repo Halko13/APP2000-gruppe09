@@ -53,10 +53,9 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
     <Box
       sx={{ width: 0.5 }}
       alignItems={"center"}
-      // justifyContent={"center"}
+      justifyContent={"center"}
       style={{ margin: "auto" }}
     >
-      <ByttPassordTittel />
       <Box
         display="grid"
         gridTemplateColumns="repeat(1fr, 1fr)"
@@ -66,6 +65,7 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
       >
         <Box gridColumn="span 1">
           <Item>
+            <ByttPassordTittel />
             <ByttPassordForm formData={formData} onChange={setFormData} />
             <ByttPassordButton
               onSave={handleSave}
