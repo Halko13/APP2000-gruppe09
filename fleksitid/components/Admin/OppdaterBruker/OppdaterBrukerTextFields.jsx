@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useFormDataEffect } from "@/hooks/useFormDataEffect";
+import { useFormOppdaterBrukerDataEffect } from "@/hooks/useFormOppdaterBrukerDataEffect";
 import { usePassordEndring } from "@/hooks/usePassordEndring";
 import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
@@ -20,29 +20,13 @@ const textFieldData = [
     type: "number",
     variant: "filled",
   },
-  {
-    id: "Passord",
-    label: "Passord",
-    type: "password",
-    autoComplete: "current-password",
-    required: true,
-    variant: "filled",
-  },
-  {
-    id: "GjentaPassord",
-    label: "Gjenta Passord",
-    type: "password",
-    autoComplete: "current-password",
-    required: true,
-    variant: "filled",
-  },
 ];
 const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
 export default function OppdaterBrukerForm({ formData, onChange }) {
   const handleEndring = useFormUpdate(onChange);
   const passordError = useFormValidation(formData);
-  useFormDataEffect(formData);
+  useFormOppdaterBrukerDataEffect(formData);
   const handlePassordEndring = usePassordEndring(onChange);
 
   const [erAdminChecked, setErAdminChecked] = React.useState(false);
@@ -82,19 +66,8 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
                 handlePassordEndring(e);
             }}
             value={formData[field.id]}
-            error={
-              (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passordError
-            }
-            helperText={
-              (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passordError
-                ? "Passord må ha 6 nummer"
-                : ""
-            }
           />
         ))}
-
         <AdminCheckBox
           checked={erAdminChecked}
           onChange={handleErAdminChange}

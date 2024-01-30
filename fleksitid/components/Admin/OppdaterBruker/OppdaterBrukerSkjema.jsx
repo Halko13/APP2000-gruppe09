@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
 import OppdaterBrukerForm from "@/components/Admin/OppdaterBruker/OppdaterBrukerTextFields";
 import OppdaterBrukerButton from "@/components/Admin/OppdaterBruker/OppdaterBrukerButton";
-import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
 import {
   OppdatertBrukerSuccsessAlert,
   OppdatertBrukerErrorAlert,
@@ -21,6 +20,7 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
+import ByttPassordSkjema from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordSkjema";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
@@ -35,6 +35,8 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     React.useState(false);
   const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
     React.useState(false);
+  const [visByttPassordSkjema, setVisByttPassordSkjema] = React.useState(false);
+
   const handleSave = async () => {
     // Sjekker hvis det er noen endring
     // Fikk kuttet ned flere && if setning ved hjelp av chatGPT
@@ -129,42 +131,54 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const handleFormReturn = () => {
     onGoBack();
   };
-
+  const handleByttPassordComponent = () => {
+    setVisByttPassordSkjema(true);
+    setVisOppdatertBrukerInfoAlert(false);
+    setVisOppdatertBrukerErrorAlert(false);
+    setVisOppdatertBrukerSuccsessAlert(false);
+  };
+  const handleByttPassordReturn = () => {
+    setVisByttPassordSkjema(false);
+  };
   const isFormValid =
     formData.AnsattNr !== "" &&
     formData.Fornavn !== "" &&
     formData.Etternavn !== "" &&
-    formData.Stilling !== "" &&
-    ((formData.Passord === userData.Passord &&
-      formData.GjentaPassord === userData.GjentaPassord) || // Passord ikke endret, vil ikke være 6 tegn etter hashing
-      (formData.Passord.length === PASSWORD_LENGTH &&
-        formData.Passord === formData.GjentaPassord));
+    formData.Stilling !== "";
 
   return (
     <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
-      <Box
-        display="grid"
-        gridTemplateColumns="repeat(1fr, 1fr)"
-        gap={2}
-        alignItems={"center"}
-        style={{ margin: "auto" }}
-      >
-        <Box gridColumn="span 1">
-          <Item>
-            <OppdaterBrukerForm formData={formData} onChange={setFormData} />
-            <OppdaterBrukerButton
-              onSave={handleSave}
-              isFormValid={isFormValid}
-              onFormReturn={handleFormReturn}
-            />
-            <OppdatertBrukerSuccsessAlert
-              vis={visOppdatertBrukerSuccsessAlert}
-            />
-            <OppdatertBrukerErrorAlert vis={visOppdatertBrukerErrorAlert} />
-            <OppdatertBrukerInfoAlert vis={visOppdatertBrukerInfoAlert} />
-          </Item>
+      {visByttPassordSkjema ? (
+        <ByttPassordSkjema
+          userData={userData}
+          onGoBack={handleByttPassordReturn}
+        />
+      ) : (
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(1fr, 1fr)"
+          gap={2}
+          alignItems={"center"}
+          style={{ margin: "auto" }}
+        >
+          <Box gridColumn="span 1">
+            <Item>
+              <OppdaterBrukerForm formData={formData} onChange={setFormData} />
+              <OppdaterBrukerButton
+                onSave={handleSave}
+                isFormValid={isFormValid}
+                onFormReturn={handleFormReturn}
+                onByttPassord={handleByttPassordComponent}
+              />
+              <OppdatertBrukerSuccsessAlert
+                vis={visOppdatertBrukerSuccsessAlert}
+              />
+              <OppdatertBrukerErrorAlert vis={visOppdatertBrukerErrorAlert} />
+              <OppdatertBrukerInfoAlert vis={visOppdatertBrukerInfoAlert} />
+            </Item>
+          </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 }
