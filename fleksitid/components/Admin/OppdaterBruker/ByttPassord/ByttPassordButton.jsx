@@ -3,23 +3,22 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ButtonErrorAlert } from "@/components/Admin/OppdaterBruker/Alerts";
+import { ButtonErrorAlert } from "@/components/Admin/OppdaterBruker/ByttPassord/Alerts";
 
-export default function OppdaterBrukerButton({
+export default function ByttPassordButton({
   onSave,
   isFormValid,
   onFormReturn,
-  onByttPassord,
 }) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = React.useState(false);
-  console.log("isFormValid:", isFormValid);
+  // console.log("isFormValid:", isFormValid);
 
   const handleSaveClick = () => {
     if (isFormValid) {
       onSave();
       setVisButtonErrorAlert(false);
     } else {
-      console.log("valider ikke " + isFormValid);
+      // console.log("valider ikke " + isFormValid);
       setVisButtonErrorAlert(true);
 
       setTimeout(() => {
@@ -32,26 +31,17 @@ export default function OppdaterBrukerButton({
     onFormReturn();
     setVisButtonErrorAlert(false);
   };
-  const handleByttPassord = () => {
-    onByttPassord();
-    setVisButtonErrorAlert(false);
-  };
 
   // Hentet fra MUI DOCS
   //https://mui.com/material-ui/react-button/
   return (
     <div>
-      <Stack style={{ marginBottom: "20px" }}>
-        <Button variant="outlined" onClick={handleByttPassord}>
-          ByttPassord
-        </Button>
-      </Stack>
-      <Stack direction="row" spacing={2} justifyContent="flex-end">
+      <Stack direction="row" spacing={2} justifyContent="flex-center">
         <Button variant="outlined" onClick={handleReturnClick}>
           Tilbake
         </Button>
         <Button variant="contained" onClick={handleSaveClick}>
-          Oppdater
+          Bytt Passord
         </Button>
       </Stack>
       <ButtonErrorAlert vis={visButtonErrorAlert} />
