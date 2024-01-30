@@ -60,7 +60,7 @@ const InnloggingSide = () => {
 
   // Sjekk av bruker og admin bruker kan logge seg inn
   const validerLogin = () => {
-    const valgtBruker = brukere.find((user) => user.id === valgtBrukerId);
+    const valgtBruker = brukere.find((bruker) => bruker.id === valgtBrukerId);
     if (valgtBruker) {
       if (valgtBruker.ErAdmin && valgtBruker.Passord === pin) {
         setLoginStatus(
