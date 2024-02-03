@@ -7,7 +7,7 @@ import NyBrukerForm from "@/components/Admin/NyBruker/NyBrukerTextFields";
 import NyBrukerButton from "@/components/Admin/NyBruker/NyBrukerButton";
 import { SuccessAlert, ErrorAlert } from "@/components/Admin/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
-// import HashPassord from "@/components/Hashing";
+import bcryptHashing from "@/components/Hash/Hashing";
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
@@ -40,14 +40,15 @@ export default function NyBrukerSkjema() {
         setVisErrorAlert(false);
       }, 3000);
     } else {
-      // const passord = HashPassord(formData.Passord);
+      const hashedPassword = await bcryptHashing(formData.Passord);
       await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
         AnsattNr: formData.AnsattNr,
         Fornavn: formData.Fornavn,
         Etternavn: formData.Etternavn,
         Stilling: formData.Stilling,
         AntallJobbTimer: formData.AntallJobbTimer,
-        Passord: formData.Passord, //Skal være passord når hashing fungerer
+        // Passord: formData.Passord, //Skal være passord når hashing fungerer
+        Passord: hashedPassword, //Skal være passord når hashing fungerer
         Innlogget: false,
         ErAdmin: formData.ErAdmin,
         Opprettet: serverTimestamp(),

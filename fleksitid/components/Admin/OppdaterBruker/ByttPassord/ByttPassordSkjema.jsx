@@ -11,10 +11,12 @@ import {
 import ByttPassordForm from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTextFields";
 import ByttPassordButton from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordButton";
 import ByttPassordTittel from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTittel";
+import bcryptHashing from "@/components/Hash/Hashing";
 // DB
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
+
 export default function ByttPassordSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState({
     ...userData,
@@ -28,9 +30,10 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
 
   const handleSave = async () => {
     console.log("Endrer passord i database");
+    const hashedPassword = await bcryptHashing(formData.Passord);
     await setDoc(
       doc(db, dbCollectionBrukere, formData.AnsattNr),
-      { Passord: formData.Passord, SistEndret: serverTimestamp() },
+      { Passord: hashedPassword, SistEndret: serverTimestamp() },
       { merge: true }
     );
     setVisByttPassordSuccsessAlert(true);
