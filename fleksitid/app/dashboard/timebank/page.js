@@ -4,12 +4,10 @@ import React from "react";
 import { Box } from "@mui/material";
 // Komponenter
 
-export default function Admin() {
+export default function Timebank() {
   return (
     <main>
-      <div>
-        <p>Kommer senere</p>
-      </div>
+      <Box></Box>
     </main>
   );
 }
