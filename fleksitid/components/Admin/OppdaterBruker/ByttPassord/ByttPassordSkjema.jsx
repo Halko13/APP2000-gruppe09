@@ -7,6 +7,7 @@ import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields"
 import {
   ByttPassordSuccsessAlert,
   ByttPassordErrorAlert,
+  HashingErrorAlert,
 } from "@/components/Admin/OppdaterBruker/ByttPassord/Alerts";
 import ByttPassordForm from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTextFields";
 import ByttPassordButton from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordButton";
@@ -26,20 +27,30 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
 
   const [visByttPassordSuccsessAlert, setVisByttPassordSuccsessAlert] =
     React.useState(false);
+  const [visHashingErrorAlert, setVisHashingErrorAlert] = React.useState(false);
   // if()
 
   const handleSave = async () => {
     console.log("Endrer passord i database");
-    const hashedPassword = await bcryptHashing(formData.Passord);
-    await setDoc(
-      doc(db, dbCollectionBrukere, formData.AnsattNr),
-      { Passord: hashedPassword, SistEndret: serverTimestamp() },
-      { merge: true }
-    );
-    setVisByttPassordSuccsessAlert(true);
-    setTimeout(() => {
-      onGoBack();
-    }, 3000);
+
+    try {
+      const hashedPassword = await bcryptHashing(formData.Passord);
+      await setDoc(
+        doc(db, dbCollectionBrukere, formData.AnsattNr),
+        { Passord: hashedPassword, SistEndret: serverTimestamp() },
+        { merge: true }
+      );
+      setVisByttPassordSuccsessAlert(true);
+      setTimeout(() => {
+        onGoBack();
+      }, 3000);
+    } catch (error) {
+      setVisHashingErrorAlert(true);
+      setVisByttPassordSuccsessAlert(false);
+      setTimeout(() => {
+        onGoBack();
+      }, 3000);
+    }
   };
 
   const handleFormReturn = () => {
@@ -76,6 +87,7 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
               onFormReturn={handleFormReturn}
             />
             <ByttPassordSuccsessAlert vis={visByttPassordSuccsessAlert} />
+            <HashingErrorAlert vis={visHashingErrorAlert} />
           </Item>
         </Box>
       </Box>

@@ -19,3 +19,7 @@ export function ButtonErrorAlert({ vis }) {
     )
   );
 }
+
+export function HashingErrorAlert({ vis }) {
+  return vis && <Alert severity="error">Noe feil skjedde, prøv på nytt</Alert>;
+}
