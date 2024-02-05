@@ -6,7 +6,7 @@ import bcrypt from "bcryptjs";
 
 const saltRounds = 10;
 
-const bcryptHashing = async (passoord) => {
+const bcryptHashing = async (passord) => {
   try {
     const salt = await bcrypt.genSalt(saltRounds);
     const hash = await bcrypt.hash(passord, salt);
