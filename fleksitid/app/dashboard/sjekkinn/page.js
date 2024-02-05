@@ -5,6 +5,7 @@ import styles from "@/app/page.module.css";
 import Klokke from "@/components/Klokke";
 import SjekkinnKnapp from "@/components/SjekkinnKnapp";
 import VelgBrukerListe from "@/components/HenteBruker";
+import Database from "../test/kontaktdb";
 
 
 const SjekkInn = () => {
@@ -19,6 +20,7 @@ const SjekkInn = () => {
       <Klokke suppressHydrationWarning />
       <h1 className={styles.ov}>Gjenværende tid i dag: 7:59</h1>
       <SjekkinnKnapp />
+      <Database />
     </>
   );
 };
