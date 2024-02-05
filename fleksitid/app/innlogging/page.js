@@ -31,8 +31,7 @@ const InnloggingSide = () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
       const brukerListe = brukerData.docs.map((dok) => ({
-        id: dok.id,
-        ...dok.data(),
+        id: dok.id, ...dok.data(),
       }));
       setBrukere(brukerListe);
       // Admin brukere fra firestore
