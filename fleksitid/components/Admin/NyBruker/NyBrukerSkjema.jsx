@@ -5,8 +5,13 @@ import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
 import NyBrukerForm from "@/components/Admin/NyBruker/NyBrukerTextFields";
 import NyBrukerButton from "@/components/Admin/NyBruker/NyBrukerButton";
-import { SuccessAlert, ErrorAlert } from "@/components/Admin/NyBruker/Alerts";
+import {
+  SuccessAlert,
+  ErrorAlert,
+  HashingErrorAlert,
+} from "@/components/Admin/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
+import bcryptHashing from "@/components/Hash/Hashing";
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
@@ -24,6 +29,7 @@ export default function NyBrukerSkjema() {
 
   const [visSuksessAlert, setVisSuksessAlert] = React.useState(false);
   const [visErrorAlert, setVisErrorAlert] = React.useState(false);
+  const [visHashingErrorAlert, setVisHashingErrorAlert] = React.useState(false);
 
   const handleSave = async () => {
     console.log("Lagrer data til database:", formData);
@@ -34,30 +40,42 @@ export default function NyBrukerSkjema() {
     if (docSnap.exists()) {
       setVisErrorAlert(true);
       setVisSuksessAlert(false);
+      setVisHashingErrorAlert(false);
 
       setTimeout(() => {
         setVisErrorAlert(false);
       }, 3000);
     } else {
-      await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
-        AnsattNr: formData.AnsattNr,
-        Fornavn: formData.Fornavn,
-        Etternavn: formData.Etternavn,
-        Stilling: formData.Stilling,
-        AntallJobbTimer: formData.AntallJobbTimer,
-        Passord: formData.Passord,
-        Innlogget: false,
-        ErAdmin: formData.ErAdmin,
-        Opprettet: serverTimestamp(),
-        SistEndret: serverTimestamp(),
-        Timebank: Number(formData.AntallJobbTimer),
-      });
+      try {
+        const hashedPassword = await bcryptHashing(formData.Passord);
+        await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
+          AnsattNr: formData.AnsattNr,
+          Fornavn: formData.Fornavn,
+          Etternavn: formData.Etternavn,
+          Stilling: formData.Stilling,
+          AntallJobbTimer: formData.AntallJobbTimer,
+          Passord: hashedPassword,
+          Innlogget: false,
+          ErAdmin: formData.ErAdmin,
+          Opprettet: serverTimestamp(),
+          SistEndret: serverTimestamp(),
+          Timebank: Number(formData.AntallJobbTimer),
+        });
+      } catch (error) {
+        setVisHashingErrorAlert(true);
+        setVisSuksessAlert(false);
+        setVisErrorAlert(false);
+        setTimeout(() => {
+          setVisHashingErrorAlert(false);
+        }, 3000);
+      }
       setVisSuksessAlert(true);
       setVisErrorAlert(false);
+      setVisHashingErrorAlert(false);
 
       setTimeout(() => {
         setVisSuksessAlert(false);
-      }, 5000);
+      }, 3000);
     }
     handleFormReset();
   };
@@ -104,6 +122,7 @@ export default function NyBrukerSkjema() {
             />
             <SuccessAlert vis={visSuksessAlert} />
             <ErrorAlert vis={visErrorAlert} />
+            <HashingErrorAlert vis={visHashingErrorAlert} />
           </Item>
         </Box>
       </Box>

@@ -10,6 +10,7 @@ import VelgBrukerListe from "@/components/HenteBruker";
 import teama from "@/components/Temaer/Teama";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import bcryptVerify from "@/components/Hash/HashingVerifisering";
 
 const InnloggingSide = () => {
   // Start verdi
@@ -59,16 +60,18 @@ const InnloggingSide = () => {
   };
 
   // Sjekk av bruker og admin bruker kan logge seg inn
-  const validerLogin = () => {
-    const valgtBruker = brukere.find((user) => user.id === valgtBrukerId);
+  const validerLogin = async () => {
+    const valgtBruker = brukere.find((bruker) => bruker.id === valgtBrukerId);
     if (valgtBruker) {
-      if (valgtBruker.ErAdmin && valgtBruker.Passord === pin) {
+      const liktPassord = await bcryptVerify(pin, valgtBruker.Passord);
+      //TODO Legge til error håndtering
+      if (valgtBruker.ErAdmin && liktPassord) {
         setLoginStatus(
           "Logget inn som admin. Velkommen " + valgtBruker.Fornavn + "!"
         );
         // Til admin siden
         window.location.href = "/admin";
-      } else if (!valgtBruker.ErAdmin && valgtBruker.Passord === pin) {
+      } else if (!valgtBruker.ErAdmin && liktPassord) {
         setLoginStatus(
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
