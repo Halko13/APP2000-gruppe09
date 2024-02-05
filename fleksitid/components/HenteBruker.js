@@ -45,14 +45,15 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
                     <ListSubheader>Brukere</ListSubheader>
                     {filtrerteBrukere.map(bruker => (
                     <MenuItem key={bruker.id} value={bruker.id}>
-                        {bruker.Fornavn ? bruker.Fornavn : 'Ukjent'} {bruker.Etternavn ? bruker.Etternavn : ''}
+                    {` (${bruker.AnsattNr}) ${bruker.Fornavn ? bruker.Fornavn : 'Ukjent'} ${bruker.Etternavn ? bruker.Etternavn : ''}`}                    
                     </MenuItem>
                      ))}
+
                     <ListSubheader>Administratorer</ListSubheader>
                     {filtrerteAdmins.map(admin => (
-                        <MenuItem key={admin.brukernavn} value={admin.brukernavn}>
-                            {admin.brukernavn}
-                        </MenuItem>
+                    <MenuItem key={admin.brukernavn} value={admin.brukernavn}>
+                        {` (${admin.Ansattnr}) ${admin.brukernavn} `}
+                     </MenuItem>
                     ))}
         </Select>
         </FormControl>
