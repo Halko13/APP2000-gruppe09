@@ -54,8 +54,7 @@ export default function NyBrukerSkjema() {
           Etternavn: formData.Etternavn,
           Stilling: formData.Stilling,
           AntallJobbTimer: formData.AntallJobbTimer,
-          // Passord: formData.Passord, //Skal være passord når hashing fungerer
-          Passord: hashedPassword, //Skal være passord når hashing fungerer
+          Passord: hashedPassword,
           Innlogget: false,
           ErAdmin: formData.ErAdmin,
           Opprettet: serverTimestamp(),
