@@ -78,8 +78,17 @@ export default function FinnBrukerSkjema() {
   };
 
   const isFormValid = formData.AnsattNr !== "";
+
   return (
-    <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
+    <Box
+      sx={{
+        width: "100%",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {visSlettBrukerSkjema ? (
         <SlettBrukerSkjema userData={userData} onGoBack={handleFormReset} />
       ) : visOppdaterBrukerSkjema ? (

@@ -163,7 +163,15 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     formData.Stilling !== "";
 
   return (
-    <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
+    <Box
+      sx={{
+        width: "70%",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       {visByttPassordSkjema ? (
         <ByttPassordSkjema
           userData={userData}

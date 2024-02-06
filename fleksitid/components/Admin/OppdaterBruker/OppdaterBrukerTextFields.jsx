@@ -44,7 +44,7 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: 1 },
+        "& .MuiTextField-root": { m: 1, width: "95%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate

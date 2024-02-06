@@ -31,28 +31,26 @@ export default function SlettBrukerTextField({ formData }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: 1 },
+        "& .MuiTextField-root": { m: 1, width: "95%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
-        {fieldDefinitions.map((field) => (
-          <TextField
-            key={field.id}
-            disabled
-            id={field.id}
-            label={field.label}
-            variant={field.variant}
-            type={field.type}
-            value={formData[field.id]}
-            InputProps={{
-              style: textFieldStyle,
-            }}
-          />
-        ))}
-      </div>
+      {fieldDefinitions.map((field) => (
+        <TextField
+          key={field.id}
+          disabled
+          id={field.id}
+          label={field.label}
+          variant={field.variant}
+          type={field.type}
+          value={formData[field.id]}
+          InputProps={{
+            style: textFieldStyle,
+          }}
+        />
+      ))}
     </Box>
   );
 }

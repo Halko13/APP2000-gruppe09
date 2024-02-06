@@ -20,25 +20,23 @@ export default function FinnBrukerTextField({ formData, onChange }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: 1 },
+        "& .MuiTextField-root": { m: 1, width: "90%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
-        {fields.map((field) => (
-          <TextField
-            key={field.id}
-            required={field.required}
-            id={field.id}
-            label={field.label}
-            variant={field.variant}
-            onChange={handleChange}
-            value={formData[field.id]}
-          />
-        ))}
-      </div>
+      {fields.map((field) => (
+        <TextField
+          key={field.id}
+          required={field.required}
+          id={field.id}
+          label={field.label}
+          variant={field.variant}
+          onChange={handleChange}
+          value={formData[field.id]}
+        />
+      ))}
     </Box>
   );
 }

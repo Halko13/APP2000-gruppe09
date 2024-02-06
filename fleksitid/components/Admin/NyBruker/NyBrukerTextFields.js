@@ -66,7 +66,7 @@ export default function NyBrukerForm({ formData, onChange }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "90%" }, // Adjust the width here
+        "& .MuiTextField-root": { m: 1, width: "95%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate
