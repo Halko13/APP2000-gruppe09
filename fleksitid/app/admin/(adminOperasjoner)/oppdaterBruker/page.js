@@ -9,7 +9,16 @@ export default function OppdaterBruker() {
   return (
     <main>
       <div>
-        <Box>
+        <Box
+          sx={{
+            width: { xs: "100%", sm: "75%", md: "50%" },
+            margin: "auto",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <OppdaterBrukerTittel />
           <FinnBrukerSkjema />
         </Box>

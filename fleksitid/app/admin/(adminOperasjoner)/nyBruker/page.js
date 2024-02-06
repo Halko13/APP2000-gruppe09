@@ -9,12 +9,19 @@ import NyBrukerTittel from "@/components/Admin/NyBruker/NyBrukerTittel";
 export default function Admin() {
   return (
     <main>
-      <div>
-        <Box>
-          <NyBrukerTittel />
-          <NyBrukerSkjema />
-        </Box>
-      </div>
+      <Box
+        sx={{
+          width: { xs: "100%", sm: "75%", md: "50%" },
+          margin: "auto",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <NyBrukerTittel />
+        <NyBrukerSkjema />
+      </Box>
     </main>
   );
 }
