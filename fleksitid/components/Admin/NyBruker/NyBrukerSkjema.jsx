@@ -104,27 +104,33 @@ export default function NyBrukerSkjema() {
     formData.Passord.length === PASSWORD_LENGTH;
 
   return (
-    <Box sx={{ width: 0.5 }} alignItems={"center"} style={{ margin: "auto" }}>
+    <Box
+      sx={{
+        width: "100%",
+        margin: "auto",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
       <Box
-        display="grid"
-        gridTemplateColumns="repeat(1fr, 1fr)"
-        gap={2}
-        alignItems={"center"}
-        style={{ margin: "auto" }}
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
       >
-        <Box gridColumn="span 1">
-          <Item>
-            <NyBrukerForm formData={formData} onChange={setFormData} />
-            <NyBrukerButton
-              onSave={handleSave}
-              isFormValid={isFormValid}
-              onFormReset={handleFormReset}
-            />
-            <SuccessAlert vis={visSuksessAlert} />
-            <ErrorAlert vis={visErrorAlert} />
-            <HashingErrorAlert vis={visHashingErrorAlert} />
-          </Item>
-        </Box>
+        <Item>
+          <NyBrukerForm formData={formData} onChange={setFormData} />
+          <NyBrukerButton
+            onSave={handleSave}
+            isFormValid={isFormValid}
+            onFormReset={handleFormReset}
+          />
+          <SuccessAlert vis={visSuksessAlert} />
+          <ErrorAlert vis={visErrorAlert} />
+          <HashingErrorAlert vis={visHashingErrorAlert} />
+        </Item>
       </Box>
     </Box>
   );

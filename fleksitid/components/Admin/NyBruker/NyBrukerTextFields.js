@@ -66,49 +66,48 @@ export default function NyBrukerForm({ formData, onChange }) {
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: 1 },
+        "& .MuiTextField-root": { m: 1, width: "90%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate
       autoComplete="off"
     >
-      <div>
-        {textFieldData.map((field) => (
-          <TextField
-            key={field.id}
-            id={field.id}
-            label={field.label}
-            type={field.type || "text"}
-            autoComplete={field.autoComplete || ""}
-            required={field.required || false}
-            variant={field.variant || "filled"}
-            onChange={(e) => {
-              handleChange(e);
-              if (field.id === "Passord" || field.id === "GjentaPassord") {
-                handlePassordEndring(e);
-              }
-            }}
-            value={formData[field.id]}
-            error={
-              (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passordError
+      {textFieldData.map((field) => (
+        <TextField
+          key={field.id}
+          id={field.id}
+          label={field.label}
+          type={field.type || "text"}
+          autoComplete={field.autoComplete || ""}
+          required={field.required || false}
+          variant={field.variant || "filled"}
+          onChange={(e) => {
+            handleChange(e);
+            if (field.id === "Passord" || field.id === "GjentaPassord") {
+              handlePassordEndring(e);
             }
-            helperText={
-              (field.id === "Passord" || field.id === "GjentaPassord") &&
-              passordError
-                ? "Passord må ha lengde 6"
-                : ""
-            }
-          />
-        ))}
-
+          }}
+          value={formData[field.id]}
+          error={
+            (field.id === "Passord" || field.id === "GjentaPassord") &&
+            passordError
+          }
+          helperText={
+            (field.id === "Passord" || field.id === "GjentaPassord") &&
+            passordError
+              ? "Passord må ha lengde 6"
+              : ""
+          }
+        />
+      ))}
+      <Box>
         {/* Checkbox */}
         <AdminCheckBox
           checked={erAdminChecked}
           onChange={handleErAdminChange}
           label={checkboxData[0].label}
         />
-      </div>
+      </Box>
     </Box>
   );
 }
