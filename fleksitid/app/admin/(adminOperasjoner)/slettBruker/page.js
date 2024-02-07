@@ -2,7 +2,7 @@
 
 import React from "react";
 import FinnBrukerSkjema from "@/components/Admin/Bruker/FinnBruker/FinnBrukerSkjema";
-import SlettBrukerTittel from "@/components/Admin/SlettBruker/SlettBrukerTittel";
+import SlettBrukerTittel from "@/components/Admin/Bruker/SlettBruker/SlettBrukerTittel";
 import { Box } from "@mui/material";
 
 export default function SlettBruker() {

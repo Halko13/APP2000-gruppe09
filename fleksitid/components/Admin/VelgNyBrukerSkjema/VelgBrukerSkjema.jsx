@@ -30,6 +30,10 @@ export default function VelgBrukerSkjema() {
     setVisNyAdminBrukerSkjema(true);
     setVisNyBrukerSkjema(false);
   };
+  const handleFormReset = () => {
+    setVisNyAdminBrukerSkjema(false);
+    setVisNyBrukerSkjema(false);
+  };
   return (
     <Box
       sx={{
@@ -41,9 +45,9 @@ export default function VelgBrukerSkjema() {
       }}
     >
       {visNyBrukerSkjema ? (
-        <NyBrukerSkjema />
+        <NyBrukerSkjema onGoBack={handleFormReset} />
       ) : visNyAdminBrukerSkjema ? (
-        <NyAdminBrukerSkjema />
+        <NyAdminBrukerSkjema onGoBack={handleFormReset} />
       ) : (
         <Item>
           <VelgBrukerButton onAnsatt={handleAnsatt} onAdmin={handleAdmin} />

@@ -3,13 +3,13 @@
 "use client";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import SlettBrukerTextField from "@/components/Admin/SlettBruker/SlettBrukerTextField";
-import SlettBrukerButton from "@/components/Admin/SlettBruker/SlettBrukerButton";
+import SlettBrukerTextField from "@/components/Admin/Bruker/SlettBruker/SlettBrukerTextField";
+import SlettBrukerButton from "@/components/Admin/Bruker/SlettBruker/SlettBrukerButton";
 import { Item } from "@/hooks/useFormStyle";
 import { db } from "@/firebase/firebaseConfig";
 import { doc, deleteDoc } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
-import { SlettetBrukerSuccsessAlert } from "@/components/Admin/SlettBruker/Alerts";
+import { SlettetBrukerSuccsessAlert } from "@/components/Admin/Bruker/SlettBruker/Alerts";
 
 export default function SlettBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);

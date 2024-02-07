@@ -12,9 +12,9 @@ import {
 } from "@/components/Admin/Bruker/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/Bruker/NyBruker/NyBrukerTextFields";
 import bcryptHashing from "@/components/Hash/Hashing";
-import { db, dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
+import { db, dbCollectionBrukere } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
-export default function NyBrukerSkjema() {
+export default function NyBrukerSkjema({ onGoBack }) {
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
     Fornavn: "",
@@ -48,7 +48,7 @@ export default function NyBrukerSkjema() {
     } else {
       try {
         const hashedPassword = await bcryptHashing(formData.Passord);
-        await setDoc(doc(db, dbCollectionAdminBrukere, formData.AnsattNr), {
+        await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
           AnsattNr: formData.AnsattNr,
           Epost: formData.Epost,
           Passord: hashedPassword,
@@ -82,7 +82,9 @@ export default function NyBrukerSkjema() {
       GjentaPassord: "",
     });
   };
-
+  const handleReturn = () => {
+    onGoBack();
+  };
   const isFormValid =
     formData.AnsattNr !== "" &&
     formData.Epost !== "" &&
@@ -114,6 +116,7 @@ export default function NyBrukerSkjema() {
             onSave={handleSave}
             isFormValid={isFormValid}
             onFormReset={handleFormReset}
+            onReturn={handleReturn}
           />
           <SuccessAlert vis={visSuksessAlert} />
           <ErrorAlert vis={visErrorAlert} />

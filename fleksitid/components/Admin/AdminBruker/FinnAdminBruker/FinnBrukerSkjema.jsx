@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 //komponenter
 import FinnBrukerTextField from "@/components/Admin/Bruker/FinnBruker/FinnBrukerTextField";
 import FinnBrukerButton from "@/components/Admin/Bruker/FinnBruker/FinnBrukerButton";
-import SlettBrukerSkjema from "@/components/Admin/SlettBruker/SlettBrukerSkjema";
+import SlettBrukerSkjema from "@/components/Admin/Bruker/SlettBruker/SlettBrukerSkjema";
 import OppdaterBrukerSkjema from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerSkjema";
 import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
 

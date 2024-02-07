@@ -2,10 +2,11 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useFormValidation } from "@/hooks/useFormValidation";
+import { useAdminFormValidation } from "@/hooks/useAdminFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useAdminFormDataEffect } from "@/hooks/useAdminFormDataEffect";
 import { useAdminPassordEndring } from "@/hooks/useAdminPassordEndring";
+import { ADMIN_PASSORD_LENGTH } from "@/components/Admin/AdminBruker/NyAdminBruker/NyAdminBrukerSkjema";
 
 const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
@@ -31,7 +32,7 @@ const textFieldData = [
 
 export default function NyAdminBrukerForm({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
-  const passordError = useFormValidation(formData);
+  const passordError = useAdminFormValidation(formData);
   useAdminFormDataEffect(formData);
   const handlePassordEndring = useAdminPassordEndring(onChange);
 
