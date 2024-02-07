@@ -6,7 +6,6 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormDataEffect } from "@/hooks/useFormDataEffect";
 import { usePassordEndring } from "@/hooks/usePassordEndring";
-import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
 export const PASSWORD_LENGTH = 6;
 
@@ -41,7 +40,6 @@ const textFieldData = [
     variant: "filled",
   },
 ];
-const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
 export default function NyBrukerForm({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
@@ -49,19 +47,7 @@ export default function NyBrukerForm({ formData, onChange }) {
   useFormDataEffect(formData);
   const handlePassordEndring = usePassordEndring(onChange);
 
-  const [erAdminChecked, setErAdminChecked] = React.useState(
-    formData.ErAdmin || false //Hvis undefined, blir satt som false
-  );
-
   // Oppdaterer når checkbox endres i form
-  React.useEffect(() => {
-    setErAdminChecked(formData.ErAdmin || false);
-  }, [formData.ErAdmin]);
-
-  const handleErAdminChange = (checked) => {
-    setErAdminChecked(checked);
-    onChange({ ...formData, ErAdmin: checked });
-  };
 
   // Hentet tekstfelt fra MUI
   // https://mui.com/material-ui/react-text-field/
@@ -90,7 +76,7 @@ export default function NyBrukerForm({ formData, onChange }) {
               handlePassordEndring(e);
             }
           }}
-          value={formData[field.id]}
+          value={formData[field.id] || ""} // Default to '' if formData[field.id] is undefined
           error={
             (field.id === "Passord" || field.id === "GjentaPassord") &&
             passordError
@@ -103,14 +89,6 @@ export default function NyBrukerForm({ formData, onChange }) {
           }
         />
       ))}
-      <Box>
-        {/* Checkbox */}
-        <AdminCheckBox
-          checked={erAdminChecked}
-          onChange={handleErAdminChange}
-          label={checkboxData[0].label}
-        />
-      </Box>
     </Box>
   );
 }

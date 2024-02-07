@@ -3,13 +3,13 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
-import OppdaterBrukerForm from "@/components/Admin/OppdaterBruker/OppdaterBrukerTextFields";
-import OppdaterBrukerButton from "@/components/Admin/OppdaterBruker/OppdaterBrukerButton";
+import OppdaterBrukerForm from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerTextFields";
+import OppdaterBrukerButton from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerButton";
 import {
   OppdatertBrukerSuccsessAlert,
   OppdatertBrukerErrorAlert,
   OppdatertBrukerInfoAlert,
-} from "@/components/Admin/OppdaterBruker/Alerts";
+} from "@/components/Admin/Bruker/OppdaterBruker/Alerts";
 
 import { db } from "@/firebase/firebaseConfig";
 import {
@@ -21,7 +21,7 @@ import {
   onSnapshot,
 } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
-import ByttPassordSkjema from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordSkjema";
+import ByttPassordSkjema from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordSkjema";
 export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 

@@ -1,7 +1,7 @@
 // Utviklet av Halvor Vilnes
 
 import React from "react";
-import FinnBrukerSkjema from "@/components/Admin/FinnBruker/FinnBrukerSkjema";
+import FinnBrukerSkjema from "@/components/Admin/Bruker/FinnBruker/FinnBrukerSkjema";
 import SlettBrukerTittel from "@/components/Admin/SlettBruker/SlettBrukerTittel";
 import { Box } from "@mui/material";
 

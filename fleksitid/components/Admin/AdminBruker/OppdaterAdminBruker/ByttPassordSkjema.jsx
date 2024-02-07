@@ -3,15 +3,15 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
-import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
+import { PASSWORD_LENGTH } from "@/components/Admin/Bruker/NyBruker/NyBrukerTextFields";
 import {
   ByttPassordSuccsessAlert,
   ByttPassordErrorAlert,
   HashingErrorAlert,
-} from "@/components/Admin/OppdaterBruker/ByttPassord/Alerts";
-import ByttPassordForm from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTextFields";
-import ByttPassordButton from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordButton";
-import ByttPassordTittel from "@/components/Admin/OppdaterBruker/ByttPassord/ByttPassordTittel";
+} from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/Alerts";
+import ByttPassordForm from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordTextFields";
+import ByttPassordButton from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordButton";
+import ByttPassordTittel from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordTittel";
 import bcryptHashing from "@/components/Hash/Hashing";
 // DB
 import { db } from "@/firebase/firebaseConfig";

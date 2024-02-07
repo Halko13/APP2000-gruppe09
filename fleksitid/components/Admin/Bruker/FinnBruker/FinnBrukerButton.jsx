@@ -3,7 +3,7 @@ import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ButtonErrorAlert } from "@/components/Admin/FinnBruker/Alerts";
+import { ButtonErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
 
 export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false);

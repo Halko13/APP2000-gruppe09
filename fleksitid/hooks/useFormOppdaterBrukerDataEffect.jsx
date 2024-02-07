@@ -7,11 +7,5 @@ export const useFormOppdaterBrukerDataEffect = (formData) => {
     document.getElementById("Etternavn").value = formData.Etternavn;
     document.getElementById("Stilling").value = formData.Stilling;
     document.getElementById("AntallJobbTimer").value = formData.AntallJobbTimer;
-
-    const erAdminCheckbox = document.getElementById("ErAdmin");
-    if (erAdminCheckbox) {
-      erAdminCheckbox.checked =
-        formData.ErAdmin === undefined ? false : formData.ErAdmin; //Hvis undefined(Ikke klikket) = false, else true
-    }
   }, [formData]);
 };

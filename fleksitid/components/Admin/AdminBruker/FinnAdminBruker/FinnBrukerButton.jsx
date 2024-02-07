@@ -1,19 +1,19 @@
-// Utviklet av Halvor Vilnes
+//Utviklet av Halvor Vilnes
+import React, { useState } from "react";
 
-import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ButtonErrorAlert } from "@/components/Admin/NyBruker/Alerts";
-export default function NyBrukerButton({ onSave, isFormValid, onFormReset }) {
-  const [visButtonErrorAlert, setVisButtonErrorAlert] = React.useState(false);
-  const handleSaveClick = () => {
+import { ButtonErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
+
+export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
+  const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false);
+
+  const handleFindBruker = () => {
     if (isFormValid) {
-      onSave();
-      onFormReset();
+      onFind();
       setVisButtonErrorAlert(false);
     } else {
       console.log("valider ikke " + isFormValid);
-
       setVisButtonErrorAlert(true);
       setTimeout(() => {
         setVisButtonErrorAlert(false);
@@ -22,16 +22,15 @@ export default function NyBrukerButton({ onSave, isFormValid, onFormReset }) {
   };
 
   const handleResetClick = () => {
-    onFormReset();
     setVisButtonErrorAlert(false);
+    onFormReset();
   };
-  //Hentet fra MUI doc
-  // https://mui.com/material-ui/react-button/
+
   return (
     <div>
       <Stack direction="row" spacing={2} justifyContent="flex-end">
-        <Button variant="contained" onClick={handleSaveClick}>
-          Send
+        <Button variant="contained" onClick={handleFindBruker}>
+          Finn bruker
         </Button>
         <Button variant="outlined" onClick={handleResetClick}>
           Reset

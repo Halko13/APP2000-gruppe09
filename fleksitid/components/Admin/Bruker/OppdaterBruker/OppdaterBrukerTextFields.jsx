@@ -7,7 +7,6 @@ import { useFormValidation } from "@/hooks/useFormValidation";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
 import { useFormOppdaterBrukerDataEffect } from "@/hooks/useFormOppdaterBrukerDataEffect";
 import { usePassordEndring } from "@/hooks/usePassordEndring";
-import AdminCheckBox from "@/components/Admin/AdminCheckBox";
 
 const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
@@ -68,11 +67,6 @@ export default function OppdaterBrukerForm({ formData, onChange }) {
             value={formData[field.id]}
           />
         ))}
-        <AdminCheckBox
-          checked={erAdminChecked}
-          onChange={handleErAdminChange}
-          label={checkboxData[0].label} // Use the label from checkboxData
-        />
       </div>
     </Box>
   );

@@ -12,11 +12,11 @@ import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 //Next
 import { usePathname } from "next/navigation";
 //komponenter
-import FinnBrukerTextField from "@/components/Admin/FinnBruker/FinnBrukerTextField";
-import FinnBrukerButton from "@/components/Admin/FinnBruker/FinnBrukerButton";
+import FinnBrukerTextField from "@/components/Admin/Bruker/FinnBruker/FinnBrukerTextField";
+import FinnBrukerButton from "@/components/Admin/Bruker/FinnBruker/FinnBrukerButton";
 import SlettBrukerSkjema from "@/components/Admin/SlettBruker/SlettBrukerSkjema";
-import OppdaterBrukerSkjema from "@/components/Admin/OppdaterBruker/OppdaterBrukerSkjema";
-import { FinnBrukerErrorAlert } from "@/components/Admin/FinnBruker/Alerts";
+import OppdaterBrukerSkjema from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerSkjema";
+import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
 
 export default function FinnBrukerSkjema() {
   // Data i feltene

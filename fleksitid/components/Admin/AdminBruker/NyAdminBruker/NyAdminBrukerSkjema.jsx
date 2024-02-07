@@ -3,28 +3,25 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
-import NyBrukerForm from "@/components/Admin/NyBruker/NyBrukerTextFields";
-import NyBrukerButton from "@/components/Admin/NyBruker/NyBrukerButton";
+import NyAdminBrukerForm from "@/components/Admin/AdminBruker/NyAdminBruker/NyAdminBrukerTextFields";
+import NyBrukerButton from "@/components/Admin/AdminBruker/NyAdminBruker/NyAdminBrukerButton";
 import {
   SuccessAlert,
   ErrorAlert,
   HashingErrorAlert,
-} from "@/components/Admin/NyBruker/Alerts";
-import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
+} from "@/components/Admin/Bruker/NyBruker/Alerts";
 import bcryptHashing from "@/components/Hash/Hashing";
 import { db } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
 import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
-export default function NyBrukerSkjema() {
+import { dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
+export const adminPassordLength = 7;
+export default function NyAdminBrukerSkjema() {
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
-    Fornavn: "",
-    Etternavn: "",
-    Stilling: "",
-    AntallJobbTimer: "",
+    Epost: "",
     Passord: "",
     GjentaPassord: "",
-    ErAdmin: false,
   });
 
   const [visSuksessAlert, setVisSuksessAlert] = React.useState(false);
@@ -48,18 +45,12 @@ export default function NyBrukerSkjema() {
     } else {
       try {
         const hashedPassword = await bcryptHashing(formData.Passord);
-        await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
+        await setDoc(doc(db, dbCollectionAdminBrukere, formData.AnsattNr), {
           AnsattNr: formData.AnsattNr,
-          Fornavn: formData.Fornavn,
-          Etternavn: formData.Etternavn,
-          Stilling: formData.Stilling,
-          AntallJobbTimer: formData.AntallJobbTimer,
+          Epost: formData.Epost,
           Passord: hashedPassword,
-          Innlogget: false,
-          ErAdmin: formData.ErAdmin,
           Opprettet: serverTimestamp(),
           SistEndret: serverTimestamp(),
-          Timebank: Number(formData.AntallJobbTimer),
         });
       } catch (error) {
         setVisHashingErrorAlert(true);
@@ -83,25 +74,19 @@ export default function NyBrukerSkjema() {
   const handleFormReset = () => {
     setFormData({
       AnsattNr: "",
-      Fornavn: "",
-      Etternavn: "",
-      Stilling: "",
-      AntallJobbTimer: "",
+      Epost: "",
       Passord: "",
       GjentaPassord: "",
-      ErAdmin: false,
     });
   };
 
   const isFormValid =
     formData.AnsattNr !== "" &&
-    formData.Fornavn !== "" &&
-    formData.Etternavn !== "" &&
-    formData.Stilling !== "" &&
+    Epost !== "" &&
     formData.Passord !== "" &&
     formData.GjentaPassord !== "" &&
     formData.Passord === formData.GjentaPassord &&
-    formData.Passord.length === PASSWORD_LENGTH;
+    formData.Passord.length >= adminPassordLength;
 
   return (
     <Box
@@ -121,7 +106,7 @@ export default function NyBrukerSkjema() {
         }}
       >
         <Item>
-          <NyBrukerForm formData={formData} onChange={setFormData} />
+          <NyAdminBrukerForm formData={formData} onChange={setFormData} />
           <NyBrukerButton
             onSave={handleSave}
             isFormValid={isFormValid}

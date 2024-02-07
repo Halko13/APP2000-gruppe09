@@ -3,8 +3,9 @@
 import React from "react";
 import { Box } from "@mui/material";
 // Komponenter
-import NyBrukerSkjema from "@/components/Admin/NyBruker/NyBrukerSkjema";
-import NyBrukerTittel from "@/components/Admin/NyBruker/NyBrukerTittel";
+import VelgBrukerSkjema from "@/components/Admin/VelgNyBrukerSkjema/VelgBrukerSkjema";
+import NyBrukerSkjema from "@/components/Admin/Bruker/NyBruker/NyBrukerSkjema";
+import NyBrukerTittel from "@/components/Admin/Bruker/NyBruker/NyBrukerTittel";
 
 export default function Admin() {
   return (
@@ -20,7 +21,7 @@ export default function Admin() {
         }}
       >
         <NyBrukerTittel />
-        <NyBrukerSkjema />
+        <VelgBrukerSkjema />
       </Box>
     </main>
   );
