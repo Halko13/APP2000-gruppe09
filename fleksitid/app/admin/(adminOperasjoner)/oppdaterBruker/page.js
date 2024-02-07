@@ -11,7 +11,7 @@ export default function OppdaterBruker() {
       <div>
         <Box
           sx={{
-            width: { xs: "100%", sm: "75%", md: "50%" },
+            width: { xs: "50%", sm: "75%", md: "50%" },
             margin: "auto",
             display: "flex",
             flexDirection: "column",
