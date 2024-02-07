@@ -178,7 +178,7 @@ function ResponsiveAppBar() {
                 },
               }}
             >
-              Logout
+              Logg ut
             </Button>
           </Box>
         </Toolbar>
