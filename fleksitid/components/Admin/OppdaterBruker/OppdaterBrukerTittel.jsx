@@ -14,7 +14,7 @@ export default function OppdaterBrukerTittel() {
         maxWidth: 1000,
         textAlign: "center",
         margin: "0 auto",
-        padding: "2rem",
+        padding: "2rem 0 2rem 0",
       }}
     >
       <Typography variant="h1" sx={{ fontSize: "2rem" }} gutterBottom>
