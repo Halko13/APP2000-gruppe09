@@ -14,13 +14,16 @@ const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
   { id: "Fornavn", label: "Fornavn", required: true, variant: "filled" },
   { id: "Etternavn", label: "Etternavn", required: true, variant: "filled" },
+  { id: "Epost", label: "Epost", required: true, variant: "filled" },
   { id: "Stilling", label: "Stilling", required: true, variant: "filled" },
+  { id: "Avdeling", label: "Avdeling", required: true, variant: "filled" },
   {
     id: "AntallJobbTimer",
     label: "Antall jobbtimer i uka",
     type: "number",
     variant: "filled",
   },
+
   {
     id: "Passord",
     label: "Passord",
