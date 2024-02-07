@@ -2,7 +2,8 @@
 
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { Typography, ThemeProvider, Button } from "@mui/material";
+import { Typography, ThemeProvider, Button, Card} from "@mui/material";
+import CardContent from '@mui/material/CardContent';
 import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
@@ -132,18 +133,10 @@ const InnloggingSide = () => {
     setLoginStatus("");
   };
 
+
   return (
     <ThemeProvider theme={teama}>
       <div>
-        {aktivSide === "VelgBrukerListe" ? (
-          <VelgBrukerListe
-            brukere={brukere}
-            adminBrukere={adminBrukere}
-            valgtBrukerId={valgtBrukerId}
-            håndterBrukerEndring={håndterBrukerEndring}
-            gåTilInnlogging={gåTilInnlogging}
-          />
-        ) : (
           <div>
             <Typography variant="h2" gutterBottom>
               Velkommen{" "}
@@ -204,7 +197,6 @@ const InnloggingSide = () => {
               </div>
             )}
           </div>
-        )}
         <Button
           variant="contained"
           color="primary"
