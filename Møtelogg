@@ -137,3 +137,23 @@ Tilstede: alle
 09:00-11:00
 Møte over discord. Vi har levert arbeidskrav 3, og ser oss ferdige med sprint 1. Vi diskuterte litt om mål for sprint 2, som
 skal være ferdig 29.02.24.
+
+----------Møte Onsdag 07.02.24----------
+Møte med Richard og Marie over Zoom.
+Tilstede: Halvor, Ådne, Kjetil og Christopher.
+
+Vi kjørte en gjennomgang av prototypen, og fikk tilbakemeldinger på den.
+
+Vi ble enige om å gjøre noen endringer:
+
+- Lage en login til adminbruker / firma som kan autentisere seg inn i applikasjonen. Dette behøver man ikke å gjøre ofte. Kanskje
+  en gang i uka, evt 1-2 ganger i mnd. Vanlig ansatte/brukere trenger ikke å autentisere seg.
+- Bruke dette som utgangspunkt for en hvileskjerm/hovedskerm: https://no.pinterest.com/pin/recruitment-platform--430938258105212869/
+- Hver ansatt skal ha et card. Cardene kan blant annet inneholde: Bilde, navn, epost, tlfnr, jobbstatus(Er den ansatte på jobb?)
+- På hvileskjermen skal man kunne ha en søke/filtreringsmulighet som blir oppdatert for hvert tegn man skriver inn.
+- Når det gjelder PIN-kode så skal man som bedrift velge om den ansatte skal logge inn med PIN eller ikke.
+- Finne en god og ryddig måte å presentere datene i timebanken på.
+- Det viktigste av alt er at innsjekkingsprosessen skal være enkel og grei.
+
+Ellers så er hovedfokuset med oppgaven å konsentrere oss om selve innloggingsprosessen, og ikke så mye med det administrativet. Dette er
+Visma sitt syn, derfor må ta en prat med Bjørn om hva som vil være det faktiske kravet.
