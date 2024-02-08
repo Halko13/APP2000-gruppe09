@@ -14,7 +14,7 @@ import { usePathname } from "next/navigation";
 import FinnAdminBrukerButton from "@/components/Admin/AdminBruker/FinnAdminBruker/FinnAdminBrukerButton";
 import FinnAdminBrukerTextField from "@/components/Admin/AdminBruker/FinnAdminBruker/FinnAdminBrukerTextField";
 import SlettAdminBrukerSkjema from "@/components/Admin/AdminBruker/SlettAdminBruker/SlettAdminBrukerSkjema";
-// import OppdaterAdminBrukerSkjema from "@/components/Admin/AdminBruker/OppdaterAdminBruker/OppdaterAdminBrukerSkjema";
+import OppdaterAdminBrukerSkjema from "@/components/Admin/AdminBruker/OppdaterAdminBruker/OppdaterAdminBrukerSkjema";
 import { FinnBrukerErrorAlert } from "@/components/Admin/AdminBruker/FinnAdminBruker/Alerts";
 
 export default function FinnAdminBrukerSkjema({ onGoBack }) {
@@ -25,9 +25,10 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
   // Data fra database
   const [userData, setBrukerData] = React.useState(null);
   // Skal slettBrukerSkjema vises"
-  const [visSlettBrukerSkjema, setVisSlettBrukerSkjema] = React.useState(false);
+  const [visSlettAdminBrukerSkjema, setVisSlettAdminBrukerSkjema] =
+    React.useState(false);
   // Skal oppdaterBrukerSkjema vises
-  const [visOppdaterBrukerSkjema, setVisOppdaterBrukerSkjema] =
+  const [visOppdaterAdminBrukerSkjema, setVisOppdaterAdminBrukerSkjema] =
     React.useState(false);
 
   // Finner ikke bruker error alert
@@ -37,7 +38,6 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
   const currentPath = usePathname();
   const oppdaterBrukerPath = "/admin/oppdaterBruker";
   const slettBrukerPath = "/admin/slettBruker";
-
   // Finner bruker fra database
   // firestore docs
   // https://firebase.google.com/docs/firestore/query-data/get-data
@@ -47,6 +47,7 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
+      // console.log("Document data:", docSnap.data());
       // Setter brukerData til data fra database
       const brukerData = docSnap.data();
       // Setter GjentaPassord til å være det samme som Passord, siden det ikke lagres i databasem
@@ -54,9 +55,9 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
       // Setter brukerData til å være all info om bruker
       setBrukerData(brukerData);
       // Sjekker om det er oppdaterbruker parh eller slett bruker path
-      if (currentPath === slettBrukerPath) setVisSlettBrukerSkjema(true);
+      if (currentPath === slettBrukerPath) setVisSlettAdminBrukerSkjema(true);
       else if (currentPath === oppdaterBrukerPath)
-        setVisOppdaterBrukerSkjema(true);
+        setVisOppdaterAdminBrukerSkjema(true);
     } else {
       setVisFinnBrukerErrorAlert(true);
       // Fjerner alert etter 3 sekunder
@@ -71,14 +72,15 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
       Brukernavn: "",
     });
     setBrukerData(null);
-    setVisSlettBrukerSkjema(false);
-    setVisOppdaterBrukerSkjema(false);
+    setVisSlettAdminBrukerSkjema(false);
+    setVisOppdaterAdminBrukerSkjema(false);
     setVisFinnBrukerErrorAlert(false);
   };
   const handleReturn = () => {
     onGoBack();
   };
   const isFormValid = formData.Brukernavn !== "";
+  // console.log("FinnAdminBrukerSkjema", isFormValid, formData.Brukernavn);
 
   return (
     <Box
@@ -90,12 +92,12 @@ export default function FinnAdminBrukerSkjema({ onGoBack }) {
         alignItems: "center",
       }}
     >
-      {visSlettBrukerSkjema ? (
+      {visSlettAdminBrukerSkjema ? (
         <SlettAdminBrukerSkjema
           userData={userData}
           onGoBack={handleFormReset}
         />
-      ) : visOppdaterBrukerSkjema ? (
+      ) : visOppdaterAdminBrukerSkjema ? (
         <OppdaterAdminBrukerSkjema
           userData={userData}
           onGoBack={handleFormReset}

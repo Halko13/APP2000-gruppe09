@@ -5,11 +5,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function SlettBrukerButton({
-  onDelete,
-  handleFormReturn,
-  onGoBack,
-}) {
+export default function SlettBrukerButton({ onDelete, handleFormReturn }) {
   const handleDeleteUser = () => {
     onDelete();
   };
@@ -30,11 +26,6 @@ export default function SlettBrukerButton({
         </Button>
         <Button variant="contained" onClick={handleDeleteUser}>
           Slett bruker
-        </Button>
-      </Stack>
-      <Stack sx={{ pt: 2 }}>
-        <Button variant="contained" onClick={handleReturn}>
-          Tilbake
         </Button>
       </Stack>
     </Box>

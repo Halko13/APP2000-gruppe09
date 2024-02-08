@@ -3,15 +3,15 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
-import OppdaterBrukerForm from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerTextFields";
-import OppdaterBrukerButton from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerButton";
+import OppdaterAdminBrukerForm from "@/components/Admin/AdminBruker/OppdaterAdminBruker/OppdaterAdminBrukerTextFields";
+import OppdaterAdminBrukerButton from "@/components/Admin/AdminBruker/OppdaterAdminBruker/OppdaterAdminBrukerButton";
 import {
   OppdatertBrukerSuccsessAlert,
   OppdatertBrukerErrorAlert,
   OppdatertBrukerInfoAlert,
-} from "@/components/Admin/Bruker/OppdaterBruker/Alerts";
+} from "@/components/Admin/AdminBruker/OppdaterAdminBruker/Alerts";
 
-import { db, dbCollectionBrukere } from "@/firebase/firebaseConfig";
+import { db, dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
 import {
   doc,
   setDoc,
@@ -20,8 +20,9 @@ import {
   serverTimestamp,
   onSnapshot,
 } from "firebase/firestore";
-import ByttPassordSkjema from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordSkjema";
-export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
+// TODO endre til admin brukere
+import ByttAdminPassordSkjema from "@/components/Admin/AdminBruker/OppdaterAdminBruker/ByttAdminPassord/ByttAdminPassordSkjema";
+export default function OppdaterAdminBrukerSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState(userData);
 
   // Oppdaterer formData til nye ansattNr
@@ -30,7 +31,7 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
   }, [userData]);
   // Real time lytter, som ser om endring i passord feltet
   React.useEffect(() => {
-    const docRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
+    const docRef = doc(db, dbCollectionAdminBrukere, userData.Brukernavn);
 
     const unsubscribe = onSnapshot(docRef, (doc) => {
       if (doc.exists()) {
@@ -43,14 +44,16 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     });
 
     return () => unsubscribe(); // Unsubscribe when the component unmounts or when no longer needed
-  }, [userData.AnsattNr]);
+  }, [userData.Brukernavn]);
+  // TODO endre til admin brukere
   const [visOppdatertBrukerSuccsessAlert, setVisOppdatertBrukerSuccsessAlert] =
     React.useState(false);
   const [visOppdatertBrukerErrorAlert, setVisOppdatertBrukerErrorAlert] =
     React.useState(false);
   const [visOppdatertBrukerInfoAlert, setVisOppdatertBrukerInfoAlert] =
     React.useState(false);
-  const [visByttPassordSkjema, setVisByttPassordSkjema] = React.useState(false);
+  const [visByttAdminPassordSkjema, setVisByttAdminPassordSkjema] =
+    React.useState(false);
 
   const handleSave = async () => {
     // Sjekker hvis det er noen endring
@@ -59,27 +62,18 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     const erDataEndret = Object.keys(userData).some(
       (key) => userData[key] !== formData[key]
     );
-
     // Hente data fra firestore database
     // https://firebase.google.com/docs/firestore/manage-data/add-data
     if (erDataEndret) {
       // Sjekket hvis ansattNr har endret seg
-      if (formData.AnsattNr !== userData.AnsattNr) {
+      if (formData.Brukernavn !== userData.Brukernavn) {
         // Sjekker hvis ansattNr finnes fra før
-        const nyDocRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
+        const nyDocRef = doc(db, dbCollectionAdminBrukere, formData.Brukernavn);
         const nyDocSnap = await getDoc(nyDocRef);
         if (!nyDocSnap.exists()) {
-          // Oppdaterer data med ny ansattNr
-          // Sjekk om antall jobb timer endrer seg
-          if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
-            const newTimebankVerdi = Number(formData.AntallJobbTimer);
-            formData.Timebank = newTimebankVerdi;
-          }
-
           const nyData = {
             ...formData,
             SistEndret: serverTimestamp(),
-            Innlogget: false,
           };
           // Lagrer ikke gjenta passord i database
           delete nyData.GjentaPassord;
@@ -88,13 +82,17 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           // Sletter gammelt dokument for å ikke ha flere dokumenter for samme ansatt
           // https://firebase.google.com/docs/firestore/manage-data/delete-data
 
-          const gammelDocRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
+          const gammelDocRef = doc(
+            db,
+            dbCollectionAdminBrukere,
+            userData.Brukernavn
+          );
           const gammelDocSnap = await getDoc(gammelDocRef);
           if (gammelDocSnap.exists()) {
             await deleteDoc(gammelDocRef);
             console.log(
               "Slettet gammelt dokument med ansattNr: ",
-              userData.AnsattNr
+              userData.Brukernavn
             );
           }
           setVisOppdatertBrukerSuccsessAlert(true);
@@ -111,18 +109,12 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
           setVisOppdatertBrukerInfoAlert(false);
         }
       } else {
-        // Ansatt nummer har ikke endret seg, men andre data har
-        const docRef = doc(db, dbCollectionBrukere, userData.AnsattNr);
-
-        if (formData.AntallJobbTimer !== userData.AntallJobbTimer) {
-          const newTimebankVerdi = Number(formData.AntallJobbTimer);
-          formData.Timebank = newTimebankVerdi;
-        }
+        // Brukernavn har ikke endret seg, men andre data har
+        const docRef = doc(db, dbCollectionAdminBrukere, userData.Brukernavn);
 
         const oppdatertData = {
           ...formData,
           SistEndret: serverTimestamp(),
-          Innlogget: false,
         };
         // Lagrer ikke gjenta passord i database
         delete oppdatertData.GjentaPassord;
@@ -147,19 +139,15 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
     onGoBack();
   };
   const handleByttPassordComponent = () => {
-    setVisByttPassordSkjema(true);
+    setVisByttAdminPassordSkjema(true);
     setVisOppdatertBrukerInfoAlert(false);
     setVisOppdatertBrukerErrorAlert(false);
     setVisOppdatertBrukerSuccsessAlert(false);
   };
   const handleByttPassordReturn = () => {
-    setVisByttPassordSkjema(false);
+    setVisByttAdminPassordSkjema(false);
   };
-  const isFormValid =
-    formData.AnsattNr !== "" &&
-    formData.Fornavn !== "" &&
-    formData.Etternavn !== "" &&
-    formData.Stilling !== "";
+  const isFormValid = formData.Brukernavn !== "" && formData.Epost !== "";
 
   return (
     <Box
@@ -171,8 +159,8 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         alignItems: "center",
       }}
     >
-      {visByttPassordSkjema ? (
-        <ByttPassordSkjema
+      {visByttAdminPassordSkjema ? (
+        <ByttAdminPassordSkjema
           userData={userData}
           onGoBack={handleByttPassordReturn}
         />
@@ -186,8 +174,11 @@ export default function OppdaterBrukerSkjema({ userData, onGoBack }) {
         >
           <Box gridColumn="span 1">
             <Item>
-              <OppdaterBrukerForm formData={formData} onChange={setFormData} />
-              <OppdaterBrukerButton
+              <OppdaterAdminBrukerForm
+                formData={formData}
+                onChange={setFormData}
+              />
+              <OppdaterAdminBrukerButton
                 onSave={handleSave}
                 isFormValid={isFormValid}
                 onFormReturn={handleReturn}

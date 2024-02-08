@@ -53,7 +53,6 @@ export default function SlettAdminBrukerSkjema({ userData, onGoBack }) {
             <SlettAdminBrukerButton
               onDelete={handleSlettBruker}
               handleFormReturn={handleReturn}
-              onGoBack={handleReturn}
             />
             <SlettetAdminBrukerSuccsessAlert
               vis={visSlettetAdminBrukerSuccsessAlert}

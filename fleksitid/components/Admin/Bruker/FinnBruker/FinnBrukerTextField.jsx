@@ -4,16 +4,16 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetFinnAdminBrukerForm } from "@/hooks/useResetFinnAdminBrukerForm";
+import { useResetFinnBrukerForm } from "@/hooks/useResetFinnBrukerForm";
 
 export default function FinnBrukerTextField({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
-  useResetFinnAdminBrukerForm(formData);
+  useResetFinnBrukerForm(formData);
 
   const fields = [
     {
-      id: "Brukernavn",
-      label: "Bruker navn",
+      id: "AnsattNr",
+      label: "AnsattNr",
       required: true,
       variant: "filled",
     },

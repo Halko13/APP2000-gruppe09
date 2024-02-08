@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import { ButtonErrorAlert } from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/Alerts";
 
-export default function ByttPassordButton({
+export default function ByttAdminPassordButton({
   onSave,
   isFormValid,
   onFormReturn,

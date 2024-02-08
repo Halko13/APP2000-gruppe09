@@ -3,8 +3,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useFormValidation } from "@/hooks/useFormValidation";
-import { usePassordEndring } from "@/hooks/usePassordEndring";
+import { useAdminPassordEndring } from "@/hooks/useAdminPassordEndring";
+import { useAdminFormValidation } from "@/hooks/useAdminFormValidation";
 
 const textFieldData = [
   {
@@ -26,8 +26,8 @@ const textFieldData = [
 ];
 
 export default function ByttPassordForm({ formData, onChange }) {
-  const passordError = useFormValidation(formData);
-  const handlePassordEndring = usePassordEndring(onChange);
+  const passordError = useAdminFormValidation(formData);
+  const handlePassordEndring = useAdminPassordEndring(onChange);
 
   return (
     <Box
@@ -59,7 +59,7 @@ export default function ByttPassordForm({ formData, onChange }) {
           helperText={
             (field.id === "Passord" || field.id === "GjentaPassord") &&
             passordError
-              ? "Passord må ha 6 nummer"
+              ? "Passord må ha 7 tegn"
               : ""
           }
         />

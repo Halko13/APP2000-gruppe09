@@ -2,8 +2,10 @@
 
 import React from "react";
 import FinnBrukerSkjema from "@/components/Admin/Bruker/FinnBruker/FinnBrukerSkjema";
+
 import OppdaterBrukerTittel from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerTittel";
 import { Box } from "@mui/material";
+import VelgOppdaterBrukerSkjema from "@/components/Admin/VelgOppdaterBrukerSkjema/VelgOppdaterBrukerSkjema";
 
 export default function OppdaterBruker() {
   return (
@@ -19,7 +21,7 @@ export default function OppdaterBruker() {
         }}
       >
         <OppdaterBrukerTittel />
-        <FinnBrukerSkjema />
+        <VelgOppdaterBrukerSkjema />
       </Box>
     </main>
   );

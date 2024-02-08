@@ -4,7 +4,7 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 
-export default function ByttPassordTittel() {
+export default function OppdaterAdminBrukerTittel() {
   //MUI component
   //https://mui.com/material-ui/react-typography/
   return (
@@ -13,11 +13,12 @@ export default function ByttPassordTittel() {
         width: "100%",
         maxWidth: 1000,
         textAlign: "center",
-        margin: "auto",
+        margin: "0 auto",
+        padding: "2rem 0 2rem 0",
       }}
     >
       <Typography variant="h1" sx={{ fontSize: "2rem" }} gutterBottom>
-        Bytt Passord
+        Oppdater en bruker
       </Typography>
     </Box>
   );

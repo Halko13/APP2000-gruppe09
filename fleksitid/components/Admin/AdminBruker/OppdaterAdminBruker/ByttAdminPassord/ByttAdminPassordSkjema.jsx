@@ -3,20 +3,19 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import { Item } from "@/hooks/useFormStyle";
-import { PASSWORD_LENGTH } from "@/components/Admin/Bruker/NyBruker/NyBrukerTextFields";
 import {
   ByttPassordSuccsessAlert,
   ByttPassordErrorAlert,
   HashingErrorAlert,
 } from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/Alerts";
-import ByttPassordForm from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordTextFields";
-import ByttPassordButton from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordButton";
-import ByttPassordTittel from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/ByttPassordTittel";
+import ByttAdminPassordForm from "@/components/Admin/AdminBruker/OppdaterAdminBruker/ByttAdminPassord/ByttAdminPassordTextFields";
+import ByttAdminPassordButton from "@/components/Admin/AdminBruker/OppdaterAdminBruker/ByttAdminPassord/ByttAdminPassordButton";
+import ByttAdminPassordTittel from "@/components/Admin/AdminBruker/OppdaterAdminBruker/ByttAdminPassord/ByttAdminPassordTittel";
 import bcryptHashing from "@/components/Hash/Hashing";
 // DB
-import { db } from "@/firebase/firebaseConfig";
+import { db, dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
 import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
-import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
+import { ADMIN_PASSORD_LENGTH } from "../../NyAdminBruker/NyAdminBrukerSkjema";
 
 export default function ByttPassordSkjema({ userData, onGoBack }) {
   const [formData, setFormData] = React.useState({
@@ -36,7 +35,7 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
     try {
       const hashedPassword = await bcryptHashing(formData.Passord);
       await setDoc(
-        doc(db, dbCollectionBrukere, formData.AnsattNr),
+        doc(db, dbCollectionAdminBrukere, formData.Brukernavn),
         { Passord: hashedPassword, SistEndret: serverTimestamp() },
         { merge: true }
       );
@@ -60,7 +59,7 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
   const isFormValid =
     (formData.Passord === userData.Passord &&
       formData.GjentaPassord === userData.GjentaPassord) || // Passord ikke endret, vil ikke være 6 tegn etter hashing
-    (formData.Passord.length === PASSWORD_LENGTH &&
+    (formData.Passord.length === ADMIN_PASSORD_LENGTH &&
       formData.Passord === formData.GjentaPassord);
 
   return (
@@ -79,9 +78,9 @@ export default function ByttPassordSkjema({ userData, onGoBack }) {
       >
         <Box gridColumn="span 1">
           <Item>
-            <ByttPassordTittel />
-            <ByttPassordForm formData={formData} onChange={setFormData} />
-            <ByttPassordButton
+            <ByttAdminPassordTittel />
+            <ByttAdminPassordForm formData={formData} onChange={setFormData} />
+            <ByttAdminPassordButton
               onSave={handleSave}
               isFormValid={isFormValid}
               onFormReturn={handleFormReturn}

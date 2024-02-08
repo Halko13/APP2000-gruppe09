@@ -43,6 +43,7 @@ export default function FinnBrukerSkjema({ onGoBack }) {
   // firestore docs
   // https://firebase.google.com/docs/firestore/query-data/get-data
   const handleFinnBruker = async () => {
+    console.log("test");
     //  Henter bruker fra DB
     const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
     const docSnap = await getDoc(docRef);

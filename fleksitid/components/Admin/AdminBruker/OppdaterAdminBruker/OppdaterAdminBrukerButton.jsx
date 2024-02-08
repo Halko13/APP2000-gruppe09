@@ -3,12 +3,13 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ButtonErrorAlert } from "@/components/Admin/Bruker/OppdaterBruker/ByttPassord/Alerts";
+import { ButtonErrorAlert } from "@/components/Admin/AdminBruker/OppdaterAdminBruker/Alerts";
 
-export default function ByttPassordButton({
+export default function OppdaterAdminBrukerButton({
   onSave,
   isFormValid,
   onFormReturn,
+  onByttPassord,
 }) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = React.useState(false);
   // console.log("isFormValid:", isFormValid);
@@ -31,17 +32,26 @@ export default function ByttPassordButton({
     onFormReturn();
     setVisButtonErrorAlert(false);
   };
+  const handleByttPassord = () => {
+    onByttPassord();
+    setVisButtonErrorAlert(false);
+  };
 
   // Hentet fra MUI DOCS
   //https://mui.com/material-ui/react-button/
   return (
     <div>
-      <Stack direction="row" spacing={2} justifyContent="flex-center">
+      <Stack style={{ marginBottom: "20px" }}>
+        <Button variant="outlined" onClick={handleByttPassord}>
+          ByttPassord
+        </Button>
+      </Stack>
+      <Stack direction="row" spacing={2} justifyContent="flex-end">
         <Button variant="outlined" onClick={handleReturnClick}>
           Tilbake
         </Button>
         <Button variant="contained" onClick={handleSaveClick}>
-          Bytt Passord
+          Oppdater
         </Button>
       </Stack>
       <ButtonErrorAlert vis={visButtonErrorAlert} />
