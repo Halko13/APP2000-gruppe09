@@ -6,33 +6,35 @@ import { Item } from "@/hooks/useFormStyle";
 import { Box } from "@mui/material";
 
 //komponenter
-import VelgBrukerButton from "@/components/Admin/VelgNyBrukerSkjema/VelgBrukerButton";
-import NyBrukerSkjema from "@/components/Admin/Bruker/NyBruker/NyBrukerSkjema";
-import NyAdminBrukerSkjema from "@/components/Admin/AdminBruker/NyAdminBruker/NyAdminBrukerSkjema";
-import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
+import VelgSlettBrukerButton from "@/components/Admin/VelgSlettBrukerSkjema/VelgSlettBrukerButton";
 
-export default function VelgBrukerSkjema() {
+import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
+import FinnBrukerSkjema from "@/components/Admin/Bruker/FinnBruker/FinnBrukerSkjema";
+import FinnAdminBrukerSkjema from "@/components/Admin/Adminbruker/FinnAdminBruker/FinnAdminBrukerSkjema";
+
+export default function VelgSlettBrukerSkjema() {
   // Data fra database
   // Skal slettBrukerSkjema vises"
   const [visFinnBrukerErrorAlert, setVisFinnBrukerErrorAlert] =
     React.useState(false);
-  const [visNyBrukerSkjema, setVisNyBrukerSkjema] = React.useState(false);
-  const [visNyAdminBrukerSkjema, setVisNyAdminBrukerSkjema] =
+  const [visFinnBrukerSkjema, setFinnBrukerSkjema] = React.useState(false);
+  const [visFinnAdminBrukerSkjema, setVisFinnAdminBrukerSkjema] =
     React.useState(false);
+
   // Sjekker nå path
   const handleAnsatt = () => {
     console.log("Ansatt");
-    setVisNyBrukerSkjema(true);
-    setVisNyAdminBrukerSkjema(false);
+    setFinnBrukerSkjema(true);
+    setVisFinnAdminBrukerSkjema(false);
   };
   const handleAdmin = () => {
     console.log("Admin");
-    setVisNyAdminBrukerSkjema(true);
-    setVisNyBrukerSkjema(false);
+    setVisFinnAdminBrukerSkjema(true);
+    setFinnBrukerSkjema(false);
   };
   const handleFormReset = () => {
-    setVisNyAdminBrukerSkjema(false);
-    setVisNyBrukerSkjema(false);
+    setVisFinnAdminBrukerSkjema(false);
+    setFinnBrukerSkjema(false);
   };
   return (
     <Box
@@ -44,13 +46,16 @@ export default function VelgBrukerSkjema() {
         alignItems: "center",
       }}
     >
-      {visNyBrukerSkjema ? (
-        <NyBrukerSkjema onGoBack={handleFormReset} />
-      ) : visNyAdminBrukerSkjema ? (
-        <NyAdminBrukerSkjema onGoBack={handleFormReset} />
+      {visFinnBrukerSkjema ? (
+        <FinnBrukerSkjema onGoBack={handleFormReset} />
+      ) : visFinnAdminBrukerSkjema ? (
+        <FinnAdminBrukerSkjema onGoBack={handleFormReset} />
       ) : (
         <Item>
-          <VelgBrukerButton onAnsatt={handleAnsatt} onAdmin={handleAdmin} />
+          <VelgSlettBrukerButton
+            onAnsatt={handleAnsatt}
+            onAdmin={handleAdmin}
+          />
           <FinnBrukerErrorAlert vis={visFinnBrukerErrorAlert} />
         </Item>
       )}

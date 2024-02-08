@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 
-export default function SlettBrukerButton({
+export default function SlettAdminBrukerButton({
   onDelete,
   handleFormReturn,
   onGoBack,
@@ -33,7 +33,7 @@ export default function SlettBrukerButton({
         </Button>
       </Stack>
       <Stack sx={{ pt: 2 }}>
-        <Button variant="contained" onClick={handleReturn}>
+        <Button variant="outlined" onClick={handleReturn}>
           Tilbake
         </Button>
       </Stack>

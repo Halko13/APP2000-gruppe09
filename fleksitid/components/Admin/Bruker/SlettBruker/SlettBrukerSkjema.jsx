@@ -49,6 +49,7 @@ export default function SlettBrukerSkjema({ userData, onGoBack }) {
             <SlettBrukerButton
               onDelete={handleSlettBruker}
               handleFormReturn={handleFormReturn}
+              onGoBack={handleFormReturn}
             />
             <SlettetBrukerSuccsessAlert vis={visSlettetBrukerSuccsessAlert} />
           </Item>

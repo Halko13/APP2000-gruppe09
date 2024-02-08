@@ -3,9 +3,10 @@ import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
 import { ButtonErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
 
-export default function FinnBrukerButton({ onAnsatt, onAdmin }) {
+export default function VelgSlettBrukerButton({ onAnsatt, onAdmin }) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false);
 
   const handleAnsattValg = () => {
@@ -16,7 +17,7 @@ export default function FinnBrukerButton({ onAnsatt, onAdmin }) {
   };
 
   return (
-    <div>
+    <Box>
       <Stack direction="row" spacing={2} justifyContent="flex-end">
         <Button variant="contained" onClick={handleAnsattValg}>
           Ansatt
@@ -26,6 +27,6 @@ export default function FinnBrukerButton({ onAnsatt, onAdmin }) {
         </Button>
       </Stack>
       <ButtonErrorAlert vis={visButtonErrorAlert} />
-    </div>
+    </Box>
   );
 }

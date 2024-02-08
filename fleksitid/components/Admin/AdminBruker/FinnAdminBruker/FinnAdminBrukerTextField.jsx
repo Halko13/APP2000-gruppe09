@@ -4,14 +4,19 @@ import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetFinnBrukerForm } from "@/hooks/useResetFinnBrukerForm";
+import { useResetFinnAdminBrukerForm } from "@/hooks/useResetFinnAdminBrukerForm";
 
-export default function FinnBrukerTextField({ formData, onChange }) {
+export default function FinnAdminBrukerTextField({ formData, onChange }) {
   const handleChange = useFormUpdate(onChange);
-  useResetFinnBrukerForm(formData);
+  useResetFinnAdminBrukerForm(formData);
 
   const fields = [
-    { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
+    {
+      id: "Brukernavn",
+      label: "Brukernavn",
+      required: true,
+      variant: "filled",
+    },
   ];
 
   // Hentet tekstfelt fra MUI

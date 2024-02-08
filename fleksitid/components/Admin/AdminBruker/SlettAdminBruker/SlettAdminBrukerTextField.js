@@ -3,29 +3,23 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import { useFormUpdate } from "@/hooks/useFormUpdate";
-import { useResetFinnAdminBrukerForm } from "@/hooks/useResetFinnAdminBrukerForm";
 
-export default function FinnBrukerTextField({ formData, onChange }) {
-  const handleChange = useFormUpdate(onChange);
-  useResetFinnAdminBrukerForm(formData);
+const textFieldStyle = {
+  fontSize: "16px",
+  fontWeight: "bold",
+  color: "black",
+};
 
-  const fields = [
-    {
-      id: "Brukernavn",
-      label: "Bruker navn",
-      required: true,
-      variant: "filled",
-    },
-  ];
+const fields = [{ id: "Brukernavn", label: "Brukernavn", variant: "filled" }];
 
+export default function SlettAdminBrukerTextField({ formData }) {
   // Hentet tekstfelt fra MUI
   // https://mui.com/material-ui/react-text-field/
   return (
     <Box
       component="form"
       sx={{
-        "& .MuiTextField-root": { m: 1, width: "90%" }, // Adjust the width here
+        "& .MuiTextField-root": { m: 1, width: "95%" }, // Adjust the width here
         mx: 2,
       }}
       noValidate
@@ -34,12 +28,15 @@ export default function FinnBrukerTextField({ formData, onChange }) {
       {fields.map((field) => (
         <TextField
           key={field.id}
-          required={field.required}
+          disabled
           id={field.id}
           label={field.label}
           variant={field.variant}
-          onChange={handleChange}
+          type={field.type}
           value={formData[field.id]}
+          InputProps={{
+            style: textFieldStyle,
+          }}
         />
       ))}
     </Box>

@@ -1,8 +1,8 @@
 // Utviklet av Halvor Vilnes
 
 import React from "react";
-import FinnBrukerSkjema from "@/components/Admin/Bruker/FinnBruker/FinnBrukerSkjema";
 import SlettBrukerTittel from "@/components/Admin/Bruker/SlettBruker/SlettBrukerTittel";
+import VelgSlettBrukerSkjema from "@/components/Admin/VelgSlettBrukerSkjema/VelgSlettBrukerSkjema";
 import { Box } from "@mui/material";
 
 export default function SlettBruker() {
@@ -19,7 +19,7 @@ export default function SlettBruker() {
         }}
       >
         <SlettBrukerTittel />
-        <FinnBrukerSkjema />
+        <VelgSlettBrukerSkjema />
       </Box>
     </main>
   );

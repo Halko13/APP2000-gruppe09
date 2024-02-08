@@ -5,23 +5,22 @@ import * as React from "react";
 import { Item } from "@/hooks/useFormStyle";
 import { Box } from "@mui/material";
 //DB
-import { db } from "@/firebase/firebaseConfig";
+import { db, dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
-import { dbCollectionBrukere } from "@/firebase/firebaseConfig";
 
 //Next
 import { usePathname } from "next/navigation";
 //komponenter
-import FinnBrukerTextField from "@/components/Admin/Bruker/FinnBruker/FinnBrukerTextField";
-import FinnBrukerButton from "@/components/Admin/Bruker/FinnBruker/FinnBrukerButton";
-import SlettBrukerSkjema from "@/components/Admin/Bruker/SlettBruker/SlettBrukerSkjema";
-import OppdaterBrukerSkjema from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerSkjema";
-import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
+import FinnAdminBrukerButton from "@/components/Admin/AdminBruker/FinnAdminBruker/FinnAdminBrukerButton";
+import FinnAdminBrukerTextField from "@/components/Admin/AdminBruker/FinnAdminBruker/FinnAdminBrukerTextField";
+import SlettAdminBrukerSkjema from "@/components/Admin/AdminBruker/SlettAdminBruker/SlettAdminBrukerSkjema";
+// import OppdaterAdminBrukerSkjema from "@/components/Admin/AdminBruker/OppdaterAdminBruker/OppdaterAdminBrukerSkjema";
+import { FinnBrukerErrorAlert } from "@/components/Admin/AdminBruker/FinnAdminBruker/Alerts";
 
-export default function FinnBrukerSkjema() {
+export default function FinnAdminBrukerSkjema({ onGoBack }) {
   // Data i feltene
   const [formData, setFormData] = React.useState({
-    AnsattNr: "",
+    Brukernavn: "",
   });
   // Data fra database
   const [userData, setBrukerData] = React.useState(null);
@@ -44,7 +43,7 @@ export default function FinnBrukerSkjema() {
   // https://firebase.google.com/docs/firestore/query-data/get-data
   const handleFinnBruker = async () => {
     //  Henter bruker fra DB
-    const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
+    const docRef = doc(db, dbCollectionAdminBrukere, formData.Brukernavn);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -69,15 +68,17 @@ export default function FinnBrukerSkjema() {
 
   const handleFormReset = () => {
     setFormData({
-      AnsattNr: "",
+      Brukernavn: "",
     });
     setBrukerData(null);
     setVisSlettBrukerSkjema(false);
     setVisOppdaterBrukerSkjema(false);
     setVisFinnBrukerErrorAlert(false);
   };
-
-  const isFormValid = formData.AnsattNr !== "";
+  const handleReturn = () => {
+    onGoBack();
+  };
+  const isFormValid = formData.Brukernavn !== "";
 
   return (
     <Box
@@ -90,17 +91,27 @@ export default function FinnBrukerSkjema() {
       }}
     >
       {visSlettBrukerSkjema ? (
-        <SlettBrukerSkjema userData={userData} onGoBack={handleFormReset} />
+        <SlettAdminBrukerSkjema
+          userData={userData}
+          onGoBack={handleFormReset}
+        />
       ) : visOppdaterBrukerSkjema ? (
-        <OppdaterBrukerSkjema userData={userData} onGoBack={handleFormReset} />
+        <OppdaterAdminBrukerSkjema
+          userData={userData}
+          onGoBack={handleFormReset}
+        />
       ) : (
         <>
           <Item>
-            <FinnBrukerTextField formData={formData} onChange={setFormData} />
-            <FinnBrukerButton
+            <FinnAdminBrukerTextField
+              formData={formData}
+              onChange={setFormData}
+            />
+            <FinnAdminBrukerButton
               onFind={handleFinnBruker}
               isFormValid={isFormValid}
               onFormReset={handleFormReset}
+              onGoBack={handleReturn}
             />
             <FinnBrukerErrorAlert vis={visFinnBrukerErrorAlert} />
           </Item>

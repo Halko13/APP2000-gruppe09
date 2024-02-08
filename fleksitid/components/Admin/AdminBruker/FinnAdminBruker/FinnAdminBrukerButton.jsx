@@ -3,9 +3,15 @@ import React, { useState } from "react";
 
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
-import { ButtonErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
+import Box from "@mui/material/Box";
+import { ButtonErrorAlert } from "@/components/Admin/AdminBruker/FinnAdminBruker/Alerts";
 
-export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
+export default function FinnAdminBrukerButton({
+  onFind,
+  isFormValid,
+  onFormReset,
+  onGoBack,
+}) {
   const [visButtonErrorAlert, setVisButtonErrorAlert] = useState(false);
 
   const handleFindBruker = () => {
@@ -25,9 +31,12 @@ export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
     setVisButtonErrorAlert(false);
     onFormReset();
   };
+  const onReturn = () => {
+    onGoBack();
+  };
 
   return (
-    <div>
+    <Box>
       <Stack direction="row" spacing={2} justifyContent="flex-end">
         <Button variant="contained" onClick={handleFindBruker}>
           Finn bruker
@@ -36,7 +45,12 @@ export default function FinnBrukerButton({ onFind, isFormValid, onFormReset }) {
           Reset
         </Button>
       </Stack>
+      <Stack sx={{ pt: 2 }}>
+        <Button variant="outlined" onClick={onReturn}>
+          Tilbake
+        </Button>
+      </Stack>
       <ButtonErrorAlert vis={visButtonErrorAlert} />
-    </div>
+    </Box>
   );
 }

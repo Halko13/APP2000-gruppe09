@@ -18,7 +18,7 @@ import SlettBrukerSkjema from "@/components/Admin/Bruker/SlettBruker/SlettBruker
 import OppdaterBrukerSkjema from "@/components/Admin/Bruker/OppdaterBruker/OppdaterBrukerSkjema";
 import { FinnBrukerErrorAlert } from "@/components/Admin/Bruker/FinnBruker/Alerts";
 
-export default function FinnBrukerSkjema() {
+export default function FinnBrukerSkjema({ onGoBack }) {
   // Data i feltene
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
@@ -78,7 +78,9 @@ export default function FinnBrukerSkjema() {
   };
 
   const isFormValid = formData.AnsattNr !== "";
-
+  const handleReturn = () => {
+    onGoBack();
+  };
   return (
     <Box
       sx={{
@@ -101,6 +103,7 @@ export default function FinnBrukerSkjema() {
               onFind={handleFinnBruker}
               isFormValid={isFormValid}
               onFormReset={handleFormReset}
+              onGoBack={handleReturn}
             />
             <FinnBrukerErrorAlert vis={visFinnBrukerErrorAlert} />
           </Item>
