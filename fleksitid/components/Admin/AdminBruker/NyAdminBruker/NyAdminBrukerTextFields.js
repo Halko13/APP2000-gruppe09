@@ -9,7 +9,7 @@ import { useAdminPassordEndring } from "@/hooks/useAdminPassordEndring";
 import { ADMIN_PASSORD_LENGTH } from "@/components/Admin/AdminBruker/NyAdminBruker/NyAdminBrukerSkjema";
 
 const textFieldData = [
-  { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
+  { id: "Brukernavn", label: "Bruker navn", required: true, variant: "filled" },
   { id: "Epost", label: "Epost", required: true, variant: "filled" },
 
   {

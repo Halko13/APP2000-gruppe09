@@ -11,7 +11,7 @@ export const useAdminFormValidation = (formData) => {
   // TODO endre kommentarer
   React.useEffect(() => {
     const isValid =
-      formData.AnsattNr &&
+      formData.Brukernavn &&
       formData.Epost &&
       formData.Passord === formData.GjentaPassord && // Changed from Password to Passord and GjentaPassword to GjentaPassord
       formData.Passord.length >= ADMIN_PASSORD_LENGTH; // Changed from Password to Passord

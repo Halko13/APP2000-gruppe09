@@ -3,7 +3,7 @@
 import * as React from "react";
 export const useAdminFormDataEffect = (formData) => {
   React.useEffect(() => {
-    document.getElementById("AnsattNr").value = formData.AnsattNr || "";
+    document.getElementById("Brukernavn").value = formData.Brukernavn || "";
     document.getElementById("Epost").value = formData.Epost || "";
     document.getElementById("Passord").value = formData.Passord || "";
     document.getElementById("GjentaPassord").value =

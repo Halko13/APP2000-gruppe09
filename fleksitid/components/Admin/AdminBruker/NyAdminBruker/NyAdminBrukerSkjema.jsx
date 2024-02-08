@@ -17,7 +17,7 @@ import { dbCollectionAdminBrukere } from "@/firebase/firebaseConfig";
 export const ADMIN_PASSORD_LENGTH = 7;
 export default function NyAdminBrukerSkjema({ onGoBack }) {
   const [formData, setFormData] = React.useState({
-    AnsattNr: "",
+    Brukernavn: "",
     Epost: "",
     Passord: "",
     GjentaPassord: "",
@@ -28,9 +28,9 @@ export default function NyAdminBrukerSkjema({ onGoBack }) {
   const [visHashingErrorAlert, setVisHashingErrorAlert] = React.useState(false);
 
   const handleSave = async () => {
-    console.log("Lagrer data til database:", formData);
+    // console.log("Lagrer data til database:", formData);
 
-    const docRef = doc(db, dbCollectionAdminBrukere, formData.AnsattNr);
+    const docRef = doc(db, dbCollectionAdminBrukere, formData.Brukernavn);
     const docSnap = await getDoc(docRef);
 
     if (docSnap.exists()) {
@@ -44,8 +44,8 @@ export default function NyAdminBrukerSkjema({ onGoBack }) {
     } else {
       try {
         const hashedPassword = await bcryptHashing(formData.Passord);
-        await setDoc(doc(db, dbCollectionAdminBrukere, formData.AnsattNr), {
-          AnsattNr: formData.AnsattNr,
+        await setDoc(doc(db, dbCollectionAdminBrukere, formData.Brukernavn), {
+          Brukernavn: formData.Brukernavn,
           Epost: formData.Epost,
           Passord: hashedPassword,
           Opprettet: serverTimestamp(),
@@ -72,7 +72,7 @@ export default function NyAdminBrukerSkjema({ onGoBack }) {
 
   const handleFormReset = () => {
     setFormData({
-      AnsattNr: "",
+      Brukernavn: "",
       Epost: "",
       Passord: "",
       GjentaPassord: "",
@@ -82,7 +82,7 @@ export default function NyAdminBrukerSkjema({ onGoBack }) {
     onGoBack();
   };
   const isFormValid =
-    formData.AnsattNr !== "" &&
+    formData.Brukernavn !== "" &&
     Epost !== "" &&
     formData.Passord !== "" &&
     formData.GjentaPassord !== "" &&
