@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { Typography, ThemeProvider, Button } from "@mui/material";
 import AnsattInnlogging from "@/components/AnsattInnlogging";
@@ -14,6 +14,7 @@ import bcryptVerify from "@/components/Hash/HashingVerifisering";
 
 const InnloggingSide = () => {
   // Start verdi
+  const router = useRouter();
   const [valgtBrukerId, setValgtBrukerId] = useState("");
   const [pin, setPin] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
@@ -73,7 +74,9 @@ const InnloggingSide = () => {
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
         // Til ansatt siden
-        window.location.href = "/dashboard/sjekkinn";
+        //window.location.href = "/dashboard/sjekkinn";
+        router.push(`/brukere/${valgtBrukerId}`);
+        //router.push(`/brukere`);
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
