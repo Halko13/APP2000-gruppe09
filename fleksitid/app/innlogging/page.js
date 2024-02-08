@@ -18,6 +18,7 @@ const InnloggingSide = () => {
   const [pin, setPin] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
   const [aktivSide, setAktivSide] = useState("VelgBrukerListe");
+  const [forrigeAktivSide, setForrigeAktivSide] = useState("");
   const [erAdmin, setErAdmin] = useState(false);
 
   // Firstore variabler
@@ -38,7 +39,6 @@ const InnloggingSide = () => {
       const adminBrukere = brukerListe.filter((bruker) => bruker.erAdmin);
       setAdminBrukere(adminBrukere);
     };
-
     hentBrukere();
   }, []);
 
@@ -55,9 +55,6 @@ const InnloggingSide = () => {
     setPin(e.target.value);
   };
 
-  const gåTilInnlogging = () => {
-    setAktivSide("innlogging");
-  };
 
   // Sjekk av bruker og admin bruker kan logge seg inn
   const validerLogin = async () => {
@@ -118,8 +115,22 @@ const InnloggingSide = () => {
     håndterInnlogin();
   };
 
-  const gåTilStartSiden = () => {
+  const gåTilbake = () => {
+    if (aktivSide !== "VelgBrukerListe") {
+      setAktivSide(forrigeAktivSide);
+    } else {
     window.location.href = "/";
+    }
+  };
+
+  const gåTilInnlogging = () => {
+    if (!valgtBrukerId) {
+      setLoginStatus("Vennligst velg en bruker før du går videre");
+      return;
+    }
+    setForrigeAktivSide(aktivSide);
+    setAktivSide("innlogging");
+    setLoginStatus("");
   };
 
   return (
@@ -199,7 +210,7 @@ const InnloggingSide = () => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={gåTilStartSiden}
+          onClick={gåTilbake}
           style={{ marginTop: 75 }}
         >
           Gå tilbake til hovedsiden
