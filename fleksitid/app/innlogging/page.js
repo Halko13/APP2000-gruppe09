@@ -11,6 +11,7 @@ import teama from "@/components/Temaer/Teama";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import bcryptVerify from "@/components/Hash/HashingVerifisering";
+import { generateStaticParams } from "@/components/generateStaticParams";
 
 const InnloggingSide = () => {
   // Start verdi
@@ -21,11 +22,15 @@ const InnloggingSide = () => {
   const [aktivSide, setAktivSide] = useState("VelgBrukerListe");
   const [forrigeAktivSide, setForrigeAktivSide] = useState("");
   const [erAdmin, setErAdmin] = useState(false);
-
   // Firstore variabler
   const [brukere, setBrukere] = useState([]); // Holder på alle brukere
   const [adminBrukere, setAdminBrukere] = useState([]); // Holder på admin brukere
 
+  const StaticParams = [];
+  generateStaticParams().then((ansattNr) => {
+    console.log("ansattNr", ansattNr);
+    StaticParams.push(ansattNr);
+  });
   // Hente brukere fra firestore, fra chatGtp
   useEffect(() => {
     const hentBrukere = async () => {
@@ -36,6 +41,7 @@ const InnloggingSide = () => {
         ...dok.data(),
       }));
       setBrukere(brukerListe);
+      console.log("staticParams", StaticParams);
       // Admin brukere fra firestore
       const adminBrukere = brukerListe.filter((bruker) => bruker.erAdmin);
       setAdminBrukere(adminBrukere);
@@ -56,7 +62,6 @@ const InnloggingSide = () => {
     setPin(e.target.value);
   };
 
-
   // Sjekk av bruker og admin bruker kan logge seg inn
   const validerLogin = async () => {
     const valgtBruker = brukere.find((bruker) => bruker.id === valgtBrukerId);
@@ -75,7 +80,8 @@ const InnloggingSide = () => {
         );
         // Til ansatt siden
         //window.location.href = "/dashboard/sjekkinn";
-        router.push(`innlogging/${valgtBrukerId}`);
+
+        router.push(`${valgtBruker.AnsattNr}`);
         //router.push(`/brukere`);
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
@@ -122,7 +128,7 @@ const InnloggingSide = () => {
     if (aktivSide !== "VelgBrukerListe") {
       setAktivSide(forrigeAktivSide);
     } else {
-    window.location.href = "/";
+      window.location.href = "/";
     }
   };
 
