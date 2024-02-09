@@ -75,7 +75,7 @@ const InnloggingSide = () => {
         );
         // Til ansatt siden
         //window.location.href = "/dashboard/sjekkinn";
-        router.push(`/brukere/${valgtBrukerId}`);
+        router.push(`innlogging/${valgtBrukerId}`);
         //router.push(`/brukere`);
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
