@@ -12,7 +12,9 @@ const textFieldData = [
   { id: "AnsattNr", label: "AnsattNr", required: true, variant: "filled" },
   { id: "Fornavn", label: "Fornavn", required: true, variant: "filled" },
   { id: "Etternavn", label: "Etternavn", required: true, variant: "filled" },
+  { id: "Epost", label: "Epost", required: true, variant: "filled" },
   { id: "Stilling", label: "Stilling", required: true, variant: "filled" },
+  { id: "Avdeling", label: "Avdeling", required: true, variant: "filled" },
   {
     id: "AntallJobbTimer",
     label: "Antall jobbtimer",
@@ -20,25 +22,13 @@ const textFieldData = [
     variant: "filled",
   },
 ];
-const checkboxData = [{ id: "ErAdmin", label: "Adminbruker" }];
 
 export default function OppdaterBrukerForm({ formData, onChange }) {
   const handleEndring = useFormUpdate(onChange);
   const passordError = useFormValidation(formData);
   useFormOppdaterBrukerDataEffect(formData);
   const handlePassordEndring = usePassordEndring(onChange);
-
-  const [erAdminChecked, setErAdminChecked] = React.useState(false);
-
-  React.useEffect(() => {
-    setErAdminChecked(formData.ErAdmin || false);
-  }, [formData.ErAdmin]);
-
-  const handleErAdminChange = (checked) => {
-    setErAdminChecked(checked);
-    onChange({ ...formData, ErAdmin: checked });
-  };
-
+  console.log("formData", formData);
   return (
     <Box
       component="form"

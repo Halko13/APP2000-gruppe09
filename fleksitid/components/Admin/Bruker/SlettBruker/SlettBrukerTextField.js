@@ -14,14 +14,15 @@ const fieldDefinitions = [
   { id: "AnsattNr", label: "AnsattNr", variant: "filled" },
   { id: "Fornavn", label: "Fornavn", variant: "filled" },
   { id: "Etternavn", label: "Etternavn", variant: "filled" },
+  { id: "Epost", label: "Epost", variant: "filled" },
   { id: "Stilling", label: "Stilling", variant: "filled" },
+  { id: "Avdeling", label: "Avdeling", variant: "filled" },
   {
     id: "AntallJobbTimer",
     label: "Antall jobbtimer",
     type: "number",
     variant: "filled",
   },
-  { id: "ErAdmin", label: "Adminbruker", type: "boolean", variant: "filled" },
 ];
 
 export default function SlettBrukerTextField({ formData }) {

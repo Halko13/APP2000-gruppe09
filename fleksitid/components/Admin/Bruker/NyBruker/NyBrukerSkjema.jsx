@@ -50,10 +50,16 @@ export default function NyBrukerSkjema({ onGoBack }) {
         const hashedPassword = await bcryptHashing(formData.Passord);
         await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
           AnsattNr: formData.AnsattNr,
+          Fornavn: formData.Fornavn,
+          Etternavn: formData.Etternavn,
           Epost: formData.Epost,
+          Stilling: formData.Stilling,
+          Avdeling: formData.Avdeling,
+          AntallJobbTimer: formData.AntallJobbTimer,
           Passord: hashedPassword,
           Opprettet: serverTimestamp(),
           SistEndret: serverTimestamp(),
+          TimeBank: Number(formData.AntallJobbTimer),
         });
       } catch (error) {
         setVisHashingErrorAlert(true);
@@ -77,7 +83,12 @@ export default function NyBrukerSkjema({ onGoBack }) {
   const handleFormReset = () => {
     setFormData({
       AnsattNr: "",
+      Fornavn: "",
+      Etternavn: "",
       Epost: "",
+      Stilling: "",
+      Avdeling: "",
+      AntallJobbTimer: "",
       Passord: "",
       GjentaPassord: "",
     });
@@ -87,7 +98,11 @@ export default function NyBrukerSkjema({ onGoBack }) {
   };
   const isFormValid =
     formData.AnsattNr !== "" &&
+    formData.Fornavn !== "" &&
+    formData.Etternavn !== "" &&
     formData.Epost !== "" &&
+    formData.Stilling !== "" &&
+    formData.Avdeling !== "" &&
     formData.Passord !== "" &&
     formData.GjentaPassord !== "" &&
     formData.Passord === formData.GjentaPassord &&
