@@ -1,10 +1,10 @@
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const ProductPage = () => {
   const router = useRouter();
-  const { id } = router.query; // Henter `id` fra URL-en
+  const { ansattNr } = router.query; // Henter `id` fra URL-en
 
-  return <div>Produkt ID: {id}</div>;
+  return <div>Produkt ID: {ansattNr}</div>;
 };
 
 export default ProductPage;
