@@ -8,7 +8,7 @@ import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
 import VelgBrukerListe from "@/components/HenteBruker";
-import teama from "@/components/Temaer/Teama";
+import teama from "@/components/Temaer/Tema";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import bcryptVerify from "@/components/Hash/HashingVerifisering";
@@ -41,6 +41,18 @@ const InnloggingSide = () => {
     };
     hentBrukere();
   }, []);
+
+  /*
+  useEffect(() => {
+    const brukerId = router.query.brukerId;
+    if (brukerId) {
+      // Set the selected user's ID
+      setValgtBrukerId(brukerId);
+      // Fetch the user's information based on this ID
+      // ... rest of your fetch logic
+    }
+  }, [router.query.brukerId]);
+*/
 
   // Håndterer bruker endring verdier
   const håndterBrukerEndring = (e) => {

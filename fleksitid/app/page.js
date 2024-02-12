@@ -3,20 +3,22 @@
 import { useEffect, useState } from "react";
 import { Box, Typography, Button, ThemeProvider } from "@mui/material";
 import Head from "next/head";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import VelgBrukerListe from "@/components/HenteBruker";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import teama from "@/components/Temaer/Teama";
+import teama from "@/components/Temaer/Tema";
 
 export default function Hjem() {
+  const ruter = useRouter();
   const [brukere, setBrukere] = useState([]);
   const [adminBrukere, setAdminBrukere] = useState([]);
   const [valgtBrukerId, setValgtBrukerId] = useState("");
   const [gjeldendeTid, setGjeldendeTid] = useState("");
 
+
   useEffect(() => {
-    const hentBrukere = async () => {
+      const hentBrukere = async () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
       const brukerListe = brukerData.docs.map((dok) => ({
@@ -39,17 +41,19 @@ export default function Hjem() {
     return () => clearInterval(tidtaker);
   }, []);
 
+
   const håndterBrukerEndring = (e) => {
     setValgtBrukerId(e.target.value);
-  }
-
+  };
+  
   const håndterInnlogin = () => {
     if (valgtBrukerId) {
-      window.location.href = "innlogging";
+      ruter.push(`/innlogging?brukerId=${valgtBrukerId}`);
+
     } else {
       alert('Vennligst velg en bruker før du fortsetter.');
     }
-  }
+  };
 
   return (
     <ThemeProvider theme={teama}>
