@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import { Typography, ThemeProvider, Button, Card} from "@mui/material";
 import CardContent from '@mui/material/CardContent';
@@ -26,6 +26,7 @@ const InnloggingSide = () => {
   const [brukere, setBrukere] = useState([]); // Holder på alle brukere
   const [adminBrukere, setAdminBrukere] = useState([]); // Holder på admin brukere
 
+  
   // Hente brukere fra firestore, fra chatGtp
   useEffect(() => {
     const hentBrukere = async () => {
@@ -35,24 +36,25 @@ const InnloggingSide = () => {
         id: dok.id, ...dok.data(),
       }));
       setBrukere(brukerListe);
+      
       // Admin brukere fra firestore
       const adminBrukere = brukerListe.filter((bruker) => bruker.erAdmin);
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
   }, []);
+  
 
-  /*
+  // Henter bruker fra hjemme siden
   useEffect(() => {
-    const brukerId = router.query.brukerId;
-    if (brukerId) {
-      // Set the selected user's ID
-      setValgtBrukerId(brukerId);
-      // Fetch the user's information based on this ID
-      // ... rest of your fetch logic
+    // Henter brukerId fra Local Storage når siden lastes
+    const hentaBrukerId = localStorage.getItem('brukerId');
+    if (hentaBrukerId) {
+      setValgtBrukerId(hentaBrukerId);
     }
-  }, [router.query.brukerId]);
-*/
+  }, []);
+
+
 
   // Håndterer bruker endring verdier
   const håndterBrukerEndring = (e) => {
@@ -63,6 +65,7 @@ const InnloggingSide = () => {
     setPin("");
     setLoginStatus("");
   };
+
   const håndterPinKodeEndring = (e) => {
     setPin(e.target.value);
   };
@@ -152,31 +155,17 @@ const InnloggingSide = () => {
           <div>
             <Typography variant="h2" gutterBottom>
               Velkommen{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }`}
+              {erAdmin ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)?.brukernavn
+                : `${ brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn} 
+                ${ brukere.find((bruker) => bruker.id === valgtBrukerId)?.Etternavn}`
+               }
             </Typography>
             <Typography variant="h5" gutterBottom>
               Logget på som:{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn || "Ukjent Admin"
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }` || "Ukjent Bruker"}
+              {erAdmin ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)?.brukernavn || "Ukjent Admin"
+                : `${brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn} 
+                ${brukere.find((bruker) => bruker.id === valgtBrukerId)?.Etternavn}` || "Ukjent Bruker"
+                }
             </Typography>
             {erAdmin ? (
               <div>

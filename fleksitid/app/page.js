@@ -10,7 +10,6 @@ import { collection, getDocs } from "firebase/firestore";
 import teama from "@/components/Temaer/Tema";
 
 export default function Hjem() {
-  const ruter = useRouter();
   const [brukere, setBrukere] = useState([]);
   const [adminBrukere, setAdminBrukere] = useState([]);
   const [valgtBrukerId, setValgtBrukerId] = useState("");
@@ -46,10 +45,11 @@ export default function Hjem() {
     setValgtBrukerId(e.target.value);
   };
   
+  // Sender bruker info til innlogging 
   const håndterInnlogin = () => {
     if (valgtBrukerId) {
-      ruter.push(`/innlogging?brukerId=${valgtBrukerId}`);
-
+      localStorage.setItem('brukerId', valgtBrukerId);
+      window.location.href = '/innlogging';
     } else {
       alert('Vennligst velg en bruker før du fortsetter.');
     }

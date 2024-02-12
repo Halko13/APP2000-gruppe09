@@ -7,6 +7,7 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
  const [søkeTekst, setSøkeTekst] = useState("");
 
 
+    // Søker etter brukere 
     const filtrerteBrukere = søkeTekst
     ? brukere.filter(bruker => 
         (bruker.Fornavn && bruker.Fornavn.toLowerCase().includes(søkeTekst.toLowerCase())) ||
@@ -15,6 +16,7 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
     : brukere;
 
 
+    // Søke etter admin
     const filtrerteAdmins = søkeTekst
     ? adminBrukere.filter(admin => admin.brukernavn && admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase())
     )
