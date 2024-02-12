@@ -5,10 +5,13 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
 
 export default function Timebank() {
   const [timebank, setTimebank] = React.useState(0);
-  const dummyTimebank = 100;
+  const dummyTimebank = 100.33;
+  const { timer, minutter } = beregnTimerogMinutter(dummyTimebank);
+
   return (
     <>
       <Box
@@ -36,7 +39,14 @@ export default function Timebank() {
           component="div"
           style={{ alignSelf: "center" }}
         >
-          {dummyTimebank} timer
+          {timer} timer
+        </Typography>
+        <Typography
+          variant="h2"
+          component="div"
+          style={{ alignSelf: "center" }}
+        >
+          {minutter} minutter
         </Typography>
       </Box>
     </>
