@@ -15,6 +15,7 @@ import bcryptVerify from "@/components/Hash/HashingVerifisering";
 
 const InnloggingSide = () => {
   // Start verdi
+  const router = useRouter();
   const [valgtBrukerId, setValgtBrukerId] = useState("");
   const [pin, setPin] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
@@ -88,7 +89,8 @@ const InnloggingSide = () => {
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
         // Til ansatt siden
-        window.location.href = "test/2";
+        //window.location.href = "test/2";
+        router.push(`dashboard/sjekkinn/${valgtBrukerId}`);
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
