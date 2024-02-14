@@ -88,7 +88,7 @@ const InnloggingSide = () => {
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
         // Til ansatt siden
-        window.location.href = "/dashboard/sjekkinn";
+        window.location.href = "test/2";
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
