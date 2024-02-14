@@ -5,11 +5,9 @@ import { Typography, TextField, Button} from '@mui/material';
 const AnsattInnlogging = ({valgtBrukerNavn, pin, håndterPinEndring, håndterInnlogin }) => {
   return (
     <form onSubmit={håndterInnlogin}>
-      <form onSubmit={håndterInnlogin}>
         <Typography variant="h5" gutterBottom>
           {valgtBrukerNavn}
         </Typography>
-      </form>
 
       <TextField
         fullWidth

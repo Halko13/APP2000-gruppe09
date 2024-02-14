@@ -3,7 +3,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 
 // Teama
-const teama = createTheme({
+const tema = createTheme({
   palette: {
     primary: {
       main: purple[500],
@@ -14,4 +14,4 @@ const teama = createTheme({
   },
 });
 
-export default teama;
+export default tema;

@@ -7,6 +7,7 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
  const [søkeTekst, setSøkeTekst] = useState("");
 
 
+    // Søker etter brukere 
     const filtrerteBrukere = søkeTekst
     ? brukere.filter(bruker => 
         (bruker.Fornavn && bruker.Fornavn.toLowerCase().includes(søkeTekst.toLowerCase())) ||
@@ -15,8 +16,10 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
     : brukere;
 
 
+    // Søke etter admin
     const filtrerteAdmins = søkeTekst
-    ? adminBrukere.filter(admin => admin.brukernavn && admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase()))
+    ? adminBrukere.filter(admin => admin.brukernavn && admin.brukernavn.toLowerCase().includes(søkeTekst.toLowerCase())
+    )
      : adminBrukere;
 
     // Oppdater funksjonen for søketekstendring
@@ -43,17 +46,17 @@ const VelgBrukerListe = ({brukere, adminBrukere, valgtBrukerId, håndterBrukerEn
                 onChange={håndterBrukerEndring}
         >
                     <ListSubheader>Brukere</ListSubheader>
-                    {filtrerteBrukere.map(bruker => (
+                    {filtrerteBrukere && filtrerteBrukere.map(bruker => (
                     <MenuItem key={bruker.id} value={bruker.id}>
-                    {` (${bruker.AnsattNr}) ${bruker.Fornavn ? bruker.Fornavn : 'Ukjent'} ${bruker.Etternavn ? bruker.Etternavn : ''}`}                    
+                        {` (${bruker.AnsattNr}) ${bruker.Fornavn ? bruker.Fornavn : 'Ukjent'} ${bruker.Etternavn ? bruker.Etternavn : ''}`}                    
                     </MenuItem>
-                     ))}
+                    ))}
 
-                    <ListSubheader>Administratorer</ListSubheader>
-                    {filtrerteAdmins.map(admin => (
+                    <ListSubheader>Admin</ListSubheader>
+                    {filtrerteAdmins && filtrerteAdmins.map(admin => (
                     <MenuItem key={admin.brukernavn} value={admin.brukernavn}>
                         {` (${admin.Ansattnr}) ${admin.brukernavn} `}
-                     </MenuItem>
+                    </MenuItem>
                     ))}
         </Select>
         </FormControl>

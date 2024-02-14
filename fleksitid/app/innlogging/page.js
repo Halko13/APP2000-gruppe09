@@ -1,13 +1,14 @@
 "use client";
 
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { Typography, ThemeProvider, Button } from "@mui/material";
+import { Typography, ThemeProvider, Button, Card} from "@mui/material";
+import CardContent from '@mui/material/CardContent';
 import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
 import VelgBrukerListe from "@/components/HenteBruker";
-import teama from "@/components/Temaer/Teama";
+import teama from "@/components/Temaer/Tema";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import bcryptVerify from "@/components/Hash/HashingVerifisering";
@@ -25,22 +26,35 @@ const InnloggingSide = () => {
   const [brukere, setBrukere] = useState([]); // Holder på alle brukere
   const [adminBrukere, setAdminBrukere] = useState([]); // Holder på admin brukere
 
+  
   // Hente brukere fra firestore, fra chatGtp
   useEffect(() => {
     const hentBrukere = async () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
       const brukerListe = brukerData.docs.map((dok) => ({
-        id: dok.id,
-        ...dok.data(),
+        id: dok.id, ...dok.data(),
       }));
       setBrukere(brukerListe);
+      
       // Admin brukere fra firestore
       const adminBrukere = brukerListe.filter((bruker) => bruker.erAdmin);
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
   }, []);
+  
+
+  // Henter bruker fra hjemme siden
+  useEffect(() => {
+    // Henter brukerId fra Local Storage når siden lastes
+    const hentaBrukerId = localStorage.getItem('brukerId');
+    if (hentaBrukerId) {
+      setValgtBrukerId(hentaBrukerId);
+    }
+  }, []);
+
+
 
   // Håndterer bruker endring verdier
   const håndterBrukerEndring = (e) => {
@@ -51,6 +65,7 @@ const InnloggingSide = () => {
     setPin("");
     setLoginStatus("");
   };
+
   const håndterPinKodeEndring = (e) => {
     setPin(e.target.value);
   };
@@ -133,46 +148,24 @@ const InnloggingSide = () => {
     setLoginStatus("");
   };
 
+
   return (
     <ThemeProvider theme={teama}>
       <div>
-        {aktivSide === "VelgBrukerListe" ? (
-          <VelgBrukerListe
-            brukere={brukere}
-            adminBrukere={adminBrukere}
-            valgtBrukerId={valgtBrukerId}
-            håndterBrukerEndring={håndterBrukerEndring}
-            gåTilInnlogging={gåTilInnlogging}
-          />
-        ) : (
           <div>
             <Typography variant="h2" gutterBottom>
               Velkommen{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }`}
+              {erAdmin ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)?.brukernavn
+                : `${ brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn} 
+                ${ brukere.find((bruker) => bruker.id === valgtBrukerId)?.Etternavn}`
+               }
             </Typography>
             <Typography variant="h5" gutterBottom>
               Logget på som:{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn || "Ukjent Admin"
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }` || "Ukjent Bruker"}
+              {erAdmin ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)?.brukernavn || "Ukjent Admin"
+                : `${brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn} 
+                ${brukere.find((bruker) => bruker.id === valgtBrukerId)?.Etternavn}` || "Ukjent Bruker"
+                }
             </Typography>
             {erAdmin ? (
               <div>
@@ -205,7 +198,6 @@ const InnloggingSide = () => {
               </div>
             )}
           </div>
-        )}
         <Button
           variant="contained"
           color="primary"
