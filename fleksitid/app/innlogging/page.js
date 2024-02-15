@@ -2,12 +2,13 @@
 
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
-import { Typography, ThemeProvider, Button } from "@mui/material";
+import { Typography, ThemeProvider, Button, Card } from "@mui/material";
+import CardContent from "@mui/material/CardContent";
 import AnsattInnlogging from "@/components/AnsattInnlogging";
 import AdminInnlogging from "@/components/AdminInnlogging";
 import NummerPad from "@/components/NummerPad";
 import VelgBrukerListe from "@/components/HenteBruker";
-import teama from "@/components/Temaer/Teama";
+import teama from "@/components/Temaer/Tema";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import bcryptVerify from "@/components/Hash/HashingVerifisering";
@@ -36,11 +37,21 @@ const InnloggingSide = () => {
         ...dok.data(),
       }));
       setBrukere(brukerListe);
+
       // Admin brukere fra firestore
       const adminBrukere = brukerListe.filter((bruker) => bruker.erAdmin);
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
+  }, []);
+
+  // Henter bruker fra hjemme siden
+  useEffect(() => {
+    // Henter brukerId fra Local Storage når siden lastes
+    const hentaBrukerId = localStorage.getItem("brukerId");
+    if (hentaBrukerId) {
+      setValgtBrukerId(hentaBrukerId);
+    }
   }, []);
 
   // Håndterer bruker endring verdier
@@ -52,10 +63,10 @@ const InnloggingSide = () => {
     setPin("");
     setLoginStatus("");
   };
+
   const håndterPinKodeEndring = (e) => {
     setPin(e.target.value);
   };
-
 
   // Sjekk av bruker og admin bruker kan logge seg inn
   const validerLogin = async () => {
@@ -74,9 +85,8 @@ const InnloggingSide = () => {
           `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
         );
         // Til ansatt siden
-        //window.location.href = "/dashboard/sjekkinn";
-        router.push(`innlogging/${valgtBrukerId}`);
-        //router.push(`/brukere`);
+        //window.location.href = "test/2";
+        router.push(`dashboard/${valgtBrukerId}/sjekkinn`);
       } else {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
@@ -122,7 +132,7 @@ const InnloggingSide = () => {
     if (aktivSide !== "VelgBrukerListe") {
       setAktivSide(forrigeAktivSide);
     } else {
-    window.location.href = "/";
+      window.location.href = "/";
     }
   };
 
@@ -139,76 +149,64 @@ const InnloggingSide = () => {
   return (
     <ThemeProvider theme={teama}>
       <div>
-        {aktivSide === "VelgBrukerListe" ? (
-          <VelgBrukerListe
-            brukere={brukere}
-            adminBrukere={adminBrukere}
-            valgtBrukerId={valgtBrukerId}
-            håndterBrukerEndring={håndterBrukerEndring}
-            gåTilInnlogging={gåTilInnlogging}
-          />
-        ) : (
-          <div>
-            <Typography variant="h2" gutterBottom>
-              Velkommen{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }`}
-            </Typography>
-            <Typography variant="h5" gutterBottom>
-              Logget på som:{" "}
-              {erAdmin
-                ? adminBrukere.find(
-                    (admin) => admin.brukernavn === valgtBrukerId
-                  )?.brukernavn || "Ukjent Admin"
-                : `${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Fornavn
-                  } ${
-                    brukere.find((bruker) => bruker.id === valgtBrukerId)
-                      ?.Etternavn
-                  }` || "Ukjent Bruker"}
-            </Typography>
-            {erAdmin ? (
-              <div>
-                <AdminInnlogging
-                  adminBruker={adminBrukere}
-                  passord={pin}
-                  vedPassordEndring={håndterPinKodeEndring}
-                  vedLoginKlikk={håndterInnlogin}
-                />
-              </div>
-            ) : (
-              <div>
-                <Typography
-                  variant="h4"
-                  gutterBottom
-                  style={{ marginTop: "50px" }}
-                >
-                  For skjerminnlogging
-                </Typography>
-                <NummerPad
-                  vedNumKlikk={håndterNummerKlikk}
-                  vedSlett={håndterSlett}
-                  vedEnter={håndterEnter}
-                />
-                <AnsattInnlogging
-                  pin={pin}
-                  håndterPinnEndring={håndterPinKodeEndring}
-                  håndterInnlogin={håndterInnlogin}
-                />
-              </div>
-            )}
-          </div>
-        )}
+        <div>
+          <Typography variant="h2" gutterBottom>
+            Velkommen{" "}
+            {erAdmin
+              ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)
+                  ?.brukernavn
+              : `${
+                  brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn
+                } 
+                ${
+                  brukere.find((bruker) => bruker.id === valgtBrukerId)
+                    ?.Etternavn
+                }`}
+          </Typography>
+          <Typography variant="h5" gutterBottom>
+            Logget på som:{" "}
+            {erAdmin
+              ? adminBrukere.find((admin) => admin.brukernavn === valgtBrukerId)
+                  ?.brukernavn || "Ukjent Admin"
+              : `${
+                  brukere.find((bruker) => bruker.id === valgtBrukerId)?.Fornavn
+                } 
+                ${
+                  brukere.find((bruker) => bruker.id === valgtBrukerId)
+                    ?.Etternavn
+                }` || "Ukjent Bruker"}
+          </Typography>
+          {erAdmin ? (
+            <div>
+              <AdminInnlogging
+                adminBruker={adminBrukere}
+                passord={pin}
+                vedPassordEndring={håndterPinKodeEndring}
+                vedLoginKlikk={håndterInnlogin}
+              />
+            </div>
+          ) : (
+            <div>
+              <Typography
+                variant="h4"
+                gutterBottom
+                style={{ marginTop: "50px" }}
+              >
+                For skjerminnlogging
+              </Typography>
+              <NummerPad
+                vedNumKlikk={håndterNummerKlikk}
+                vedSlett={håndterSlett}
+                vedEnter={håndterEnter}
+              />
+              <AnsattInnlogging
+                pin={pin}
+                håndterPinnEndring={håndterPinKodeEndring}
+                håndterInnlogin={håndterInnlogin}
+              />
+            </div>
+          )}
+        </div>
         <Button
           variant="contained"
           color="primary"
