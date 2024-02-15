@@ -15,14 +15,7 @@ export default function Error({ error, reset }) {
   return (
     <div>
       <h2>Noe gikk feil</h2>
-      <button
-        onClick={
-          // Attempt to recover by trying to re-render the segment
-          () => reset()
-        }
-      >
-        Prøv på nytt
-      </button>
+      <button onClick={() => reset()}>Prøv på nytt</button>
     </div>
   );
 }
