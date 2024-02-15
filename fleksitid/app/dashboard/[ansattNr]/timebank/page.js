@@ -7,7 +7,7 @@ import TotalArbeidstimer from "@/components/dashboard/timebank/TotalArbeidsTimer
 import ArbeidsTimerGjenstår from "@/components/dashboard/timebank/ArbeidsTimerGjentstår";
 // Komponenter
 
-export default function TimebankSide() {
+export default function TimebankSide(params) {
   return (
     <main>
       <Box style={{ margin: "20px 0" }}>
