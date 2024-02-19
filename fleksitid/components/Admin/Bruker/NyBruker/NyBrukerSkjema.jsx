@@ -31,55 +31,92 @@ export default function NyBrukerSkjema({ onGoBack }) {
   const [visErrorAlert, setVisErrorAlert] = React.useState(false);
   const [visHashingErrorAlert, setVisHashingErrorAlert] = React.useState(false);
 
+  // const handleSave = async () => {
+  //   console.log("Lagrer data til database:", formData);
+
+  //   const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
+  //   const docSnap = await getDoc(docRef);
+
+  //   if (docSnap.exists()) {
+  //     setVisErrorAlert(true);
+  //     setVisSuksessAlert(false);
+  //     setVisHashingErrorAlert(false);
+
+  //     setTimeout(() => {
+  //       setVisErrorAlert(false);
+  //     }, 3000);
+  //   } else {
+  //     try {
+  //       const hashedPassword = await bcryptHashing(formData.Passord);
+  //       await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
+  //         AnsattNr: formData.AnsattNr,
+  //         Fornavn: formData.Fornavn,
+  //         Etternavn: formData.Etternavn,
+  //         Epost: formData.Epost,
+  //         Stilling: formData.Stilling,
+  //         Avdeling: formData.Avdeling,
+  //         AntallJobbTimer: formData.AntallJobbTimer,
+  //         Passord: hashedPassword,
+  //         Opprettet: serverTimestamp(),
+  //         SistEndret: serverTimestamp(),
+  //         TimeBank: Number(formData.AntallJobbTimer),
+  //       });
+  //     } catch (error) {
+  //       setVisHashingErrorAlert(true);
+  //       setVisSuksessAlert(false);
+  //       setVisErrorAlert(false);
+  //       setTimeout(() => {
+  //         setVisHashingErrorAlert(false);
+  //       }, 3000);
+  //     }
+  //     setVisSuksessAlert(true);
+  //     setVisErrorAlert(false);
+  //     setVisHashingErrorAlert(false);
+
+  //     setTimeout(() => {
+  //       setVisSuksessAlert(false);
+  //     }, 3000);
+  //   }
+  //   handleFormReset();
+  // };
   const handleSave = async () => {
     console.log("Lagrer data til database:", formData);
 
-    const docRef = doc(db, dbCollectionBrukere, formData.AnsattNr);
-    const docSnap = await getDoc(docRef);
+    try {
+      const response = await fetch("/api/nyBruker", {
+        // replace 'your-endpoint' with your actual endpoint
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (docSnap.exists()) {
+      if (response.ok) {
+        setVisSuksessAlert(true);
+        setVisErrorAlert(false);
+        setVisHashingErrorAlert(false);
+        console.log("body1: ");
+      } else {
+        setVisErrorAlert(true);
+        setVisSuksessAlert(false);
+        setVisHashingErrorAlert(false);
+        console.log("body2: ");
+      }
+    } catch (error) {
       setVisErrorAlert(true);
       setVisSuksessAlert(false);
       setVisHashingErrorAlert(false);
-
-      setTimeout(() => {
-        setVisErrorAlert(false);
-      }, 3000);
-    } else {
-      try {
-        const hashedPassword = await bcryptHashing(formData.Passord);
-        await setDoc(doc(db, dbCollectionBrukere, formData.AnsattNr), {
-          AnsattNr: formData.AnsattNr,
-          Fornavn: formData.Fornavn,
-          Etternavn: formData.Etternavn,
-          Epost: formData.Epost,
-          Stilling: formData.Stilling,
-          Avdeling: formData.Avdeling,
-          AntallJobbTimer: formData.AntallJobbTimer,
-          Passord: hashedPassword,
-          Opprettet: serverTimestamp(),
-          SistEndret: serverTimestamp(),
-          TimeBank: Number(formData.AntallJobbTimer),
-        });
-      } catch (error) {
-        setVisHashingErrorAlert(true);
-        setVisSuksessAlert(false);
-        setVisErrorAlert(false);
-        setTimeout(() => {
-          setVisHashingErrorAlert(false);
-        }, 3000);
-      }
-      setVisSuksessAlert(true);
-      setVisErrorAlert(false);
-      setVisHashingErrorAlert(false);
-
-      setTimeout(() => {
-        setVisSuksessAlert(false);
-      }, 3000);
+      console.log("body3: ");
     }
+
+    setTimeout(() => {
+      setVisSuksessAlert(false);
+      setVisErrorAlert(false);
+    }, 3000);
+
     handleFormReset();
   };
-
   const handleFormReset = () => {
     setFormData({
       AnsattNr: "",
