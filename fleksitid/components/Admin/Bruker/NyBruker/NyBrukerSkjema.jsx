@@ -85,9 +85,9 @@ export default function NyBrukerSkjema({ onGoBack }) {
     try {
       const response = await fetch("/api/nyBruker", {
         method: "POST",
-        // headers: {
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(formData),
       });
 
