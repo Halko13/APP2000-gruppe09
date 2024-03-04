@@ -14,120 +14,16 @@ import {
   getDocs,
   Timestamp,
 } from "firebase/firestore";
-import Klokke from "@/components/Klokke";
-import SjekkinnKnapp from "@/components/SjekkinnKnapp";
 import { Box, Typography } from "@mui/material";
 import DagensInnsjekkTittel from "@/components/dashboard/dagensInnsjekk/InnsjekkTittel";
+import DagensInnsjekkComp from "@/components/dashboard/dagensInnsjekk/DagensInsjekkComp";
+import DagensDato from "@/components/dashboard/dagensInnsjekk/DagensInsjekkDato";
 export default function Page({ params }) {
-  const [brukerInfo, setBrukerInfo] = useState(null);
-  const [stemplinger, setStemplinger] = useState([]); // New state variable
-
-  useEffect(() => {
-    const hentBrukerInfo = async () => {
-      const today = new Date();
-      const startOfDay = Date.UTC(
-        today.getUTCFullYear(),
-        today.getUTCMonth(),
-        today.getUTCDate()
-      );
-      const endOfDay = Date.UTC(
-        today.getUTCFullYear(),
-        today.getUTCMonth(),
-        today.getUTCDate() + 1
-      );
-
-      const brukerStemplingRef = collection(
-        db,
-        dbCollectionBrukere,
-        params.ansattNr,
-        dbCollectionBrukerStempling
-      );
-
-      const q = query(
-        brukerStemplingRef,
-        where("stempleInn", ">=", Timestamp.fromMillis(startOfDay)),
-        where("stempleInn", "<", Timestamp.fromMillis(endOfDay))
-      );
-
-      const querySnapshot = await getDocs(q);
-      const newStemplinger = [];
-      querySnapshot.forEach((doc) => {
-        const data = doc.data();
-        const stempleInnDate = data.stempleInn
-          ? data.stempleInn.toDate()
-          : null;
-        const stempleUtDate = data.stempleUt ? data.stempleUt.toDate() : null;
-        newStemplinger.push({ stempleInnDate, stempleUtDate });
-      });
-
-      setStemplinger(newStemplinger); // Update state variable
-
-      const docRef = doc(db, dbCollectionBrukere, params.ansattNr);
-      const docSnap = await getDoc(docRef);
-
-      if (docSnap.exists()) {
-        setBrukerInfo(docSnap.data());
-      } else {
-        console.log("Ingen slik dokument!");
-      }
-    };
-
-    hentBrukerInfo();
-  }, [params.ansattNr]);
-
-  if (!brukerInfo) return <div>Laster...</div>;
-
   return (
     <>
       <DagensInnsjekkTittel />
-      <Box
-        display="flex"
-        flexDirection="column"
-        alignItems="center"
-        justifyContent="center"
-        minHeight="50vh"
-      >
-        <Box
-          sx={{
-            bgcolor: "lightgray",
-            height: "auto",
-            width: "50vw",
-            margin: "auto",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-            border: "3px solid #800080",
-            padding: "20px",
-            overflowY: "auto",
-          }}
-        >
-          {stemplinger.map((stemple, index) => (
-            <React.Fragment key={index}>
-              {stemple.stempleInnDate && (
-                <Typography
-                  variant="h3"
-                  component="div"
-                  style={{ alignSelf: "center" }}
-                >
-                  Innsjekk: {stemple.stempleInnDate.getHours()}:
-                  {stemple.stempleInnDate.getMinutes()}
-                </Typography>
-              )}
-              {stemple.stempleUtDate && (
-                <Typography
-                  variant="h3"
-                  component="div"
-                  style={{ alignSelf: "center" }}
-                >
-                  Utsjekk: {stemple.stempleUtDate.getHours()}:
-                  {stemple.stempleUtDate.getMinutes()}
-                </Typography>
-              )}
-            </React.Fragment>
-          ))}
-        </Box>
-      </Box>
+      <DagensDato />
+      <DagensInnsjekkComp params={params} />
     </>
   );
 }
