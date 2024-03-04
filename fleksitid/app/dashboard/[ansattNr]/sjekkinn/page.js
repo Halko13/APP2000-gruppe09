@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import { db } from '@/firebase/firebaseConfig'; // Pass på å justere import-stien etter din struktur
+import { db } from '@/firebase/firebaseConfig';
 import { doc, getDoc } from 'firebase/firestore';
 import Klokke from '@/components/Klokke';
 import SjekkinnKnapp from '@/components/SjekkinnKnapp';
@@ -23,7 +23,7 @@ export default function Page({ params }) {
     };
 
     hentBrukerInfo();
-  }, [params.ansattNr]); // Kjører denne effekten hvis params.ansattNr endres
+  }, [params.ansattNr]); 
 
   if (!brukerInfo) return <div>Laster...</div>;
 
