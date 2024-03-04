@@ -4,7 +4,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { db } from "@/firebase/firebaseConfig";
+import { db, dbCollectionBrukere, dbCollectionBrukerStempling } from "@/firebase/firebaseConfig";
 import { collection, query, where, getDocs, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 
 const SjekkinnKnapp = ({ ansattNr }) => {
@@ -14,7 +14,7 @@ const SjekkinnKnapp = ({ ansattNr }) => {
   useEffect(() => {
     // Sjekk om det finnes en åpen stemplingssesjon ved oppstart
     const sjekkStemplingStatus = async () => {
-      const q = query(collection(db, "Brukere", ansattNr, "Stempling"), where("stempleUt", "==", null));
+      const q = query(collection(db, dbCollectionBrukere, ansattNr, dbCollectionBrukerStempling), where("stempleUt", "==", null));
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         // Det finnes en åpen stemplingssesjon
@@ -27,12 +27,12 @@ const SjekkinnKnapp = ({ ansattNr }) => {
   }, [ansattNr]);
 
   const handleStempling = async () => {
-    const stemplingRef = collection(db, "Brukere", ansattNr, "Stempling");
+    const stemplingRef = collection(db, dbCollectionBrukere, ansattNr, dbCollectionBrukerStempling);
 
     try {
       if (erSjekketInn) {
         // Hvis brukeren allerede er stemplet inn, finn det åpne dokumentet og oppdater 'stempleUt'
-        const docRef = doc(db, "Brukere", ansattNr, "Stempling", lastStemplingDocId);
+        const docRef = doc(stemplingRef, lastStemplingDocId);
         await updateDoc(docRef, {
           stempleUt: serverTimestamp()
         });
