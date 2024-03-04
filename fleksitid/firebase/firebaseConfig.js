@@ -17,3 +17,4 @@ export { db };
 
 export const dbCollectionBrukere = "Brukere";
 export const dbCollectionAdminBrukere = "AdminBrukere";
+export const dbCollectionBrukerStempling = "Stempling";
