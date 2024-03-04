@@ -45,7 +45,7 @@ export default function Page({ params }) {
       <Typography variant="h4" component="h2" gutterBottom color="textSecondary">
       Stilling: {brukerInfo.Stilling}
       </Typography>
-      <SjekkinnKnapp />
+      <SjekkinnKnapp ansattNr ={params.ansattNr}/>
     </Box>
   );
 }
