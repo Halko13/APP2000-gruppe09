@@ -1,19 +1,22 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Box, Typography, Button, ThemeProvider } from "@mui/material";
+import { Box, Typography, Button, ThemeProvider,TextField  } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import VelgBrukerListe from "@/components/HenteBruker";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
 import teama from "@/components/Temaer/Tema";
+import BrukerListe from "@/components/BrukerKortListe";
 
 export default function Hjem() {
   const [brukere, setBrukere] = useState([]);
   const [adminBrukere, setAdminBrukere] = useState([]);
-  const [valgtBrukerId, setValgtBrukerId] = useState("");
+  const [valgtBrukerId, setValgtBrukerId] = useState(null);
+  const [valgtFulltNavn, setValgtFulltNavn] = useState("");
   const [gjeldendeTid, setGjeldendeTid] = useState("");
+  const [søkeTekst, setSøkeTekst] = useState("");
 
 
   useEffect(() => {
@@ -44,6 +47,14 @@ export default function Hjem() {
   const håndterBrukerEndring = (e) => {
     setValgtBrukerId(e.target.value);
   };
+
+  const håndterValgtBruker = (id) => {
+    const bruker = brukere.find((bruker) => bruker.id === id);
+    if (bruker) {
+      setValgtBrukerId(bruker.id);
+      setValgtFulltNavn(`${bruker.Fornavn} ${bruker.Etternavn}`);
+    }
+  };
   
   // Sender bruker info til innlogging 
   const håndterInnlogin = () => {
@@ -55,6 +66,17 @@ export default function Hjem() {
     }
   };
 
+  // Filter bruker basert på søke tekst
+  const filtrerteBrukere = søkeTekst
+  ? brukere.filter(bruker =>
+    `${bruker.Fornavn} ${bruker.Etternavn}`.toLowerCase().includes(søkeTekst.toLowerCase())
+    ) : brukere;
+  
+  const håndterSøkeTekstEndring = (e) => {
+    setSøkeTekst(e.target.value);
+  };
+
+   
   return (
     <ThemeProvider theme={teama}>
     <Box
@@ -90,14 +112,30 @@ export default function Hjem() {
           Velkommen til Fleksitid
         </Typography>
 
-        {brukere.length > 0 && (
-        <VelgBrukerListe
-        brukere={brukere}
-        adminBrukere={adminBrukere}
-        valgtBrukerId={valgtBrukerId}
-        håndterBrukerEndring={håndterBrukerEndring}
-        gåTilInnlogging={håndterInnlogin}
+        <TextField
+        fullWidth
+        margin="normal"
+        label="Søk etter navnet ditt"
+        value={søkeTekst}
+        onChange={håndterSøkeTekstEndring}
+        placeholder="Skriv her for å søke etter navnet"
         />
+
+        <Button variant="contained" onClick={håndterInnlogin} fullWidth>
+          Logg Inn
+        </Button>
+
+        <Typography variant="h4" sx={{ mt: 4 }}>
+        Valgt bruker: {valgtFulltNavn}
+        </Typography>
+
+        {filtrerteBrukere.length > 0 && (
+          <BrukerListe 
+          brukere={filtrerteBrukere}
+          valgtKort={valgtBrukerId}
+          påValgt={håndterValgtBruker}
+          
+          />
         )}
       </Box>
     </Box>
