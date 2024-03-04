@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Box, Typography, Button, ThemeProvider,TextField  } from "@mui/material";
+import Link from 'next/link';
 import Head from "next/head";
 import { useRouter } from "next/navigation";
 import VelgBrukerListe from "@/components/HenteBruker";
@@ -90,6 +91,15 @@ export default function Hjem() {
         position: "relative",
       }}
     >
+
+      <Box sx={{ position: 'absolute', top: '10px', right: '10px'}}>
+        <Link href="/adminInnlogging" passHref>
+          <Button variant="contained" color="primary">
+            Logg på som admin
+          </Button>
+        </Link>
+      </Box>
+
       <Head>
         <title>Startside</title>
       </Head>
