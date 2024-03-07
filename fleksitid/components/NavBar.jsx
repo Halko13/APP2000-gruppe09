@@ -19,7 +19,7 @@ const selectedColor = "#CCCCCC";
 
 const titler = ["Sjekk inn", "Historikk", "Timebank"];
 const pages = [
-  "/dashboard/sjekkinn",
+  "sjekkinn",
   "/dashboard/historikk",
   "/dashboard/timebank",
 ];
@@ -75,7 +75,7 @@ function ResponsiveAppBar() {
             variant="h6"
             noWrap
             component="a"
-            href="/dashboard/sjekkinn"
+            href="sjekkinn"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },

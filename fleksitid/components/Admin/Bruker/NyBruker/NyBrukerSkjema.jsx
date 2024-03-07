@@ -12,8 +12,18 @@ import {
 } from "@/components/Admin/Bruker/NyBruker/Alerts";
 import { PASSWORD_LENGTH } from "@/components/Admin/Bruker/NyBruker/NyBrukerTextFields";
 import bcryptHashing from "@/components/Hash/Hashing";
-import { db, dbCollectionBrukere } from "@/firebase/firebaseConfig";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  db,
+  dbCollectionBrukere,
+  dbCollectionBrukerStempling,
+} from "@/firebase/firebaseConfig";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  serverTimestamp,
+  addDoc,
+} from "firebase/firestore";
 export default function NyBrukerSkjema({ onGoBack }) {
   const [formData, setFormData] = React.useState({
     AnsattNr: "",
@@ -61,6 +71,15 @@ export default function NyBrukerSkjema({ onGoBack }) {
           SistEndret: serverTimestamp(),
           TimeBank: Number(formData.AntallJobbTimer),
         });
+        // Create a subcollection "Stempling" for the user
+        const stemplingCollection = collection(
+          db,
+          dbCollectionBrukere,
+          formData.AnsattNr,
+          dbCollectionBrukerStempling
+        );
+        // Legger til en tom dokument i subcollection "Stempling"
+        await addDoc(stemplingCollection, {});
       } catch (error) {
         setVisHashingErrorAlert(true);
         setVisSuksessAlert(false);
