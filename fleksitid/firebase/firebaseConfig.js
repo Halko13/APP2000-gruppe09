@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
+<<<<<<< HEAD
 // const firebaseConfig = {
 //   apiKey: "AIzaSyDXAV7xZr-ztj97FSL3oOhaUqsIiqfR2fk",
 //   authDomain: "visma-5c70e.firebaseapp.com",
@@ -10,6 +11,8 @@ import { getFirestore } from "firebase/firestore";
 //   appId: "1:161477454641:web:7abeb57872fb86ef719e10",
 // };
 //
+=======
+>>>>>>> utvikling
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIRESTORE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIRESTORE_AUTH_DOMAIN,
@@ -25,3 +28,5 @@ const db = getFirestore(app);
 export { db };
 
 export const dbCollectionBrukere = "Brukere";
+export const dbCollectionAdminBrukere = "AdminBrukere";
+export const dbCollectionBrukerStempling = "Stempling";

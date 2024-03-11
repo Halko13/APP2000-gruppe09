@@ -1,8 +1,4 @@
-// Hentet fra MUI Docs
-// https://mui.com/material-ui/react-app-bar/
-// Redigert til å passe vår nettside sitt behov
-// Utviklet av Halvor Vilnes
-
+"use client";
 "use client";
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
@@ -11,13 +7,10 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
 
 const hoverColor = "#CCCCCC";
 const selectedColor = "#CCCCCC";
@@ -29,39 +22,31 @@ const pages = [
   "/admin/oppdaterBruker",
   "/admin/slettBruker",
 ];
-const settings = ["Logout"];
-
+function erValidURL(url) {
+  return pages.includes(url);
+}
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [selectedButton, setSelectedButton] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleOpenUserMenu = (event) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
-
   const handleButtonClick = (index) => {
-    setSelectedButton(index);
-    handleCloseNavMenu();
+    const url = pages[index];
+    if (erValidURL(url)) {
+      setSelectedButton(index);
+      handleCloseNavMenu();
+    }
   };
 
-  const handleSettingClick = (setting) => {
-    handleCloseUserMenu();
-    if (setting === "Logout") {
-      window.location.href = "/";
-    }
+  const handleLogout = () => {
+    window.location.href = "/";
   };
 
   React.useEffect(() => {
@@ -74,7 +59,6 @@ function ResponsiveAppBar() {
     <AppBar position="static" sx={{ backgroundColor: "#800080" }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -136,12 +120,11 @@ function ResponsiveAppBar() {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="/admin"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },
@@ -181,39 +164,21 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* Hentet fra: https://pixabay.com/vectors/user-icon-person-personal-about-me-2935527/*/}
-                <Avatar alt="Admin" src="\static\images\avatar-icon-2.png" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+            <Button
+              onClick={handleLogout}
+              sx={{
+                my: 2,
+                color: "white",
+                display: "block",
+                backgroundColor: "#800080",
+                "&:hover": {
+                  backgroundColor: hoverColor,
+                  color: "#000000",
+                },
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem
-                  key={setting}
-                  onClick={() => handleSettingClick(setting)}
-                >
-                  <Typography textAlign="center" sx={{ color: selectedColor }}>
-                    {setting}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+              Logg ut
+            </Button>
           </Box>
         </Toolbar>
       </Container>
