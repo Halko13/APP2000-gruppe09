@@ -18,6 +18,8 @@ export default function Hjem() {
   const [valgtFulltNavn, setValgtFulltNavn] = useState("");
   const [gjeldendeTid, setGjeldendeTid] = useState("");
   const [søkeTekst, setSøkeTekst] = useState("");
+  const [sideNummer, setSideNummer] = useState(1); // Side nummer for visning av brukere
+  const [kortPerSide] = useState(6); // Vise 6 kort/brukere per side
 
 
   useEffect(() => {
@@ -44,11 +46,7 @@ export default function Hjem() {
     return () => clearInterval(tidtaker);
   }, []);
 
-
-  const håndterBrukerEndring = (e) => {
-    setValgtBrukerId(e.target.value);
-  };
-
+  
   const håndterValgtBruker = (id) => {
     const bruker = brukere.find((bruker) => bruker.id === id);
     if (bruker) {
@@ -75,7 +73,26 @@ export default function Hjem() {
   
   const håndterSøkeTekstEndring = (e) => {
     setSøkeTekst(e.target.value);
+    //Tilbakestill til første side ved nytt søk
+    setSideNummer(1); 
   };
+
+  // Gå til neste side
+  const gåTilNesteSide = () => {
+    setSideNummer(sideNummer + 1);
+  };
+
+  // Gå til forgje side 
+  const gåTilForrigeSide = () => {
+    setSideNummer(sideNummer - 1);
+  };
+
+  // Bergener indekser for å slice brukerlisten basert på sideNummer
+  const indeksForSisteKort  = sideNummer * kortPerSide;
+  const indeksForFørsteKort = indeksForSisteKort - kortPerSide;
+  const visendeBrukere = filtrerteBrukere.slice(indeksForFørsteKort, indeksForSisteKort);
+
+
 
    
   return (
@@ -139,14 +156,22 @@ export default function Hjem() {
         Valgt bruker: {valgtFulltNavn}
         </Typography>
 
-        {filtrerteBrukere.length > 0 && (
+        {visendeBrukere.length > 0 && (
           <BrukerListe 
-          brukere={filtrerteBrukere}
+          brukere={visendeBrukere}
           valgtKort={valgtBrukerId}
           påValgt={håndterValgtBruker}
-          
           />
         )}
+
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mt: 2 }}>
+          {sideNummer > 1 && (
+            <Button variant="contained" onClick={gåTilForrigeSide}>Forrige Side</Button>
+          )}
+          {indeksForSisteKort < filtrerteBrukere.length && (
+            <Button variant="contained" onClick={gåTilNesteSide}>Neste Side</Button>
+          )}
+        </Box>
       </Box>
     </Box>
     </ThemeProvider>
