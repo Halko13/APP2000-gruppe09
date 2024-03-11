@@ -1,6 +1,6 @@
 // DagensInnsjekkComponent.js
 import React, { useState, useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, List, ListItem } from "@mui/material";
 import {
   collection,
   query,
@@ -89,7 +89,7 @@ const DagensInnsjekkComp = ({ params }) => {
         sx={{
           bgcolor: "lightgray",
           height: "auto",
-          width: "50vw",
+          width: "40vw",
           margin: "auto",
           display: "flex",
           flexDirection: "column",
@@ -100,30 +100,34 @@ const DagensInnsjekkComp = ({ params }) => {
           overflowY: "auto",
         }}
       >
-        {stemplinger.map((stemple, index) => (
-          <React.Fragment key={index}>
-            {stemple.stempleInnDate && (
-              <Typography
-                variant="h3"
-                component="div"
-                style={{ alignSelf: "center" }}
-              >
-                Innsjekk: {stemple.stempleInnDate.getHours()}:
-                {stemple.stempleInnDate.getMinutes()}
-              </Typography>
-            )}
-            {stemple.stempleUtDate && (
-              <Typography
-                variant="h3"
-                component="div"
-                style={{ alignSelf: "center" }}
-              >
-                Utsjekk: {stemple.stempleUtDate.getHours()}:
-                {stemple.stempleUtDate.getMinutes()}
-              </Typography>
-            )}
-          </React.Fragment>
-        ))}
+        <List>
+          {stemplinger.map((stemple, index) => (
+            <React.Fragment key={index}>
+              {stemple.stempleInnDate && (
+                <ListItem>
+                  <Typography variant="h3">
+                    Innsjekk: {stemple.stempleInnDate.getHours()}:
+                    {stemple.stempleInnDate
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, "0")}
+                  </Typography>
+                </ListItem>
+              )}
+              {stemple.stempleUtDate && (
+                <ListItem>
+                  <Typography variant="h3">
+                    Utsjekk: {stemple.stempleUtDate.getHours()}:
+                    {stemple.stempleUtDate
+                      .getMinutes()
+                      .toString()
+                      .padStart(2, "0")}
+                  </Typography>
+                </ListItem>
+              )}
+            </React.Fragment>
+          ))}
+        </List>
       </Box>
     </Box>
   );
