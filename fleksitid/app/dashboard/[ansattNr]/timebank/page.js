@@ -12,13 +12,13 @@ export default function TimebankSide(params) {
     <main>
       <Box style={{ margin: "20px 0" }}>
         <Box style={{ marginTop: "20px" }}>
-          <Timebank />
+          <Timebank params={params} />
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          <TotalArbeidstimer />
+          <TotalArbeidstimer params={params} />
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          <ArbeidsTimerGjenstår />
+          <ArbeidsTimerGjenstår params={params} />
         </Box>
       </Box>
     </main>

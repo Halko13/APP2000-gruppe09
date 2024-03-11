@@ -1,13 +1,30 @@
 // Developed by Halvor Vilnes
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
-export default function TotalArbeidstimer() {
-  const [TotalArbeidstimer, setTotalArbeidstimer] = useState(0); // Total arbeidstimer i uken
+import { fetchData } from "@/components/dashboard/timebank/GetArbeidsTimer"; // replace with the path to the fetchData file
+export default function TotalArbeidstimer(params) {
+  const brukerData = fetchData(params.params.ansattNr);
+  console.log(brukerData);
+  const [TotalArbeidstimer, setTotalArbeidstimer] = useState(); // Total arbeidstimer i uken
+  console.log(params);
+  console.log("TotalArbeidstimer", TotalArbeidstimer);
   const dummyArbeidstimer = 50;
-  const { timer, minutter } = beregnTimerogMinutter(dummyArbeidstimer);
+  const { timer, minutter } = beregnTimerogMinutter(TotalArbeidstimer);
+  useEffect(() => {
+    const fetchEmployeeData = async () => {
+      try {
+        const data = await fetchData(params.params.ansattNr);
+        setTotalArbeidstimer(data.AntallJobbTimer);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchEmployeeData();
+  }, [params.params.ansattNr]);
   return (
     <>
       <Box
