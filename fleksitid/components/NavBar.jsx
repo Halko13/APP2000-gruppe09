@@ -17,15 +17,18 @@ import AdbIcon from "@mui/icons-material/Adb";
 const hoverColor = "#CCCCCC";
 const selectedColor = "#CCCCCC";
 
-const titler = ["Sjekk inn", "Historikk", "Timebank"];
-const pages = [
-  "sjekkinn",
-  "/dashboard/historikk",
-  "/dashboard/timebank",
-];
-const settings = ["Logout"];
+function ResponsiveAppBar(params) {
+  console.log(params.params.ansattNr);
+  // const { ansattNr } = params;
+  const titler = ["Sjekk inn", "Dagens innsjekker", "Historikk", "Timebank"];
+  const pages = [
+    `/dashboard/${params.params.ansattNr}/sjekkinn`,
+    `/dashboard/${params.params.ansattNr}/dagensInnsjekk`,
+    `/dashboard/${params.params.ansattNr}/historikk`,
+    `/dashboard/${params.params.ansattNr}/timebank`,
+  ];
+  const settings = ["Logout"];
 
-function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [selectedButton, setSelectedButton] = React.useState(null);
