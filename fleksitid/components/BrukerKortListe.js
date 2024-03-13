@@ -9,9 +9,9 @@ const BrukerKortListe = ({ bruker, valgtKort, påValgt }) => {
     const erValgtKort = valgtKort === bruker.id; // Sjekk om kort er valgt
     return (
      <Card sx={{ display: 'flex', marginBottom: '10px',
-           border: erValgtKort ? '4px solid blue' : 'none'}}
-          onClick={() => påValgt(bruker.id)}
-          >
+                border: erValgtKort ? '4px solid blue' : 'none'}}
+                onClick={() => påValgt(bruker.id)}
+             >
 
         <CardMedia
         component={"img"}
@@ -29,6 +29,9 @@ const BrukerKortListe = ({ bruker, valgtKort, påValgt }) => {
             </Typography>
             <Typography variant='subtitle1' color="text.secondary" component="div">
              {`Stilling: ${bruker.Stilling} `}    
+            </Typography>
+            <Typography variant='subtitle1' color="text.secondary" component="div">
+             {`Avdeling: ${bruker.Avdeling} `}    
             </Typography>
             <Typography variant='subtitle1' color="text.secondary" component="div">
              {`Innlogging status: ${bruker.Innlogget} `}    
