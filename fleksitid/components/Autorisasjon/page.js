@@ -13,7 +13,7 @@ const forAutorisasjon = (Rettighetersjekk, { hvilkenRolle }) => {
             } else {
                 import('next/router').then(({ useRouter }) => {
                     const ruter = useRouter();
-                    ruter.push('/logginn');
+                    ruter.push('/logginn'); 
                 });
             }
         }, [hvilkenRolle]);
