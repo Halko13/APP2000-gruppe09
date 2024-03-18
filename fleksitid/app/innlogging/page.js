@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Typography, ThemeProvider, Button, Card } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import AnsattInnlogging from "@/components/AnsattInnlogging";
@@ -11,7 +11,7 @@ import VelgBrukerListe from "@/components/HenteBruker";
 import teama from "@/components/Temaer/Tema";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import bcryptVerify from "@/components/Hash/HashingVerifisering"; 
+import bcryptVerify from "@/components/Hash/HashingVerifisering";
 
 const InnloggingSide = () => {
   // Start verdi
@@ -69,7 +69,30 @@ const InnloggingSide = () => {
   };
 
   // Sjekk av bruker og admin bruker kan logge seg inn
-  const validerLogin = async () => {
+  // const validerLogin = async () => {
+  //   const valgtBruker = brukere.find((bruker) => bruker.id === valgtBrukerId);
+  //   if (valgtBruker) {
+  //     const liktPassord = await bcryptVerify(pin, valgtBruker.Passord);
+  //     //TODO Legge til error håndtering
+  //     if (valgtBruker.ErAdmin && liktPassord) {
+  //       setLoginStatus(
+  //         "Logget inn som admin. Velkommen " + valgtBruker.Fornavn + "!"
+  //       );
+  //       // Til admin siden
+  //       window.location.href = "/admin";
+  //     } else if (!valgtBruker.ErAdmin && liktPassord) {
+  //       setLoginStatus(
+  //         `Logget inn. Velkommen ${valgtBruker.Fornavn} ${valgtBruker.Etternavn}!`
+  //       );
+  //       // Til ansatt siden
+  //       //window.location.href = "test/2";
+  //       router.push(`dashboard/${valgtBrukerId}/sjekkinn`);
+  //     } else {
+  //       setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
+  //     }
+  //   }
+  // };
+  const validerLogin = useCallback(async () => {
     const valgtBruker = brukere.find((bruker) => bruker.id === valgtBrukerId);
     if (valgtBruker) {
       const liktPassord = await bcryptVerify(pin, valgtBruker.Passord);
@@ -91,8 +114,7 @@ const InnloggingSide = () => {
         setLoginStatus("Innlogging feilet. Feil navn eller pin kode!");
       }
     }
-  };
-
+  }, [brukere, valgtBrukerId, pin, setLoginStatus, router]);
   const håndterInnlogin = (e) => {
     e.preventDefault();
     validerLogin();
