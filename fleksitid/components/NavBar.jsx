@@ -21,12 +21,21 @@ function ResponsiveAppBar(params) {
   console.log(params.params.ansattNr);
   // const { ansattNr } = params;
   const titler = ["Sjekk inn", "Dagens innsjekker", "Historikk", "Timebank"];
-  const pages = [
-    `/dashboard/${params.params.ansattNr}/sjekkinn`,
-    `/dashboard/${params.params.ansattNr}/dagensInnsjekk`,
-    `/dashboard/${params.params.ansattNr}/historikk`,
-    `/dashboard/${params.params.ansattNr}/timebank`,
-  ];
+  // const pages = [
+  //   `/dashboard/${params.params.ansattNr}/sjekkinn`,
+  //   `/dashboard/${params.params.ansattNr}/dagensInnsjekk`,
+  //   `/dashboard/${params.params.ansattNr}/historikk`,
+  //   `/dashboard/${params.params.ansattNr}/timebank`,
+  // ];
+  const pages = React.useMemo(
+    () => [
+      `/dashboard/${params.params.ansattNr}/sjekkinn`,
+      `/dashboard/${params.params.ansattNr}/dagensInnsjekk`,
+      `/dashboard/${params.params.ansattNr}/historikk`,
+      `/dashboard/${params.params.ansattNr}/timebank`,
+    ],
+    [params.params.ansattNr]
+  );
   const settings = ["Logout"];
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
