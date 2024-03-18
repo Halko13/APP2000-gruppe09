@@ -53,7 +53,7 @@ function ResponsiveAppBar() {
     const currentPath = window.location.pathname;
     const selectedIndex = pages.findIndex((page) => page === currentPath);
     setSelectedButton(selectedIndex);
-  }, []);
+  }, [pages]);
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#800080" }}>
