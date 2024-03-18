@@ -67,7 +67,7 @@ function ResponsiveAppBar(params) {
     const currentPath = window.location.pathname;
     const selectedIndex = pages.findIndex((page) => page === currentPath);
     setSelectedButton(selectedIndex);
-  }, [pages]);
+  }, []); // Run only once when the component mounts
 
   return (
     <AppBar position="static" sx={{ backgroundColor: "#800080" }}>
@@ -86,7 +86,7 @@ function ResponsiveAppBar(params) {
               fontWeight: 700,
               letterSpacing: ".3rem",
               color: "inherit",
-              textDecoration: "none",
+              textDecoration: "none", 
             }}
           >
             FLEXITID
