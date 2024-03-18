@@ -2,7 +2,7 @@
 
 import * as React from "react";
 
-import { PASSWORD_LENGTH } from "@/components/Admin/NyBruker/NyBrukerTextFields";
+import { PASSWORD_LENGTH } from "@/components/Admin/Bruker/NyBruker/NyBrukerTextFields";
 
 export const useFormValidation = (formData) => {
   const [passordError, setPassordError] = React.useState(false); // Changed from passwordError to passordError
@@ -15,7 +15,9 @@ export const useFormValidation = (formData) => {
       formData.AnsattNr &&
       formData.Fornavn &&
       formData.Etternavn &&
+      formData.Epost &&
       formData.Stilling &&
+      formData.Avdeling &&
       isNumeric(formData.Passord) && // Changed from Password to Passord
       isNumeric(formData.GjentaPassord) && // Changed from GjentaPassword to GjentaPassord
       formData.Passord === formData.GjentaPassord && // Changed from Password to Passord and GjentaPassword to GjentaPassord

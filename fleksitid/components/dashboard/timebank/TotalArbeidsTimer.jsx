@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
+import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
 export default function TotalArbeidstimer() {
   const [TotalArbeidstimer, setTotalArbeidstimer] = useState(0); // Total arbeidstimer i uken
   const dummyArbeidstimer = 50;
+  const { timer, minutter } = beregnTimerogMinutter(dummyArbeidstimer);
   return (
     <>
       <Box
@@ -38,7 +39,14 @@ export default function TotalArbeidstimer() {
           component="div"
           style={{ alignSelf: "center" }}
         >
-          {dummyArbeidstimer} timer
+          {timer} timer
+        </Typography>
+        <Typography
+          variant="h2"
+          component="div"
+          style={{ alignSelf: "center" }}
+        >
+          {minutter} minutter
         </Typography>
       </Box>
     </>
