@@ -11,7 +11,7 @@ import VelgBrukerListe from "@/components/HenteBruker";
 import teama from "@/components/Temaer/Tema";
 import { db } from "@/firebase/firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
-import bcryptVerify from "@/components/Hash/HashingVerifisering";
+import bcryptVerify from "@/components/Hash/HashingVerifisering"; 
 
 const InnloggingSide = () => {
   // Start verdi
