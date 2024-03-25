@@ -6,9 +6,7 @@ import Typography from "@mui/material/Typography";
 import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
 
 export default function TotalArbeidstimer({ Timebank }) {
-  const dummyData = 40.5;
   const { timer: timer, minutter: minutter } = beregnTimerogMinutter(Timebank);
-  // console.log(timer, minutter);
   return (
     <>
       <Box
