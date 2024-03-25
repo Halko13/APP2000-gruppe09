@@ -18,8 +18,6 @@ const hoverColor = "#CCCCCC";
 const selectedColor = "#CCCCCC";
 
 function ResponsiveAppBar(params) {
-  console.log(params.params.ansattNr);
-  // const { ansattNr } = params;
   const titler = ["Sjekk inn", "Dagens innsjekker", "Historikk", "Timebank"];
   // const pages = [
   //   `/dashboard/${params.params.ansattNr}/sjekkinn`,

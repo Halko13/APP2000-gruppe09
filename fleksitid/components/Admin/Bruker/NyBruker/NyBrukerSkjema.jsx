@@ -69,7 +69,7 @@ export default function NyBrukerSkjema({ onGoBack }) {
           Passord: hashedPassword,
           Opprettet: serverTimestamp(),
           SistEndret: serverTimestamp(),
-          TimeBank: Number(formData.AntallJobbTimer),
+          Timebank: Number(formData.AntallJobbTimer),
         });
         // Create a subcollection "Stempling" for the user
         const stemplingCollection = collection(

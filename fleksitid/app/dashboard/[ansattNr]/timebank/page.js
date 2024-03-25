@@ -1,24 +1,33 @@
 // Utviklet av Halvor Vilnes
-
+"use client";
 import React from "react";
 import { Box } from "@mui/material";
 import Timebank from "@/components/dashboard/timebank/Timebankinfo";
 import TotalArbeidstimer from "@/components/dashboard/timebank/TotalArbeidsTimer";
 import ArbeidsTimerGjenstår from "@/components/dashboard/timebank/ArbeidsTimerGjentstår";
+import { useState } from "react";
+import FetchUser from "@/components/dashboard/timebank/Fetchuser";
 // Komponenter
+// State
 
 export default function TimebankSide(params) {
+  const [userInfo, setUserInfo] = useState(null);
+
+  console.log("Ansattnr" + params.params.ansattNr);
+  console.log("noe", userInfo);
+
   return (
     <main>
+      <FetchUser ansattNr={params.params.ansattNr} setUserInfo={setUserInfo} />;
       <Box style={{ margin: "20px 0" }}>
         <Box style={{ marginTop: "20px" }}>
-          <Timebank params={params} />
+          <Timebank />
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          <TotalArbeidstimer params={params} />
+          {userInfo && <TotalArbeidstimer Timebank={userInfo.Timebank} />}
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          <ArbeidsTimerGjenstår params={params} />
+          <ArbeidsTimerGjenstår />
         </Box>
       </Box>
     </main>

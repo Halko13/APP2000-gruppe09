@@ -4,27 +4,11 @@ import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
-import { fetchData } from "@/components/dashboard/timebank/GetArbeidsTimer"; // replace with the path to the fetchData file
-export default function TotalArbeidstimer(params) {
-  const brukerData = fetchData(params.params.ansattNr);
-  console.log(brukerData);
-  const [TotalArbeidstimer, setTotalArbeidstimer] = useState(); // Total arbeidstimer i uken
-  console.log(params);
-  console.log("TotalArbeidstimer", TotalArbeidstimer);
-  const dummyArbeidstimer = 50;
-  const { timer, minutter } = beregnTimerogMinutter(TotalArbeidstimer);
-  useEffect(() => {
-    const fetchEmployeeData = async () => {
-      try {
-        const data = await fetchData(params.params.ansattNr);
-        setTotalArbeidstimer(data.AntallJobbTimer);
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    fetchEmployeeData();
-  }, [params.params.ansattNr]);
+export default function TotalArbeidstimer({ Timebank }) {
+  const dummyData = 40.5;
+  const { timer: timer, minutter: minutter } = beregnTimerogMinutter(Timebank);
+  // console.log(timer, minutter);
   return (
     <>
       <Box
