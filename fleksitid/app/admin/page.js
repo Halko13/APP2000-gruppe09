@@ -1,9 +1,8 @@
 // Utviklet av Halvor Vilnes
 
-import React from 'react';
-import forAutorisasjon from '@/components/Autorisasjon/page';
+import React from "react";
 
- function admin() {
+function admin() {
   return (
     <main>
       <div>hello world! admin</div>
@@ -12,4 +11,3 @@ import forAutorisasjon from '@/components/Autorisasjon/page';
 }
 
 export default admin;
- // export default forAutorisasjon(admin, {hvilkenRolle: 'admin'});

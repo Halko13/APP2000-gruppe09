@@ -4,7 +4,6 @@ import React from "react";
 import styles from "@/app/page.module.css";
 import Klokke from "@/components/Klokke";
 import SjekkinnKnapp from "@/components/SjekkinnKnapp";
-import forAutorisasjon from "@/components/Autorisasjon/page";
 
 const SjekkInn = () => {
   let dato = new Date().toLocaleDateString();
