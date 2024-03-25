@@ -13,9 +13,6 @@ import FetchUser from "@/components/dashboard/timebank/Fetchuser";
 export default function TimebankSide(params) {
   const [userInfo, setUserInfo] = useState(null);
 
-  console.log("Ansattnr" + params.params.ansattNr);
-  console.log("noe", userInfo);
-
   return (
     <main>
       <FetchUser ansattNr={params.params.ansattNr} setUserInfo={setUserInfo} />;
