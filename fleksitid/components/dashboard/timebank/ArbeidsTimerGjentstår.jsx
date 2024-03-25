@@ -1,13 +1,11 @@
 // Developed by Halvor Vilnes
-"use client";
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
-export default function ArbeidsTimerGjenstår() {
-  const [ArbeidstimerGjenstår, setArbeidstimerGjenstår] = useState(0); // Arbeidstimer som gjenstår i uken
-  const dummyArbeidstimerGjenstår = 40;
-  const { timer, minutter } = beregnTimerogMinutter(dummyArbeidstimerGjenstår);
+export default function ArbeidsTimerGjenstår({ ArbeidsTimerGjenstår }) {
+  const { timer: timer, minutter: minutter } =
+    beregnTimerogMinutter(ArbeidsTimerGjenstår);
   return (
     <>
       <Box

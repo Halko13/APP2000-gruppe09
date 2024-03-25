@@ -21,10 +21,14 @@ export default function TimebankSide(params) {
           <Timebank />
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          {userInfo && <TotalArbeidstimer Timebank={userInfo.Timebank} />}
+          {userInfo && (
+            <TotalArbeidstimer Timebank={userInfo.AntallJobbTimer} />
+          )}
         </Box>
         <Box style={{ marginTop: "20px" }}>
-          <ArbeidsTimerGjenstår />
+          {userInfo && (
+            <ArbeidsTimerGjenstår ArbeidsTimerGjenstår={userInfo.Timebank} />
+          )}
         </Box>
       </Box>
     </main>
