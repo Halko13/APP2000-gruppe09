@@ -7,10 +7,8 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import { beregnTimerogMinutter } from "@/components/dashboard/timebank/tidBeregning";
 
-export default function Timebank() {
-  const [timebank, setTimebank] = React.useState(0);
-  const dummyTimebank = 100.33;
-  const { timer, minutter } = beregnTimerogMinutter(dummyTimebank);
+export default function Timebank({ Timebank }) {
+  const { timer: timer, minutter: minutter } = beregnTimerogMinutter(Timebank);
 
   return (
     <>

@@ -18,18 +18,18 @@ export default function TimebankSide(params) {
       <FetchUser ansattNr={params.params.ansattNr} setUserInfo={setUserInfo} />;
       <Box style={{ margin: "20px 0" }}>
         <Box style={{ marginTop: "20px" }}>
-          <Timebank />
+          {userInfo && <Timebank Timebank={userInfo.Timebank} />}
         </Box>
         <Box style={{ marginTop: "20px" }}>
           {userInfo && (
             <TotalArbeidstimer Timebank={userInfo.AntallJobbTimer} />
           )}
         </Box>
-        <Box style={{ marginTop: "20px" }}>
+        {/* <Box style={{ marginTop: "20px" }}>
           {userInfo && (
             <ArbeidsTimerGjenstår ArbeidsTimerGjenstår={userInfo.Timebank} />
           )}
-        </Box>
+        </Box> */}
       </Box>
     </main>
   );
