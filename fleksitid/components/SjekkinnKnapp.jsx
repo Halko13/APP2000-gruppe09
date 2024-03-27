@@ -4,22 +4,46 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
-import { db, dbCollectionBrukere, dbCollectionBrukerStempling } from "@/firebase/firebaseConfig";
-import { collection, query, where, getDocs, addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
+import {
+  db,
+  dbCollectionBrukere,
+  dbCollectionBrukerStempling,
+} from "@/firebase/firebaseConfig";
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  addDoc,
+  serverTimestamp,
+  updateDoc,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import TimebankUpdater from "@/components/dashboard/TimebankUpdater";
 
 const SjekkinnKnapp = ({ ansattNr }) => {
   const [erSjekketInn, setErSjekketInn] = useState(false);
   const [lastStemplingDocId, setLastStemplingDocId] = useState(null);
-
+  const [sessionData, setSessionData] = useState(null);
   useEffect(() => {
     // Sjekk om det finnes en åpen stemplingssesjon ved oppstart
     const sjekkStemplingStatus = async () => {
-      const q = query(collection(db, dbCollectionBrukere, ansattNr, dbCollectionBrukerStempling), where("stempleUt", "==", null));
+      const q = query(
+        collection(
+          db,
+          dbCollectionBrukere,
+          ansattNr,
+          dbCollectionBrukerStempling
+        ),
+        where("stempleUt", "==", null)
+      );
       const querySnapshot = await getDocs(q);
       if (!querySnapshot.empty) {
         // Det finnes en åpen stemplingssesjon
         setLastStemplingDocId(querySnapshot.docs[0].id);
         setErSjekketInn(true);
+        console.log("her");
       }
     };
 
@@ -27,21 +51,33 @@ const SjekkinnKnapp = ({ ansattNr }) => {
   }, [ansattNr]);
 
   const handleStempling = async () => {
-    const stemplingRef = collection(db, dbCollectionBrukere, ansattNr, dbCollectionBrukerStempling);
+    const stemplingRef = collection(
+      db,
+      dbCollectionBrukere,
+      ansattNr,
+      dbCollectionBrukerStempling
+    );
 
     try {
       if (erSjekketInn) {
         // Hvis brukeren allerede er stemplet inn, finn det åpne dokumentet og oppdater 'stempleUt'
         const docRef = doc(stemplingRef, lastStemplingDocId);
         await updateDoc(docRef, {
-          stempleUt: serverTimestamp()
+          stempleUt: serverTimestamp(),
+        });
+        const docData = (await getDoc(docRef)).data();
+        const stempleInnTime = docData.stempleInn;
+        const stempleUtTime = docData.stempleUt;
+        setSessionData({
+          stempleInn: stempleInnTime,
+          stempleUt: stempleUtTime,
         });
         setLastStemplingDocId(null); // Nullstill for neste stemplingsøkt
       } else {
         // Hvis brukeren ikke er stemplet inn, opprett et nytt stemplingsdokument
         const docRef = await addDoc(stemplingRef, {
           stempleInn: serverTimestamp(),
-          stempleUt: null
+          stempleUt: null,
         });
         setLastStemplingDocId(docRef.id); // Lagre ID for det nye dokumentet
       }
@@ -54,10 +90,18 @@ const SjekkinnKnapp = ({ ansattNr }) => {
   };
 
   return (
-    <Button variant="contained" onClick={handleStempling}>
-      {erSjekketInn ? "Stemple Ut" : "Stemple Inn"}
-    </Button>
+    <>
+      <Button variant="contained" onClick={handleStempling}>
+        {erSjekketInn ? "Stemple Ut" : "Stemple Inn"}
+      </Button>
+      {sessionData && (
+        <TimebankUpdater
+          ansattNr={ansattNr}
+          stempleInn={sessionData.stempleInn}
+          stempleUt={sessionData.stempleUt}
+        />
+      )}
+    </>
   );
 };
-
 export default SjekkinnKnapp;
