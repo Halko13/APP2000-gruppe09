@@ -10,17 +10,17 @@ const TimebankUpdater = ({ ansattNr, stempleInn, stempleUt }) => {
     const updateTimebank = async () => {
       try {
         if (stempleUt !== null) {
-          const timeDifference = stempleUt * 1000 - stempleInn * 1000;
-          console.log("timeDifference:", timeDifference); // log timeDifference
+          const timeDifference = stempleUt * 1000 - stempleInn * 1000; // Beregner tidsdifferanse i millisekunder
+          // console.log("timeDifference:", timeDifference); // log timeDifference
 
-          const minutesDifference = timeDifference / 1000 / 60; // convert to minutes
-          console.log("minutesDifference:", minutesDifference); // log minutesDifference
+          const minutesDifference = timeDifference / 1000 / 60; // Konverterer til minutter
+          // console.log("minutesDifference:", minutesDifference);
 
-          // Convert minutes to hours and keep the precision up to four decimal places
+          // Konverterer minutter til timer
           const hoursDifference = parseFloat(
             (minutesDifference / 60).toFixed(4)
           );
-          console.log("hoursDifference:", hoursDifference); // log hoursDifference
+          // console.log("hoursDifference:", hoursDifference); // log hoursDifference
 
           const ansattRef = doc(db, dbCollectionBrukere, ansattNr);
           const ansattData = (await getDoc(ansattRef)).data();
