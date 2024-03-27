@@ -23,7 +23,7 @@ export default function Hjem() {
 
 
   useEffect(() => {
-    
+  
       const hentBrukere = async () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
@@ -36,8 +36,21 @@ export default function Hjem() {
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
-    
-
+    /*
+    const hentBrukere = async () => {
+      const respons = await fetch('/api/brukere');
+      const data = await respons.json();
+      if(respons.ok) {
+      setBrukere(data.brukere);
+      // Filter admin brukere
+      const adminBrukere = data.brukere.filter(b => b.erAdmin);
+      setAdminBrukere(adminBrukere);
+    } else {
+      console.error('Klarte ikke å hente brukere', data.error);
+    }
+   }
+   hentBrukere();
+   */
   // Effekten for å hente nåverende klokkeslett er henta fra chatGtp
     const tidtaker = setInterval(() => {
       const nåTid = new Date();
