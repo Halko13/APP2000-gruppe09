@@ -4,9 +4,9 @@ import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { db, dbCollectionBrukere } from "@/firebase/firebaseConfig";
 const TimebankUpdater = ({ ansattNr, stempleInn, stempleUt }) => {
   useEffect(() => {
-    console.log(
-      "TimebankUpdater: " + ansattNr + " " + stempleInn + " " + stempleUt
-    );
+    // console.log(
+    //   "TimebankUpdater: " + ansattNr + " " + stempleInn + " " + stempleUt
+    // );
     const updateTimebank = async () => {
       try {
         if (stempleUt !== null) {
