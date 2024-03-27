@@ -11,7 +11,9 @@ const TimebankResetter = ({ ansattNr }) => {
 
         // Get the current date
         const currentDate = new Date();
-        const resetDate = 1; //Reset dato er 1. i måneden
+        console.log("Current date: ", currentDate);
+        //TODO - Change reset date to 1st of the month
+        const resetDate = 28; //Reset dato er 1. i måneden
 
         if (currentDate.getDate() === resetDate) {
           const updatedTimebank = ansattData.AntallJobbTimer;
