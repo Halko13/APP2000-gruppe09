@@ -11,8 +11,31 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import teama from "@/components/Temaer/Tema";
 import BrukerListe from "@/components/BrukerKortListe";
 
-export default function Hjem() {
-  const [brukere, setBrukere] = useState([]);
+export async function loader() {
+  // Fetch the users directly from Firestore
+  const brukerReferanser = collection(db, "Brukere");
+  let brukerListe = [];
+  
+  try {
+    const brukerData = await getDocs(brukerReferanser);
+    brukerListe = brukerData.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    // Use Next.js's json function to return a Response object with a JSON body
+    return json({ error: 'Failed to fetch users' }, 500);
+  }
+
+  // Use Next.js's json function to return a Response object with a JSON body
+  return json({ brukere: brukerListe });
+}
+
+
+export default function Hjem({ data }) {
+  const brukere = data;
+  // const [brukere, setBrukere] = useState([]);
   const [adminBrukere, setAdminBrukere] = useState([]);
   const [valgtBrukerId, setValgtBrukerId] = useState(null);
   const [valgtFulltNavn, setValgtFulltNavn] = useState("");
@@ -23,7 +46,7 @@ export default function Hjem() {
 
 
   useEffect(() => {
-  
+   /*
       const hentBrukere = async () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
@@ -36,6 +59,8 @@ export default function Hjem() {
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
+    */
+   // API 
     /*
     const hentBrukere = async () => {
       const respons = await fetch('/api/brukere');
@@ -51,6 +76,9 @@ export default function Hjem() {
    }
    hentBrukere();
    */
+
+   const adminBrukere = brukere.filter(b => b.erAdmin);
+   setAdminBrukere(adminBrukere);
   // Effekten for å hente nåverende klokkeslett er henta fra chatGtp
     const tidtaker = setInterval(() => {
       const nåTid = new Date();

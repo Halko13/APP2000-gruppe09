@@ -1,4 +1,5 @@
-// pages/api/brukere.js
+// pages/api/brukere.js (Note: This stays under 'pages/api' and not 'app/api')
+
 import { db } from '@/firebase/firebaseConfig';
 import { collection, getDocs } from 'firebase/firestore';
 
