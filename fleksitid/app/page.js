@@ -7,7 +7,7 @@ import Head from "next/head";
 import { useRouter } from "next/navigation";
 import VelgBrukerListe from "@/components/HenteBruker";
 import { db } from "@/firebase/firebaseConfig";
-import { collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 import teama from "@/components/Temaer/Tema";
 import BrukerListe from "@/components/BrukerKortListe";
 
@@ -23,6 +23,7 @@ export default function Hjem() {
 
 
   useEffect(() => {
+    
       const hentBrukere = async () => {
       const brukerReferanser = collection(db, "Brukere");
       const brukerData = await getDocs(brukerReferanser);
@@ -35,7 +36,7 @@ export default function Hjem() {
       setAdminBrukere(adminBrukere);
     };
     hentBrukere();
-
+    
 
   // Effekten for å hente nåverende klokkeslett er henta fra chatGtp
     const tidtaker = setInterval(() => {
@@ -176,4 +177,6 @@ export default function Hjem() {
     </Box>
     </ThemeProvider>
   );
+
 }
+
