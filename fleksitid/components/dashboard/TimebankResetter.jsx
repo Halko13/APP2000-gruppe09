@@ -1,3 +1,6 @@
+import React, { useEffect } from "react";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db, dbCollectionBrukere } from "@/firebase/firebaseConfig";
 const TimebankResetter = ({ ansattNr, resetHour }) => {
   useEffect(() => {
     const resetTimebank = async () => {
@@ -6,14 +9,15 @@ const TimebankResetter = ({ ansattNr, resetHour }) => {
         const ansattData = (await getDoc(ansattRef)).data();
 
         const resetDate = 1; //Reset dato er 1. i måneden
-        const resetHour = 0; //Reset time er kl 00:00
+        // const resetHour = 0; //Reset time er kl 00:00
         // Get the current date
         const currentDate = new Date();
         // console.log("Current date: ", currentDate);
 
         if (
-          currentDate.getDate() === resetDate &&
-          currentDate.getHours() === resetHour
+          currentDate.getDate() === resetDate
+          // &&
+          // currentDate.getHours() === resetHour
         ) {
           const updatedTimebank = ansattData.AntallJobbTimer;
           await updateDoc(ansattRef, { Timebank: updatedTimebank });
@@ -28,3 +32,4 @@ const TimebankResetter = ({ ansattNr, resetHour }) => {
 
   return null;
 };
+export default TimebankResetter;
